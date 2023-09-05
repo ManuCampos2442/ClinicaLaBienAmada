@@ -12,6 +12,7 @@ public class ClinicaApplication {
 
         System.out.println("Buenasss");
         System.out.println("Mariana ya clono que pro nojoda");
+        System.out.println("Pro tu, morchis de mi corazon");
 
         SpringApplication.run(ClinicaApplication.class, args);
     }
