@@ -14,7 +14,7 @@ public class Administrador {
 
     private String contrasenia;
     //_______________________________________________________________________________
-    
+
 
     //_______________________ Metodo Constructor_____________________________________
     public Administrador(){}
