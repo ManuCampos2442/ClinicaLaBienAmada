@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6020590-8fb6-4cc6-a8c4-c750cdbc1727" name="Changes" comment="" />
+    <list default="true" id="a6020590-8fb6-4cc6-a8c4-c750cdbc1727" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/uniquindio/clinicaLaBienAmada/ClinicaApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/uniquindio/clinicaLaBienAmada/ClinicaApplication.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,14 +22,12 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="ClinicaLaBienAmada" type="f1a62948:ProjectNode" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </tree_state>
         </projects_view>
@@ -47,6 +49,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
   <component name="ProjectId" id="2UnmWGnXoeHEJaVNQHPmqXylOrg" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -63,11 +68,16 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/manu7/Desktop/Avanzada/ClinicaLaBienAmada",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/maria/IdeaProjects/ClinicaLaBienAmada",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
     "spring.configuration.checksum": "fe4276813292d95f25615a29fe915520",
     "vue.rearranger.settings.migration": "true"
   }
@@ -100,6 +110,7 @@
       <workItem from="1693616669735" duration="115000" />
       <workItem from="1693617080225" duration="39000" />
       <workItem from="1693661826330" duration="24000" />
+      <workItem from="1693872604621" duration="896000" />
     </task>
     <servers />
   </component>
