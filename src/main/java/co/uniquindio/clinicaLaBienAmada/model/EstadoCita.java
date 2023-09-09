@@ -1,2 +1,5 @@
-package co.uniquindio.clinicaLaBienAmada.model;public enum EstadoCita {
+package co.uniquindio.clinicaLaBienAmada.model;
+
+public enum EstadoCita {
+    ACTIVO, CANCELADO
 }
