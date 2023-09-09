@@ -1,4 +1,5 @@
 package co.uniquindio.clinicaLaBienAmada.model;
 
-public class EstadoPQR {
+public enum EstadoPQR {
+    NUEVO, EN_PROCESO, RESUELTO, ARCHIVADO
 }

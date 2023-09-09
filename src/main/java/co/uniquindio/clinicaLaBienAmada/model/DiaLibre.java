@@ -1,8 +1,8 @@
 package co.uniquindio.clinicaLaBienAmada.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,20 +13,25 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class DiaLibre implements Serializable {
 
+
+    //____________________________ Atributos y PK __________________________________________
     @Id
-
-    //PK
-
-    private String codigo;
-    
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int codigo;
     private String dia;
-
-    //FK
-
     private String codigoMedico;
+    //______________________________________________________________________________________
 
+    //________________________________ FK __________________________________________________
+    @ManyToOne
+    private Medico medico;
+    //______________________________________________________________________________________
+
+    //_______________________________ Metodo Constructor ___________________________________
     public DiaLibre() {}
+    //______________________________________________________________________________________
 
 }

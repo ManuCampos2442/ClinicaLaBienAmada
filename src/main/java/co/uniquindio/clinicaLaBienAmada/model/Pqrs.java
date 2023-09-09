@@ -1,37 +1,38 @@
 package co.uniquindio.clinicaLaBienAmada.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Entity
 @Getter
 @Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+public class Pqrs implements Serializable {
 
-public class Pqrs {
-    //__________________________ Atributos ____________________________________________
 
+    //__________________________ Atributos y PK ____________________________________________
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
-
     private LocalDateTime fecha_Creacion;
-
     private String tipo;
-
     private String motivo;
+    // _________________________ FK ________________________________________________________
+    @ManyToOne
+    private Cita cita;
 
-    //Falta la llave foranea de codigoCita
-    //Falta la llave foranea de codigoEstado
-
+    @OneToMany(mappedBy = "pqrs")
+    private List<Mensaje> mensajes;
     //_________________________________________________________________________________
 
     //_______________________ Constructor ____________________________________________
-
     public Pqrs(){}
-
     //_______________________________________________________________________________
 }

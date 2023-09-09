@@ -1,7 +1,7 @@
 package co.uniquindio.clinicaLaBienAmada.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,25 +11,26 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Mensaje implements Serializable {
-//__________________________ Atributos ____________________________________________
 
+    //__________________________ Atributos y PK ____________________________________________
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
-
     private LocalDateTime fechaCreacion;
+    //______________________________________________________________________________________
 
-    private String mensaje;
-
-    //Falta la llave foranea de codigo_pqrs
-    //Falta la llave foranea de codigo_cuenta
-    //Falta la llave foranea de codigo_mensaje
-
+    //__________________________ FK ________________________________________________________
+    @ManyToOne
+    private Pqrs pqrs;
+    @ManyToOne
+    private Cuenta cuenta;
+    @OneToOne
+    private Mensaje mensaje;
     //_________________________________________________________________________________
+
     //_______________________ Constructor ____________________________________________
-
     public Mensaje (){}
-
     //_______________________________________________________________________________
 }
