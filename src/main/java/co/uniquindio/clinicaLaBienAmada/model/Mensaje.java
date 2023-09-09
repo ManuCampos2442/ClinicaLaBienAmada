@@ -5,32 +5,31 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
 
-public class Usuario {
-
-    //__________________________ Atributos ____________________________________________
+public class Mensaje implements Serializable {
+//__________________________ Atributos ____________________________________________
 
     @Id
     private int codigo;
 
-    private String cedula;
-    private String nombre;
+    private LocalDateTime fechaCreacion;
 
+    private String mensaje;
 
-    private String telefono;
-    private String urlFoto;
-
-    //Falta la llave foranea codigoCidudad
+    //Falta la llave foranea de codigo_pqrs
+    //Falta la llave foranea de codigo_cuenta
+    //Falta la llave foranea de codigo_mensaje
 
     //_________________________________________________________________________________
     //_______________________ Constructor ____________________________________________
 
-    public Usuario (){}
+    public Mensaje (){}
 
     //_______________________________________________________________________________
-
 }
