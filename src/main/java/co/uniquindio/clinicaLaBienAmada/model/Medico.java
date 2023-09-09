@@ -1,4 +1,4 @@
 package co.uniquindio.clinicaLaBienAmada.model;
 
-public class Usuario {
+public class Medico {
 }
