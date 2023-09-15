@@ -12,13 +12,18 @@ import java.util.List;
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Cuenta implements Serializable {
 
     //__________________________ Atributos  y PK ____________________________________________
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private int codigo;
+
+    @Column(nullable = false, unique = true, length = 40)
     private String correo;
+
+    @Column(nullable = false)
     private String password;
     //______________________________________________________________________________________
 

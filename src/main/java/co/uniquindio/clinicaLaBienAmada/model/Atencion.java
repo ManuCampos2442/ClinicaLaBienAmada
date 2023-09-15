@@ -24,7 +24,7 @@ public class Atencion implements Serializable {
 
 
     //________________________________ FK __________________________________________________
-    @OneToOne(mappedBy = "atencion")
+    @OneToOne
     private Cita cita;
     //______________________________________________________________________________________
 

@@ -16,11 +16,10 @@ import java.util.List;
 public class Paciente extends Usuario implements Serializable {
 
     //__________________________ Atributos y PK ____________________________________________
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int codigo;
     private LocalDateTime fechaNacimiento;
     private String alergias;
+
+    @Column(nullable = false)
     private TipoDeSangre tipoDeSangre;
     private Ciudad ciudad;
     // _________________________ FK ________________________________________________________

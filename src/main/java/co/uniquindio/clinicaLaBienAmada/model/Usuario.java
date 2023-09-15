@@ -11,17 +11,21 @@ import java.io.Serializable;
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+
 public class Usuario extends  Cuenta implements Serializable {
 
     //__________________________ Atributos y PK ____________________________________________
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int codigo;
+    @Column(nullable = false, length = 10, unique = true)
     private String cedula;
+    @Column(nullable = false, length = 200)
     private String nombre;
+    @Column(nullable = false, length = 20)
     private String telefono;
+    @Lob
+    @Column(nullable = false)
     private String urlFoto;
+    @Column(nullable = false)
     private Ciudad ciudad;
     //_________________________________________________________________________________
     //_______________________ Constructor ____________________________________________

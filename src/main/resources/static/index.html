@@ -1,61 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+<meta charset="UTF-8">
 
 <head>
-    <meta charset="UTF-8">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Abel', sans-serif;
-        }
-
-        header {
-            display: flex;
-            justify-content: flex-end;
-            background: -webkit-linear-gradient(top, #1a64c2, #1f6acc);
-            padding: 10px;
-
-            height: 300px;
-        }
-
-        .menu ul {
-            list-style-type: none;
-            padding: 0;
-            display: flex;
-            /* Muestra los elementos del menú en línea */
-        }
-
-        .menu ul li {
-            margin-right: 20px;
-            color: #fff;
-            transition: 1s;
-        }
-
-        /* Estilo para los enlaces al pasar el mouse por encima */
-        .menu ul li:hover {
-            cursor: pointer;
-            font-size: 20px;
-            
-        }
-    </style>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clinica - La Bien Amada</title>
+	<link rel="stylesheet" href="styles.css">
+	<title>Formulario de Inicio de Sesion y Registro</title>
+	<!--Iconos-->
+	<script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 </head>
 
 <body>
-    <header>
-        <div class="menu">
-            <ul>
-                <li><strong>Inicio</strong></a></li>
-                <li><strong>Acerca de</strong></a></li>
-                <li><strong>Servicios</strong></a></li>
-                <li><strong>Contacto</strong></a></li>
-            </ul>
-        </div>
-    </header>
+	<h2>Formulario de Inicio de Sesión y Registro</h2>
+	<div class="container" id="container">
+		<div class="form-container sign-up-container">
+			<form action="#">
+				<h1>Crear una cuenta</h1>
+
+				<span>O use su correo electrónico para registrarse</span>
+				<input type="text" placeholder="Name" />
+				<input type="email" placeholder="Email" />
+				<input type="password" placeholder="Password" />
+				<button>Registar</button>
+			</form>
+		</div>
+		<div class="form-container sign-in-container">
+			<form action="#">
+				<h1>Iniciar sesión</h1>
+
+				<span>O usa tu cuenta</span>
+				<input type="email" placeholder="Email" />
+				<input type="password" placeholder="Password" />
+				<a href="#">¿Olvidaste tu contraseña?</a>
+				<button>Iniciar Sesión</button>
+			</form>
+		</div>
+		<div class="overlay-container">
+			<div class="overlay">
+				<div class="overlay-panel overlay-left">
+					<h1>Bienvenido de nuevo!</h1>
+					<p>Para mantenerse conectado con nosotros, inicie sesión con su información personal.</p>
+					<button class="ghost" id="signIn">Inicia Sesión</button>
+				</div>
+				<div class="overlay-panel overlay-right">
+					<h1>Bienvenidos</h1>
+					<p>Ingresa tus datos personales y comienza a conocer nuestra clinica La Bien Amada</p>
+					<button class="ghost" id="signUp">Registrate</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="main.js"></script>
 </body>
 
 </html>

@@ -17,21 +17,20 @@ import java.util.List;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Medico extends Usuario implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int codigo;
-
-    //FK
-    private String codigoEspecializacion;
-
+    //____________________________________ Atributos ______________________________________________________
     private Especialidad especialidad;
+    //_____________________________________________________________________________________________________
 
+    //____________________________________ FK _____________________________________________________________
     @OneToMany(mappedBy = "medico")
     private List<Horario> horarios;
 
     @OneToMany(mappedBy = "medico")
     private List<DiaLibre> diasLibres;
+    //_____________________________________________________________________________________________________
 
+    //___________________________________ Metodo Constructor ______________________________________________
     public Medico() {}
+    //_____________________________________________________________________________________________________
 
 }

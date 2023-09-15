@@ -22,7 +22,6 @@ public class Horario implements Serializable {
      private String dia;
      private String horaInicio;
      private String horaFin;
-     private String codigoMedico;
      //___________________________________________________________________________________________
 
      //_______________________________ FK ________________________________________________________
