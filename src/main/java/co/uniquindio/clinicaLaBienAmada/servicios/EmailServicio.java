@@ -1,7 +1,9 @@
 package co.uniquindio.clinicaLaBienAmada.servicios;
 
+import dto.EmailDTO;
+
 public interface EmailServicio {
 
-    void enviarCorreo(String para, String asunto, String mensaje);
+    String enviarCorreo(EmailDTO emailDTO) throws Exception;
 
 }
