@@ -1,2 +1,6 @@
-package co.uniquindio.clinicaLaBienAmada.servicios;public interface EmailServicio {
+package co.uniquindio.clinicaLaBienAmada.servicios;
+
+public interface EmailServicio {
+
+    void enviartCorreo();
 }
