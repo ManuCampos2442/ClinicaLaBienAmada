@@ -25,11 +25,10 @@ public class Medico extends Usuario implements Serializable {
 
     //____________________________________ FK _____________________________________________________________
     @OneToMany(mappedBy = "medico")
-    @Column(nullable = false)
     private List<Horario> horarios;
 
     @OneToMany(mappedBy = "medico")
-    @Column(nullable = false)
+
     private List<DiaLibre> diasLibres;
     //_____________________________________________________________________________________________________
 

@@ -1,9 +1,10 @@
 package co.uniquindio.clinicaLaBienAmada.servicios;
 
+import co.uniquindio.clinicaLaBienAmada.model.Medico;
+
 public interface AdmnistradorServicio {
 
-    void crearMedico();
-
+    void crearMedico(Medico medico);
 
     void actualizarMedico();
 
