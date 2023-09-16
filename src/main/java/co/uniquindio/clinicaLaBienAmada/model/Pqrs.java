@@ -29,11 +29,9 @@ public class Pqrs implements Serializable {
     private String motivo;
     // _________________________ FK ________________________________________________________
     @ManyToOne
-    @Column(nullable = false)
     private Cita cita;
 
     @OneToMany(mappedBy = "pqrs")
-    @Column(nullable = false)
     private List<Mensaje> mensajes;
     //_________________________________________________________________________________
 

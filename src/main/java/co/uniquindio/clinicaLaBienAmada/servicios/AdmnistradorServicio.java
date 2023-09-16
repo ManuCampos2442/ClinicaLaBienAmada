@@ -1,25 +1,28 @@
 package co.uniquindio.clinicaLaBienAmada.servicios;
 
 import co.uniquindio.clinicaLaBienAmada.model.Medico;
+import dto.*;
+
+import java.util.List;
 
 public interface AdmnistradorServicio {
 
-    void crearMedico(Medico medico);
+    String crearMedico(MedicoDTO medico) throws Exception;
 
-    void actualizarMedico();
+    String actualizarMedico(int codigo, MedicoDTO medico) throws Exception;
 
-    void eliminarMedico();
+    String eliminarMedico(int codigo) throws Exception;
 
-    void listarMedicos();
+    List<MedicoDTOAdmin> listarMedicos() throws Exception;
 
-    void obtenerMedico();
+    InfoMedicoDTO obtenerMedico(int codigo) throws Exception;
 
-    void listarPQRS();
+    List<PQRSDTOAdmin> listarPQRS() throws Exception;
 
-    void responderPQRS();
+    String responderPQRS(int codigo) throws Exception;
 
-    void verDetallePQRS();
+    InfoPQRSDTO verDetallePQRS(int codigo) throws Exception;
 
-    void listarCitas();
+    List<CitaDTOAdmin> listarCitas() throws Exception;
 
 }

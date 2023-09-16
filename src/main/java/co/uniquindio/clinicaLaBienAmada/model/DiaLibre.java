@@ -27,7 +27,6 @@ public class DiaLibre implements Serializable {
 
     //________________________________ FK __________________________________________________
     @ManyToOne
-    @Column(nullable = false)
     private Medico medico;
     //______________________________________________________________________________________
 

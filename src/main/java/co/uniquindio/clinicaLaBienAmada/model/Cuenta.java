@@ -18,6 +18,7 @@ public class Cuenta implements Serializable {
     //__________________________ Atributos  y PK ____________________________________________
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
+    @EqualsAndHashCode.Include
     private int codigo;
 
     @Column(nullable = false, unique = true, length = 40)
@@ -30,11 +31,16 @@ public class Cuenta implements Serializable {
 
     //______________________________ FK ____________________________________________________
     @OneToMany(mappedBy = "cuenta")
-    @Column(nullable = false)
     private List<Mensaje> mensajes;
     //_________________________________________________________________________________
 
     //_______________________ Constructor ____________________________________________
     public Cuenta (){}
+
+    public Cuenta( String correo, String password) {
+        this.correo = correo;
+        this.password = password;
+    }
+
     //_______________________________________________________________________________
 }

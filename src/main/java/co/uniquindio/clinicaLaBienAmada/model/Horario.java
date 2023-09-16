@@ -29,7 +29,6 @@ public class Horario implements Serializable {
 
      //_______________________________ FK ________________________________________________________
      @ManyToOne
-     @Column(nullable = false)
      private Medico medico;
      //___________________________________________________________________________________________
 

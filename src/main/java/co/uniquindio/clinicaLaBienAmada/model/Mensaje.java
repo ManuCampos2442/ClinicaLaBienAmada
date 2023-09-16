@@ -24,13 +24,10 @@ public class Mensaje implements Serializable {
 
     //__________________________ FK ________________________________________________________
     @ManyToOne
-    @Column(nullable = false)
     private Pqrs pqrs;
     @ManyToOne
-    @Column(nullable = false)
     private Cuenta cuenta;
     @OneToOne
-    @Column(nullable = false)
     private Mensaje mensaje;
     //_________________________________________________________________________________
 

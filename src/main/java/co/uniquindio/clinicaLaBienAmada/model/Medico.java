@@ -1,10 +1,7 @@
 package co.uniquindio.clinicaLaBienAmada.model;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.CollectionIdJdbcTypeCode;
 
 import java.io.Serializable;
@@ -14,6 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Medico extends Usuario implements Serializable {
 
@@ -28,12 +26,10 @@ public class Medico extends Usuario implements Serializable {
     private List<Horario> horarios;
 
     @OneToMany(mappedBy = "medico")
+    private List<Cita> citas;
 
+    @OneToMany(mappedBy = "medico")
     private List<DiaLibre> diasLibres;
-    //_____________________________________________________________________________________________________
-
-    //___________________________________ Metodo Constructor ______________________________________________
-    public Medico() {}
     //_____________________________________________________________________________________________________
 
 }

@@ -27,6 +27,7 @@ public class Usuario extends  Cuenta implements Serializable {
     @Column(nullable = false)
     private String urlFoto;
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Ciudad ciudad;
     //_________________________________________________________________________________
     //_______________________ Constructor ____________________________________________
