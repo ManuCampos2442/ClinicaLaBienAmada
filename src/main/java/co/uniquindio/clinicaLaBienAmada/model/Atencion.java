@@ -17,8 +17,12 @@ public class Atencion implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
+
+    @Column(nullable = false, length = 800)
     private String diagnostico;
+    @Column(nullable = false, length = 800)
     private String tratamiento;
+    @Column(nullable = false, length = 600)
     private String notasMedicas;
     //______________________________________________________________________________________
 

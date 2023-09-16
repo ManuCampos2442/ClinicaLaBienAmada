@@ -16,11 +16,20 @@ import java.util.List;
 public class Paciente extends Usuario implements Serializable {
 
     //__________________________ Atributos y PK ____________________________________________
+    @Column(nullable = false)
     private LocalDateTime fechaNacimiento;
+    @Column(nullable = false, length = 400)
     private String alergias;
-
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TipoDeSangre tipoDeSangre;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Eps eps;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Ciudad ciudad;
     // _________________________ FK ________________________________________________________
     @OneToMany(mappedBy = "paciente")

@@ -21,14 +21,19 @@ public class Pqrs implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
+    @Column(nullable = false)
     private LocalDateTime fecha_Creacion;
+    @Column(nullable = false)
     private String tipo;
+    @Column(nullable = false)
     private String motivo;
     // _________________________ FK ________________________________________________________
     @ManyToOne
+    @Column(nullable = false)
     private Cita cita;
 
     @OneToMany(mappedBy = "pqrs")
+    @Column(nullable = false)
     private List<Mensaje> mensajes;
     //_________________________________________________________________________________
 

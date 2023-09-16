@@ -19,13 +19,17 @@ public class Horario implements Serializable {
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      private int codigo;
+     @Column(nullable = false)
      private String dia;
+     @Column(nullable = false)
      private String horaInicio;
+     @Column(nullable = false)
      private String horaFin;
      //___________________________________________________________________________________________
 
      //_______________________________ FK ________________________________________________________
      @ManyToOne
+     @Column(nullable = false)
      private Medico medico;
      //___________________________________________________________________________________________
 

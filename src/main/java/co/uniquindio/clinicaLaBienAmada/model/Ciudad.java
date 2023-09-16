@@ -2,5 +2,20 @@ package co.uniquindio.clinicaLaBienAmada.model;
 
 public enum Ciudad {
 
-    ARMENIA, GONDOR, BOGOTA, MEDELLIN, CARTAGENA, ESGAROTH, DRAENOR;
+    ARMENIA("Armenia"),
+    GONDOR("Gondor"),
+    BOGOTA("Bogotoa"),
+    MEDELLIN("Medellin"),
+    CARTAGENA("Cartagena"),
+    ESGAROTH("Esgaroth"),
+    DRAENOR("Draenor");
+
+    private String nombre;
+
+    Ciudad(String nombre){
+        this.nombre = nombre;
+    }
+    public String getNombre() {
+        return nombre;
+    }
 }

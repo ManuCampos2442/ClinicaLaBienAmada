@@ -1,6 +1,18 @@
 package co.uniquindio.clinicaLaBienAmada.model;
 
 public enum EstadoPQR {
+    NUEVO("Nuevo"),
+    EN_PROCESO("En Proceso"),
+    RESUELTO("Resuelto"),
+    ARCHIVADO("Archivado");
 
-    NUEVO, EN_PROCESO, RESUELTO, ARCHIVADO
+    private String nombre;
+
+    EstadoPQR(String nombre){
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
 }

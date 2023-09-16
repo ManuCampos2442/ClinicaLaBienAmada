@@ -18,15 +18,19 @@ public class Mensaje implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
+    @Column(nullable = false)
     private LocalDateTime fechaCreacion;
     //______________________________________________________________________________________
 
     //__________________________ FK ________________________________________________________
     @ManyToOne
+    @Column(nullable = false)
     private Pqrs pqrs;
     @ManyToOne
+    @Column(nullable = false)
     private Cuenta cuenta;
     @OneToOne
+    @Column(nullable = false)
     private Mensaje mensaje;
     //_________________________________________________________________________________
 

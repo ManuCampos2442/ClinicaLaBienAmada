@@ -21,12 +21,13 @@ public class DiaLibre implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
+    @Column(nullable = false)
     private String dia;
-    private String codigoMedico;
     //______________________________________________________________________________________
 
     //________________________________ FK __________________________________________________
     @ManyToOne
+    @Column(nullable = false)
     private Medico medico;
     //______________________________________________________________________________________
 

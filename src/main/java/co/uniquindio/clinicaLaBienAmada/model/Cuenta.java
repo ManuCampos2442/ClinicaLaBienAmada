@@ -30,6 +30,7 @@ public class Cuenta implements Serializable {
 
     //______________________________ FK ____________________________________________________
     @OneToMany(mappedBy = "cuenta")
+    @Column(nullable = false)
     private List<Mensaje> mensajes;
     //_________________________________________________________________________________
 

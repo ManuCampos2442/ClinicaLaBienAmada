@@ -1,5 +1,21 @@
 package co.uniquindio.clinicaLaBienAmada.model;
 
 public enum TipoDeSangre {
-    A_POSITIVO, A_NEGATIVO, AB_POSITIVO, ABNEGATIVO, O_POSITIVO, O_NEGATIVO;
+    A_POSITIVO("A+"),
+    A_NEGATIVO("A-"),
+    AB_POSITIVO("AB+"),
+    ABNEGATIVO("AB-"),
+    O_POSITIVO("O+"),
+    O_NEGATIVO("O-"),
+    B_POSITIVO("B+"),
+    B_NEGATIVO("B-")
+    ;
+
+    private String nombre;
+
+    TipoDeSangre(String nombre){
+        this.nombre = nombre;
+    }
+
+    public String getNombre(){return nombre;}
 }
