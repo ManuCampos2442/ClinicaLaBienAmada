@@ -2,13 +2,13 @@ package co.uniquindio.clinicaLaBienAmada.servicios;
 
 public interface MedicoServicios {
 
-    void listarCitasPacientes();
+    void listarCitasPacientes() throws Exception;
 
-    void atenderCita();
+    void atenderCita() throws Exception;
 
-    void listarCitasPaciente(); //Historial medico
+    void listarCitasPaciente() throws Exception; //Historial medico
 
-    void agendarDiaLibre();
+    void agendarDiaLibre() throws Exception;
 
-    void listarCitasRealizadasMedico();
+    void listarCitasRealizadasMedico() throws Exception;
 }

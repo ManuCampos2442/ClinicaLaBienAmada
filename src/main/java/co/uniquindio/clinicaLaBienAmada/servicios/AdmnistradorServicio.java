@@ -25,4 +25,5 @@ public interface AdmnistradorServicio {
 
     List<CitaDTOAdmin> listarCitas() throws Exception;
 
+
 }

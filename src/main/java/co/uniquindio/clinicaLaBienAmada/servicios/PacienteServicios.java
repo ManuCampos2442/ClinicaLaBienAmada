@@ -2,18 +2,19 @@ package co.uniquindio.clinicaLaBienAmada.servicios;
 
 public interface PacienteServicios {
 
-    void registrarse();
-    void editarPerfil();
-    void eliminarCuenta();
-    void enviarLinkRecuperacion();
-    void cambiarPassword();
-    void agendarCita();
-    void crearPQRS();
-    void listarPQRSPaciente();
-    void responderPQRS();
-    void filtrarCitasPorMedico();
-    void verDetalleCita();
-
+    void registrarse() throws Exception;
+    void editarPerfil() throws Exception;
+    void eliminarCuenta() throws Exception;
+    void enviarLinkRecuperacion()throws Exception;
+    void cambiarPassword() throws Exception;
+    void agendarCita() throws Exception;
+    void crearPQRS() throws Exception;
+    void listarPQRSPaciente() throws Exception;
+    void responderPQRS() throws Exception;
+    void listarCitasPaciente() throws Exception;
+    void filtrarCitasPorFecha() throws Exception;
+    void filtrarCitasPorMedico() throws Exception;
+    void verDetalleCita() throws Exception;
 
 
 }
