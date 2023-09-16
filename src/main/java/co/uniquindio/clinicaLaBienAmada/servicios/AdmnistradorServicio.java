@@ -4,6 +4,7 @@ public interface AdmnistradorServicio {
 
     void crearMedico();
 
+
     void actualizarMedico();
 
     void eliminarMedico();
