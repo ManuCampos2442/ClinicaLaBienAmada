@@ -2,7 +2,7 @@ package co.uniquindio.clinicaLaBienAmada.servicios;
 
 public interface PacienteServicios {
 
-    void registrarse() throws Exception;
+    String registrarse() throws Exception;
     void editarPerfil() throws Exception;
     void eliminarCuenta() throws Exception;
     void enviarLinkRecuperacion()throws Exception;
