@@ -3,14 +3,13 @@ package dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record InfoPQRSDTO(
+public record DetallePQRSDTO(
         int codigo,
         String estado,
-        int codigoCita,
-        String motivo,
+        String motivoPQRS,
         String nombrePaciente,
+        String nombreMedico,
+        String especialidad,
         LocalDateTime fecha,
-        List<String> mensajes
-
-) {
+        List<RespuestaDTO> mensajes) {
 }
