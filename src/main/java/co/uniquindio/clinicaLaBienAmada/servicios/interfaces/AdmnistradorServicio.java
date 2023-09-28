@@ -1,19 +1,20 @@
-package co.uniquindio.clinicaLaBienAmada.servicios;
+package co.uniquindio.clinicaLaBienAmada.servicios.interfaces;
 
 import co.uniquindio.clinicaLaBienAmada.model.Medico;
 import dto.*;
 import dto.admin.DetalleMedicoDTO;
 import dto.admin.ItemMedicoDTO;
+import dto.admin.RegistroMedicoDTO;
 
 import java.util.List;
 
 public interface AdmnistradorServicio {
 
-    String crearMedico(MedicoDTO medico) throws Exception;
+    int crearMedico(RegistroMedicoDTO medico) throws Exception;
 
-    String actualizarMedico(int codigo, MedicoDTO medico) throws Exception;
+    int actualizarMedico(int codigo, MedicoDTO medico) throws Exception;
 
-    String eliminarMedico(int codigo) throws Exception;
+    void eliminarMedico(int codigo) throws Exception;
 
     List<ItemMedicoDTO> listarMedicos() throws Exception;
 

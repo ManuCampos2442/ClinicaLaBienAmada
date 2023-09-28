@@ -1,4 +1,4 @@
-package co.uniquindio.clinicaLaBienAmada.servicios;
+package co.uniquindio.clinicaLaBienAmada.servicios.interfaces;
 
 import dto.DetalleAtencionMedicoDTO;
 import dto.ItemCitaDTO;
