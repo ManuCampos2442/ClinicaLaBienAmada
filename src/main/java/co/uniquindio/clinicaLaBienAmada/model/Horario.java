@@ -1,10 +1,7 @@
 package co.uniquindio.clinicaLaBienAmada.model;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 

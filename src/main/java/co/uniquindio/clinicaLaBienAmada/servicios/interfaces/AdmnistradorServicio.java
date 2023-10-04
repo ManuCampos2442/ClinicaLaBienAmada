@@ -1,5 +1,6 @@
 package co.uniquindio.clinicaLaBienAmada.servicios.interfaces;
 
+import co.uniquindio.clinicaLaBienAmada.model.EstadoPQRS;
 import co.uniquindio.clinicaLaBienAmada.model.Medico;
 import dto.*;
 import dto.admin.DetalleMedicoDTO;
@@ -12,7 +13,7 @@ public interface AdmnistradorServicio {
 
     int crearMedico(RegistroMedicoDTO medico) throws Exception;
 
-    int actualizarMedico(int codigo, MedicoDTO medico) throws Exception;
+    int actualizarMedico(MedicoDTO medico) throws Exception;
 
     void eliminarMedico(int codigo) throws Exception;
 
@@ -28,5 +29,6 @@ public interface AdmnistradorServicio {
 
     List<ItemCitaDTO> listarCitas() throws Exception;
 
+    void cambiarEstadoPQRS(int codigoPQRS, EstadoPQRS estadoPQRS) throws Exception;
 
 }

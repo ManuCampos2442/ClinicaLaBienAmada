@@ -1,9 +1,12 @@
 package dto.admin;
 
+import co.uniquindio.clinicaLaBienAmada.model.Especialidad;
+
 public record ItemMedicoDTO(
         int codigo,
+        String cedula,
         String nombre,
         String urlFoto,
-        String especialidad,
-        co.uniquindio.clinicaLaBienAmada.model.Especialidad medicoEspecialidad){
+        Especialidad especialidad
+    ){
 }

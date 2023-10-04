@@ -3,6 +3,7 @@ package co.uniquindio.clinicaLaBienAmada.model;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -13,6 +14,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Pqrs implements Serializable {
 
@@ -27,15 +29,13 @@ public class Pqrs implements Serializable {
     private String tipo;
     @Column(nullable = false)
     private String motivo;
+    @Column(nullable = false)
+    private EstadoPQRS estadoPQRS;
     // _________________________ FK ________________________________________________________
     @ManyToOne
     private Cita cita;
 
     @OneToMany(mappedBy = "pqrs")
     private List<Mensaje> mensajes;
-    //_________________________________________________________________________________
 
-    //_______________________ Constructor ____________________________________________
-    public Pqrs(){}
-    //_______________________________________________________________________________
 }
