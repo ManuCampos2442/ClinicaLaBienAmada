@@ -3,6 +3,7 @@ package co.uniquindio.clinicaLaBienAmada.model;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Mensaje implements Serializable {
 
@@ -28,10 +30,9 @@ public class Mensaje implements Serializable {
     @ManyToOne
     private Cuenta cuenta;
     @OneToOne
-    private Mensaje mensaje;
+    private String mensaje;
     //_________________________________________________________________________________
 
     //_______________________ Constructor ____________________________________________
-    public Mensaje (){}
-    //_______________________________________________________________________________
+
 }
