@@ -24,7 +24,7 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
     private final MedicoRepo medicoRepo;
     private final PQRSRepo pqrsRepo;
     private final CitaRepo citaRepo;
-    prviate final MensajeRepo mensajeRepo;
+    private final MensajeRepo mensajeRepo;
     private final CuentaRepo cuentaRepo;
 
 
@@ -171,10 +171,10 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
     @Override
     public DetallePQRSDTO verDetallePQRS(int codigo) throws Exception {
 
-        Optional<Pqrs> opcional = pqrsRepo.findById(codigo); // SELECT * FROM MEDICO WHERE CODIGO = CODIGO
+        Optional<Pqrs> opcional = pqrsRepo.findById(codigo);
 
-        if(opcional.isEmpty()){
-            throw new Exception("El codigo" + codigo + " no esta asociado a ningun PQRS");
+        if( opcional.isEmpty() ){
+            throw new Exception("El código "+codigo+" no está asociado a ningún PQRS");
         }
 
         Pqrs pqrs = opcional.get();
@@ -184,10 +184,10 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
                 pqrs.getEstadoPQRS(),
                 pqrs.getMotivo(),
                 pqrs.getCita().getPaciente().getNombre(),
+                pqrs.getCita().getMedico().getNombre(),
                 pqrs.getCita().getMedico().getEspecialidad(),
                 pqrs.getFecha_Creacion(),
                 new ArrayList<>()
-
         );
     }
 
