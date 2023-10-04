@@ -29,6 +29,8 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
     public int crearMedico(RegistroMedicoDTO medicoDTO) throws Exception {
 
         Medico medico = new Medico();
+
+
         medico.setCedula(medicoDTO.cedula() );
         medico.setTelefono(medicoDTO.telefono());
         medico.setNombre(medicoDTO.nombre());

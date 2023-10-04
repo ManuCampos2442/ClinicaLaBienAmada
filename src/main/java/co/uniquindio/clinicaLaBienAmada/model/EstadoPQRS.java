@@ -1,6 +1,7 @@
 package co.uniquindio.clinicaLaBienAmada.model;
 
-public enum EstadoPQR {
+public enum EstadoPQRS {
+
     NUEVO("Nuevo"),
     EN_PROCESO("En Proceso"),
     RESUELTO("Resuelto"),
@@ -8,7 +9,7 @@ public enum EstadoPQR {
 
     private String nombre;
 
-    EstadoPQR(String nombre){
+    EstadoPQRS(String nombre){
         this.nombre = nombre;
     }
 

@@ -1,8 +1,8 @@
 package co.uniquindio.clinicaLaBienAmada.repositorios;
 
-import co.uniquindio.clinicaLaBienAmada.model.Cita;
+import co.uniquindio.clinicaLaBienAmada.model.Pqrs;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CitaRepo extends JpaRepository<Cita, Integer> {
+public interface PQRSRepo extends JpaRepository<Pqrs, Integer> {
 
 }
