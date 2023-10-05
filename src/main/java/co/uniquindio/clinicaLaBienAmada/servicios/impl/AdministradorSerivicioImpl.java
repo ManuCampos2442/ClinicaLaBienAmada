@@ -32,6 +32,15 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
     @Override
     public int crearMedico(RegistroMedicoDTO medicoDTO) throws Exception {
 
+        if(estaRepetidaCedula(medicoDTO.cedula())){
+            throw new Exception("La cedula" + medicoDTO.cedula() + " ya esta en uso");
+        }
+
+        if(estaRepetidoCorreo(medicoDTO.correo())){
+            throw new Exception("El correo" + medicoDTO.correo() + " ya esta en uso");
+        }
+
+
         Medico medico = new Medico();
 
 
@@ -47,9 +56,32 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
         medico.setEstado(true);
 
 
+
         //Solo falta que esto quede guardado y e profe lo vea
         Medico medicoNuevo = medicoRepo.save(medico);
+
+        asignarHorariosMedico(medicoNuevo, medicoDTO.horarios());
+
         return medicoNuevo.getCodigo();
+    }
+
+    private void asignarHorariosMedico(Medico medicoNuevo, List<HorarioDTO> horarios) {
+        for(HorarioDTO h: horarios){
+
+            Horario hm = new Horario();
+            hm.setDia(h.dia());
+            hm.setHoraInicio(h.horaInicio());
+            hm.setHoraFin(h.horaSalida());
+            hm.setMedico(medicoNuevo);
+
+            horarios.save(hm);
+        }
+    }
+
+    private boolean estaRepetidaCedula(String cedula) {return medicoRepo.findByCedula(cedula).isEstado();
+    }
+
+    private boolean estaRepetidoCorreo(String correo) { return medicoRepo.findByCorreo(correo).isEstado();
     }
 
     @Override
