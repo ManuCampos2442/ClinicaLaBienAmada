@@ -1,6 +1,9 @@
 package dto.paciente;
 
-import java.time.LocalDate;
+import co.uniquindio.clinicaLaBienAmada.test.model.Ciudad;
+import co.uniquindio.clinicaLaBienAmada.test.model.Eps;
+import co.uniquindio.clinicaLaBienAmada.test.model.TipoDeSangre;
+
 import java.time.LocalDateTime;
 
 public record RegistroPacienteDTO(
@@ -8,11 +11,11 @@ public record RegistroPacienteDTO(
         String nombre,
         String telefono,
         String urlFoto,
-        int codigoCiudad,
-        LocalDate fechaNcimiento,
+        Ciudad codigoCiudad,
+        LocalDateTime fechaNcimiento,
         String alergias,
-        int codigoEps,
-        int tipoSangre,
+        Eps codigoEps,
+        TipoDeSangre tipoSangre,
         String correo,
         String password
 ) {

@@ -1,7 +1,7 @@
 package dto.admin;
 
-import co.uniquindio.clinicaLaBienAmada.model.Ciudad;
-import co.uniquindio.clinicaLaBienAmada.model.Especialidad;
+import co.uniquindio.clinicaLaBienAmada.test.model.Ciudad;
+import co.uniquindio.clinicaLaBienAmada.test.model.Especialidad;
 import dto.HorarioDTO;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;

@@ -1,10 +1,9 @@
 package dto;
 
-import co.uniquindio.clinicaLaBienAmada.model.Especialidad;
-import co.uniquindio.clinicaLaBienAmada.model.EstadoPQRS;
+import co.uniquindio.clinicaLaBienAmada.test.model.Especialidad;
+import co.uniquindio.clinicaLaBienAmada.test.model.EstadoPQRS;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public record DetallePQRSDTO(

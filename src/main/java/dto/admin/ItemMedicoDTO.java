@@ -1,6 +1,6 @@
 package dto.admin;
 
-import co.uniquindio.clinicaLaBienAmada.model.Especialidad;
+import co.uniquindio.clinicaLaBienAmada.test.model.Especialidad;
 
 public record ItemMedicoDTO(
         int codigo,

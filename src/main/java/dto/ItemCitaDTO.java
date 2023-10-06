@@ -1,6 +1,6 @@
 package dto;
 
-import co.uniquindio.clinicaLaBienAmada.model.EstadoCita;
+import co.uniquindio.clinicaLaBienAmada.test.model.EstadoCita;
 
 import java.time.LocalDateTime;
 

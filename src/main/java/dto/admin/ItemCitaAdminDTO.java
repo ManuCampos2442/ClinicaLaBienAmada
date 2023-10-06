@@ -1,7 +1,7 @@
 package dto.admin;
 
-import co.uniquindio.clinicaLaBienAmada.model.Especialidad;
-import co.uniquindio.clinicaLaBienAmada.model.EstadoCita;
+import co.uniquindio.clinicaLaBienAmada.test.model.Especialidad;
+import co.uniquindio.clinicaLaBienAmada.test.model.EstadoCita;
 
 import java.time.LocalDateTime;
 
