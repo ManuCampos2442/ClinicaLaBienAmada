@@ -25,6 +25,8 @@ public class PacienteServicioImpl implements PacienteServicio {
     private final CuentaRepo cuentaRepo;
     private final MensajeRepo mensajeRepo;
 
+
+    // ___________________________ Metodos Funcionales _______________________________________________
     @Override
     public int registrarse(RegistroPacienteDTO registroPacienteDTO) throws Exception {
         if(estaRepetidaCedula(registroPacienteDTO.cedula())){
@@ -57,17 +59,68 @@ public class PacienteServicioImpl implements PacienteServicio {
         return pacienteNuevo.getCodigo();
     }
 
-    //_________________________ Metodos de comprobacion ID y Correo desde el repo _________________________
-    private boolean estaRepetidaCedula(String cedula) {
-        return pacienteRepo.findByCedula(cedula) != null;
+    @Override
+    public int agendarCita(RegistroCitaDTO registroCitaDTO) throws Exception {
+
+        List<Cita> citasAgendadas = citaRepo.findAllByPacienteCodigo(registroCitaDTO.codigoPaciente());
+        Optional<Paciente> pacienteObtenido = pacienteRepo.findById(registroCitaDTO.codigoPaciente());
+        Optional<Medico> medicoObtenido = medicoRepo.findById(registroCitaDTO.codigoMedico());
+
+        /*for (Cita cita : citasAgendadas){
+            if(cita.getFechaCita().equals(registroCitaDTO.fechaCita())){
+                throw new Exception("Ya tiene una cita en esta fecha en especifico.");
+            }
+        }*/
+
+        Cita cita = new Cita();
+        cita.setFechaCita(registroCitaDTO.fechaCita());
+        cita.setMotivo(registroCitaDTO.motivo());
+        cita.setEstadoCita(registroCitaDTO.estadoCita());
+
+        cita.setPaciente(pacienteObtenido.get());
+        cita.setMedico(medicoObtenido.get());
+
+
+        Cita citaNueva = citaRepo.save(cita);
+
+        return citaNueva.getCodigo();
     }
 
-    private boolean estaRepetidoCorreo(String email){
-        return pacienteRepo.findByCorreo(email) != null;
+    @Override
+    public List<ItemPacienteDTO> listarTodos() throws Exception {
+
+        List<Paciente> pacientes = pacienteRepo.findAll();
+        List<ItemPacienteDTO> respuesta = new ArrayList<>();
+
+        for (Paciente paciente : pacientes){
+            respuesta.add(new ItemPacienteDTO(paciente.getCodigo(), paciente.getCedula(),
+                    paciente.getNombre(), paciente.getCiudad()));
+        }
+
+        return respuesta;
     }
-    //_____________________________________________________________________________________________________
+
+    @Override
+    public int crearPQRS(RegistroPQRSDTO registroPQRSDTO) throws Exception {
+
+        Optional<Cita> citaEncontrada = citaRepo.findById(registroPQRSDTO.codigoCita());
+
+        Pqrs pqrs = new Pqrs();
 
 
+        pqrs.setMotivo(registroPQRSDTO.motivo());
+        pqrs.setCita(citaEncontrada.get());
+        pqrs.getCita().getPaciente().setCodigo(registroPQRSDTO.codigoPaciente());
+        pqrs.setEstadoPQRS(registroPQRSDTO.estadoPQRS());
+        pqrs.setFecha_Creacion(registroPQRSDTO.fechaCreacion());
+        pqrs.setTipo(registroPQRSDTO.tipo());
+
+        Pqrs pqrsNueva = pqrsRepo.save(pqrs);
+
+        return pqrsNueva.getCodigo();
+    }
+
+    //____________________________________ Metodo Funcional pero con Dudas ______________________________
     @Override
     public int editarPerfil(DetallePacienteDTO pacienteDTO) throws Exception {
 
@@ -117,6 +170,27 @@ public class PacienteServicioImpl implements PacienteServicio {
 
     }
 
+
+    //__________________________________________________________________________________________________
+
+
+    //__________________________________________________________________________________________________
+
+    //_________________________ Metodos de comprobacion ID y Correo desde el repo _________________________
+    private boolean estaRepetidaCedula(String cedula) {
+        return pacienteRepo.findByCedula(cedula) != null;
+    }
+
+    private boolean estaRepetidoCorreo(String email){
+        return pacienteRepo.findByCorreo(email) != null;
+    }
+    //_____________________________________________________________________________________________________
+
+
+
+
+
+
     @Override
     public DetallePacienteDTO verDetallePaciente(int codigo) throws Exception {
 
@@ -135,21 +209,7 @@ public class PacienteServicioImpl implements PacienteServicio {
                 paciente.getTipoDeSangre(), paciente.getCorreo());
     }
 
-    @Override
-    public List<ItemPacienteDTO> listarTodos() throws Exception {
-
-        List<Paciente> pacientes = pacienteRepo.findAll();
-        List<ItemPacienteDTO> respuesta = new ArrayList<>();
-
-        for (Paciente paciente : pacientes){
-            respuesta.add(new ItemPacienteDTO(paciente.getCodigo(), paciente.getCedula(),
-                    paciente.getNombre(), paciente.getCiudad()));
-        }
-
-        return respuesta;
-    }
-
-
+    
     @Override
     public void enviarLinkRecuperacion(String email) throws Exception {
 
@@ -160,55 +220,9 @@ public class PacienteServicioImpl implements PacienteServicio {
 
     }
 
-    @Override
-    public int agendarCita(RegistroCitaDTO registroCitaDTO) throws Exception {
-
-        List<Cita> citasAgendadas = citaRepo.findAllByPacienteCodigo(registroCitaDTO.codigoPaciente());
-        Optional<Paciente> pacienteObtenido = pacienteRepo.findById(registroCitaDTO.codigoPaciente());
-        Optional<Medico> medicoObtenido = medicoRepo.findById(registroCitaDTO.codigoMedico());
-
-        /*for (Cita cita : citasAgendadas){
-            if(cita.getFechaCita().equals(registroCitaDTO.fechaCita())){
-                throw new Exception("Ya tiene una cita en esta fecha en especifico.");
-            }
-        }*/
-
-        Cita cita = new Cita();
-        cita.setFechaCita(registroCitaDTO.fechaCita());
-        cita.setMotivo(registroCitaDTO.motivo());
-        cita.setEstadoCita(registroCitaDTO.estadoCita());
-
-        cita.setPaciente(pacienteObtenido.get());
-        cita.setMedico(medicoObtenido.get());
-
-
-        Cita citaNueva = citaRepo.save(cita);
-
-        return citaNueva.getCodigo();
-    }
-
-    @Override
-    public int crearPQRS(RegistroPQRSDTO registroPQRSDTO) throws Exception {
-
-        Optional<Cita> citaEncontrada = citaRepo.findById(registroPQRSDTO.codigoCita());
-
-        Pqrs pqrs = new Pqrs();
-
-
-        pqrs.setMotivo(registroPQRSDTO.motivo());
-        pqrs.setCita(citaEncontrada.get());
-        pqrs.getCita().getPaciente().setCodigo(registroPQRSDTO.codigoPaciente());
-        pqrs.setEstadoPQRS(registroPQRSDTO.estadoPQRS());
-        pqrs.setFecha_Creacion(registroPQRSDTO.fechaCreacion());
-        pqrs.setTipo(registroPQRSDTO.tipo());
-
-        Pqrs pqrsNueva = pqrsRepo.save(pqrs);
 
 
 
-
-        return pqrsNueva.getCodigo();
-    }
 
     @Override
     public List<ItemPQRSDTO> listarPQRSPciente(int codigoPciente) throws Exception {

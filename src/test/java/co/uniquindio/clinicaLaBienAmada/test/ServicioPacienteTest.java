@@ -23,7 +23,6 @@ public class ServicioPacienteTest {
 
 
     // _________________________ Funcionales _________________________________________________
-
     @Test
     public void crearCita() throws Exception {
 
@@ -37,6 +36,7 @@ public class ServicioPacienteTest {
                         8
 
         );
+
 
         int nuevo = pacienteServicio.agendarCita(citaDTO);
         int valorEsperado = 1;
