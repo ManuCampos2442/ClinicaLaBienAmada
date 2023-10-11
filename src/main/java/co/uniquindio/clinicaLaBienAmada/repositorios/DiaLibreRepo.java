@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface DiaLibreRepo extends JpaRepository<DiaLibre, Integer> {
 
-    List<DiaLibre> findAllByCodigoMedico(int codigoMedico);
+    List<DiaLibre> findAllByMedicoCodigo(int codigoMedico);
 }

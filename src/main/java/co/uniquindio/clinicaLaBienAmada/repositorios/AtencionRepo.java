@@ -11,7 +11,11 @@ import java.util.Optional;
 public interface AtencionRepo extends JpaRepository<Atencion, Integer> {
 
 
-    List<Atencion> findAllByCodigo(int codigoPaciente);
+  //  List<Atencion> findByCitaCodigo(int codigoCita);
+
+    List<Atencion> findAllByCita_Paciente_Codigo(int codigoPaciente);
 
     Optional<Atencion> findByCitaCodigo(int codigoCita);
+
+
 }

@@ -12,11 +12,9 @@ public enum Ciudad {
     MORDOR("Mordor"),
 
     // SEDES
-
     GRYFFINDOR("Gryffindor"),
-
     HUFFLEPUFF(""),
-        RAVENCLAW(""),
+    RAVENCLAW(""),
     SLYTHERIN("Slytherin"),
     LA_CUEVA_DEL_HUMO("La Cueva del Humo");
     private String nombre;

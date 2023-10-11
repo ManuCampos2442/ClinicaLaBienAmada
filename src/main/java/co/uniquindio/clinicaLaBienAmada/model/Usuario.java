@@ -17,7 +17,7 @@ import java.io.Serializable;
 public class Usuario extends  Cuenta implements Serializable {
 
     //__________________________ Atributos y PK ____________________________________________
-    @Column(nullable = false, length = 10, unique = true)
+    @Column(nullable = false, length = 25, unique = true)
     private String cedula;
     @Column(nullable = false, length = 200)
     private String nombre;

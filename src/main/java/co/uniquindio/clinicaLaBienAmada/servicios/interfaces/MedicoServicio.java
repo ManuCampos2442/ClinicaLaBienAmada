@@ -12,13 +12,13 @@ import java.util.List;
 public interface MedicoServicio {
 
     List<ItemCitaDTO> listarCitasPendientes(int codigoMedico) throws Exception;
+    List<ItemCitaDTO> listarCitasCanceladas(int codigoMedico) throws Exception;
     int atenderCita(RegistroAtencionDTO registroAtencionDTO) throws Exception;
     List<DetalleAtencionMedicoDTO> listarHistorialAtencionesPaciente(int codigoPaciente) throws Exception;
     //List<ItemCitaDTO> listarHistorialAtencionesPaciente(int codigoPaciente) throws Exception;
     int agendarDiaLibre(DiaLibreDTO diaLibreDTO, LocalDate diaAgenda) throws  Exception;
     List<ItemCitaDTO> listarCitasRealizadasMedico(int codigoMedico) throws Exception;
     DetalleAtencionMedicoDTO verDetalleAtencion(int codigoCita) throws Exception;
-
     List<ItemCitaDTO> listarCitasPaciente(int condigoPaciente) throws Exception; //Historial medico
 
 

@@ -1,4 +1,6 @@
 package co.uniquindio.clinicaLaBienAmada.dto;
 
-public record HorarioDTO(String dia, String horaInicio, String horaSalida) {
+import java.time.LocalDate;
+
+public record HorarioDTO(LocalDate dia, String horaInicio, String horaSalida) {
 }

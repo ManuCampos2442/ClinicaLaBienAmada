@@ -5,6 +5,7 @@ import co.uniquindio.clinicaLaBienAmada.dto.medico.DetalleAtencionMedicoDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.paciente.*;
 import co.uniquindio.clinicaLaBienAmada.model.*;
 import co.uniquindio.clinicaLaBienAmada.repositorios.*;
+import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.EmailServicio;
 import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.PacienteServicio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class PacienteServicioImpl implements PacienteServicio {
     private final PQRSRepo pqrsRepo;
     private final CuentaRepo cuentaRepo;
     private final MensajeRepo mensajeRepo;
+    private final EmailServicio emailServicio;
 
 
     // ___________________________ Metodos Funcionales _______________________________________________
@@ -55,6 +57,12 @@ public class PacienteServicioImpl implements PacienteServicio {
 
         Paciente pacienteNuevo = pacienteRepo.save(paciente);
 
+      /*  emailServicio.enviarCorreo(new EmailDTO(
+                paciente.getCorreo(),
+                "Bienvenido a la Clinica la Bien Amada",
+                "Felicidades, su registro ha sido exitoso. Bienvenido " + paciente.getNombre()
+        ));*/
+
 
         return pacienteNuevo.getCodigo();
     }
@@ -80,8 +88,13 @@ public class PacienteServicioImpl implements PacienteServicio {
         cita.setPaciente(pacienteObtenido.get());
         cita.setMedico(medicoObtenido.get());
 
-
         Cita citaNueva = citaRepo.save(cita);
+
+        emailServicio.enviarCorreo(new EmailDTO(
+                pacienteObtenido.get().getCorreo(),
+                "Se ha agendado una nueva cita",
+                "La cita se ha agenado con el médico tal el día tal"
+        ));
 
         return citaNueva.getCodigo();
     }
@@ -117,7 +130,94 @@ public class PacienteServicioImpl implements PacienteServicio {
 
         Pqrs pqrsNueva = pqrsRepo.save(pqrs);
 
+
+
         return pqrsNueva.getCodigo();
+    }
+
+    @Override
+    public DetallePacienteDTO verDetallePaciente(int codigo) throws Exception {
+
+        // EL OPCIONAL VA A LA BASE DE DATOS PARA HACER EL IF(PACIENTE -> EXISTE)
+        Optional<Paciente> pacienteBuscado = pacienteRepo.findById(codigo);
+
+        if (pacienteBuscado.isEmpty()){
+            throw new Exception("El paciente que se intenta buscar no existe");
+        }
+
+        Paciente paciente = pacienteBuscado.get();
+
+        return new DetallePacienteDTO(paciente.getCodigo(), paciente.getCedula(),
+                paciente.getNombre(), paciente.getTelefono(), paciente.getUrlFoto(), paciente.getCiudad(),
+                paciente.getFechaNacimiento(), paciente.getAlergias(), paciente.getEps(),
+                paciente.getTipoDeSangre(), paciente.getCorreo());
+    }
+
+    @Override
+    public List<ItemPQRSDTO> listarPQRSPciente(int codigoPciente) throws Exception {
+
+        if(existenciaPQRS(codigoPciente).isEmpty()){
+            throw new Exception("El paciente con codigo " + codigoPciente + " no tiene PQRS");
+        }
+
+        List<Pqrs> pqrs = pqrsRepo.findAllByCita_Paciente_Codigo(codigoPciente);
+        List<ItemPQRSDTO> respuesta = new ArrayList<>();
+
+        for (Pqrs p : pqrs){
+            respuesta.add(new ItemPQRSDTO(
+                    p.getCodigo(),
+                    p.getEstadoPQRS(),
+                    p.getMotivo(),
+                    p.getFecha_Creacion(),
+                    p.getCita().getPaciente().getNombre()
+            ));
+        }
+
+        return respuesta;
+    }
+
+    @Override
+    public List<ItemCitaDTO> listarCitasPaciente(int codigoPaciente) throws Exception {
+
+        List<Cita> citasEncontradas = citaRepo.findAllByPacienteCodigo(codigoPaciente);
+
+        List<ItemCitaDTO> citas = new ArrayList<>();
+
+        for (Cita cita : citasEncontradas){
+            citas.add(new ItemCitaDTO(
+                    cita.getCodigo(),
+                    cita.getPaciente().getCedula(),
+                    cita.getPaciente().getNombre(),
+                    cita.getMedico().getNombre(),
+                    cita.getMedico().getEspecialidad(),
+                    cita.getEstadoCita(),
+                    cita.getFechaCita()
+            ));
+        }
+
+        return citas;
+    }
+
+    @Override
+    public DetalleCitaDTO verDetalleCita(int codigoCita) throws Exception {
+
+        Optional<Cita> citaEncontrada = citaRepo.findById(codigoCita);
+
+        if(citaEncontrada.isEmpty()){
+            throw new Exception("No existe tal PQRS con ese codigo");
+        }
+
+        Cita cita = citaEncontrada.get();
+
+        return new DetalleCitaDTO(
+                cita.getCodigo(),
+                cita.getPaciente().getCedula(),
+                cita.getPaciente().getNombre(),
+                cita.getMedico().getNombre(),
+                cita.getMedico().getEspecialidad(),
+                cita.getEstadoCita(),
+                cita.getFechaCita()
+        );
     }
 
     //____________________________________ Metodo Funcional pero con Dudas ______________________________
@@ -170,87 +270,6 @@ public class PacienteServicioImpl implements PacienteServicio {
 
     }
 
-
-    //__________________________________________________________________________________________________
-
-
-    //__________________________________________________________________________________________________
-
-    //_________________________ Metodos de comprobacion ID y Correo desde el repo _________________________
-    private boolean estaRepetidaCedula(String cedula) {
-        return pacienteRepo.findByCedula(cedula) != null;
-    }
-
-    private boolean estaRepetidoCorreo(String email){
-        return pacienteRepo.findByCorreo(email) != null;
-    }
-    //_____________________________________________________________________________________________________
-
-
-
-
-
-
-    @Override
-    public DetallePacienteDTO verDetallePaciente(int codigo) throws Exception {
-
-        // EL OPCIONAL VA A LA BASE DE DATOS PARA HACER EL IF(PACIENTE -> EXISTE)
-        Optional<Paciente> pacienteBuscado = pacienteRepo.findById(codigo);
-
-        if (pacienteBuscado.isEmpty()){
-            throw new Exception("El paciente que se intenta buscar no existe");
-        }
-
-        Paciente paciente = pacienteBuscado.get();
-
-        return new DetallePacienteDTO(paciente.getCodigo(), paciente.getCedula(),
-                paciente.getNombre(), paciente.getTelefono(), paciente.getUrlFoto(), paciente.getCiudad(),
-                paciente.getFechaNacimiento(), paciente.getAlergias(), paciente.getEps(),
-                paciente.getTipoDeSangre(), paciente.getCorreo());
-    }
-
-    
-    @Override
-    public void enviarLinkRecuperacion(String email) throws Exception {
-
-    }
-
-    @Override
-    public void cambiarPassword(NuevaPasswordDTO nuevaPasswordDTO) throws Exception {
-
-    }
-
-
-
-
-
-    @Override
-    public List<ItemPQRSDTO> listarPQRSPciente(int codigoPciente) throws Exception {
-
-        if(existenciaPQRS(codigoPciente).isEmpty()){
-            throw new Exception("El paciente con codigo " + codigoPciente + " no tiene PQRS");
-        }
-
-        List<Pqrs> pqrs = pqrsRepo.findAllByCita_Paciente_Codigo(codigoPciente);
-        List<ItemPQRSDTO> respuesta = new ArrayList<>();
-
-        for (Pqrs p : pqrs){
-            respuesta.add(new ItemPQRSDTO(
-                    p.getCodigo(),
-                    p.getEstadoPQRS(),
-                    p.getMotivo(),
-                    p.getFecha_Creacion(),
-                    p.getCita().getPaciente().getNombre()
-            ));
-        }
-
-        return respuesta;
-    }
-
-
-    private List<Pqrs> existenciaPQRS(int codigoPciente) { return pqrsRepo.findAllByCita_Paciente_Codigo(codigoPciente);
-    }
-
     @Override
     public DetallePQRSDTO verDetallePQRS(int codigo) throws Exception {
 
@@ -273,6 +292,40 @@ public class PacienteServicioImpl implements PacienteServicio {
                 new ArrayList<>()
         );
     }
+    //__________________________________________________________________________________________________
+
+
+    //__________________________________________________________________________________________________
+
+    //_________________________ Metodos de comprobacion ID y Correo desde el repo _________________________
+    private boolean estaRepetidaCedula(String cedula) {
+        return pacienteRepo.findByCedula(cedula) != null;
+    }
+    private boolean estaRepetidoCorreo(String email){
+        return pacienteRepo.findByCorreo(email) != null;
+    }
+    private List<Pqrs> existenciaPQRS(int codigoPciente) { return pqrsRepo.findAllByCita_Paciente_Codigo(codigoPciente);
+    }
+    //_____________________________________________________________________________________________________
+
+
+
+
+
+
+
+
+
+    @Override
+    public void enviarLinkRecuperacion(String email) throws Exception {
+
+    }
+
+    @Override
+    public void cambiarPassword(NuevaPasswordDTO nuevaPasswordDTO) throws Exception {
+
+    }
+
 
     @Override
     public int responderPQRS(RegistroRespuestaDTO registroRespuestaDTO) throws Exception {
@@ -299,55 +352,12 @@ public class PacienteServicioImpl implements PacienteServicio {
         return mensajeRepo.save(mensaje).getCodigo();
     }
 
-    @Override
-    public List<ItemCitaDTO> listarCitasPaciente(int codigoPaciente) throws Exception {
 
-        List<Cita> citasEncontradas = citaRepo.findAllByPacienteCodigo(codigoPaciente);
-
-        List<ItemCitaDTO> citas = new ArrayList<>();
-
-        for (Cita cita : citasEncontradas){
-            citas.add(new ItemCitaDTO(
-                    cita.getCodigo(),
-                    cita.getPaciente().getCedula(),
-                    cita.getPaciente().getNombre(),
-                    cita.getMedico().getNombre(),
-                    cita.getMedico().getEspecialidad(),
-                    cita.getEstadoCita(),
-                    cita.getFechaCita()
-            ));
-        }
-
-        return citas;
-    }
 
     @Override
     public void filtrarCitas(FiltroBusquedaDTO filtroBusquedaDTO) throws Exception {
 
     }
-
-    @Override
-    public DetalleCitaDTO verDetalleCita(int codigoCita) throws Exception {
-
-        Optional<Cita> citaEncontrada = citaRepo.findById(codigoCita);
-
-        if(citaEncontrada.isEmpty()){
-            throw new Exception("No existe tal PQRS con ese codigo");
-        }
-
-        Cita cita = citaEncontrada.get();
-
-        return new DetalleCitaDTO(
-           cita.getCodigo(),
-           cita.getPaciente().getCedula(),
-           cita.getPaciente().getNombre(),
-           cita.getMedico().getNombre(),
-           cita.getMedico().getEspecialidad(),
-           cita.getEstadoCita(),
-           cita.getFechaCita()
-        );
-    }
-
 
     @Override
     public void filtrarCitasPorFecha() throws Exception {

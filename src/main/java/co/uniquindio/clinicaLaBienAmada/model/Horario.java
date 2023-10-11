@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -17,7 +18,7 @@ public class Horario implements Serializable {
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      private int codigo;
      @Column(nullable = false)
-     private String dia;
+     private LocalDate dia;
      @Column(nullable = false)
      private String horaInicio;
      @Column(nullable = false)

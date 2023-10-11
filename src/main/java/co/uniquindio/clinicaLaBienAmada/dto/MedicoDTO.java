@@ -10,7 +10,6 @@ public record MedicoDTO(
 
         @NotNull
         int codigo,
-
         @NotNull
         String nombre,
         @NotNull

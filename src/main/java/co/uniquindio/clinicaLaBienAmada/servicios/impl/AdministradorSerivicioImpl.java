@@ -29,6 +29,8 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
     private final HorarioRepo horarioRepo;
 
 
+    // _________________________________ Metodos Funcionales ___________________________________________
+
     // UNICAMENTE LAS CLASES QUE IMPLEMENTAN LAS CLASES DE LOS SERVICIOS IMPLEMENTAN EL SERVICE
     @Override
     public int crearMedico(RegistroMedicoDTO medicoDTO) throws Exception {
@@ -43,7 +45,6 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
 
 
         Medico medico = new Medico();
-
 
         medico.setCedula(medicoDTO.cedula() );
         medico.setTelefono(medicoDTO.telefono());
@@ -67,6 +68,7 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
     }
 
     private void asignarHorariosMedico(Medico medicoNuevo, List<HorarioDTO> horarios, HorarioDTO horarioDTO) {
+
         for(HorarioDTO h: horarios){
 
             Horario hm = new Horario();
@@ -86,7 +88,7 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
     }
 
     @Override
-    public int actualizarMedico(MedicoDTO medicoDTO) throws Exception {
+    public int actualizarMedico(DetalleMedicoDTO medicoDTO) throws Exception {
 
         Optional<Medico> buscado = medicoRepo.findById(medicoDTO.codigo());
 
@@ -104,6 +106,7 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
         medico.setUrlFoto(medicoDTO.URLFoto());
 
         Medico medicoNuevo = medicoRepo.save(medico);
+
         return medicoNuevo.getCodigo();
     }
 

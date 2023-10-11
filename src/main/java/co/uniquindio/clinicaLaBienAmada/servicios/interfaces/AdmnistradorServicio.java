@@ -12,7 +12,7 @@ public interface AdmnistradorServicio {
 
     int crearMedico(RegistroMedicoDTO medico) throws Exception;
 
-    int actualizarMedico(MedicoDTO medico) throws Exception;
+    int actualizarMedico(DetalleMedicoDTO medico) throws Exception;
 
     void eliminarMedico(int codigo) throws Exception;
 

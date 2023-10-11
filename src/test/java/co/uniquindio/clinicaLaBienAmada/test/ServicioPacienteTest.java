@@ -1,5 +1,9 @@
 package co.uniquindio.clinicaLaBienAmada.test;
 
+import co.uniquindio.clinicaLaBienAmada.dto.DetalleCitaDTO;
+import co.uniquindio.clinicaLaBienAmada.dto.DetallePQRSDTO;
+import co.uniquindio.clinicaLaBienAmada.dto.ItemCitaDTO;
+import co.uniquindio.clinicaLaBienAmada.dto.ItemPQRSDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.paciente.*;
 import co.uniquindio.clinicaLaBienAmada.model.*;
 import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.CitaServicios;
@@ -47,6 +51,7 @@ public class ServicioPacienteTest {
     }
 
    @Test
+   @Sql("classpath:dataset.sql")
     public void registrarTest() throws Exception {
 
         //Creamos un objeto con los datos del paciente
@@ -60,7 +65,7 @@ public class ServicioPacienteTest {
                 "Rinitis",
                 Eps.NUEVAEPS,
                 TipoDeSangre.A_POSITIVO,
-                "correo2333@gmail.com",
+                "copiasegu7848@gmail.com",
                 "asdasd"
         );
 
@@ -78,55 +83,17 @@ public class ServicioPacienteTest {
                 "Consulta General",
                 EstadoCita.PROGRAMADA,
                 9,
-                10
+                24
         );
 
         int nuevo = pacienteServicio.agendarCita(registroCita);
 
+
+
         Assertions.assertNotEquals(0, nuevo);
     }
 
-
-    // Funciona pero Ojito
-    @Test
-    @Transactional
-    //@Sql("classpath:dataset.sql")
-    public void actualizarTest() throws Exception{
-
-        DetallePacienteDTO guardado = pacienteServicio.verDetallePaciente(9);
-
-        DetallePacienteDTO modificado = new DetallePacienteDTO(guardado.codigo(),
-                guardado.cedula(), guardado.nombre(), guardado.telefono(),
-                "Foto", guardado.ciudad(), guardado.fechaNacimiento(),
-                guardado.alergias(), guardado.eps(), guardado.tipoSangre(), guardado.correo());
-
-        pacienteServicio.editarPerfil(modificado);
-
-
-        //  Assertions.assertNotEquals(0, nuevo);
-
-        DetallePacienteDTO objetoModificado = pacienteServicio.verDetallePaciente(9);
-
-        System.out.println(objetoModificado);
-
-        Assertions.assertEquals("Foto" , objetoModificado.urlFoto());
-    }
-
-    @Test
-    @Transactional
-    //@Sql("classpath:dataset.sql")
-    public void eliminarTest() throws Exception {
-        //Se borra por ejemplo el paciente con el código 1
-        pacienteServicio.eliminarCuenta(9);
-        //Si intentamos buscar un paciente con el código del paciente borrado debemos obtener una
-
-        Assertions.assertThrows(Exception.class, () -> pacienteServicio.verDetallePaciente(9));
-    }
-
-    //____________________________________________________________________________________________________
-    // ________________________________________________________________________________________________
-
-   /* @Test
+    /* @Test
     public void eliminarPaciente() throws Exception {
         System.out.println("PacienteServicioTest.eliminarPaciente");
         int codigoPaciente = 1;
@@ -165,9 +132,113 @@ public class ServicioPacienteTest {
         Assertions.assertNotEquals(0, nuevo);
     }
 
+    @Test
+    public void verDetallePaciente() throws Exception {
+
+
+        DetallePacienteDTO detallesDpaciente = pacienteServicio.verDetallePaciente(9);
+
+
+        System.out.println("\n" + "\n" + detallesDpaciente.toString());
+        Assertions.assertNotEquals(0, detallesDpaciente);
+
+
+    }
+
+    @Test
+    public void verDetallePQRS() throws Exception {
+
+        DetallePQRSDTO detallePQRSDTO = pacienteServicio.verDetallePQRS(1);
+
+        System.out.println("\n" + "\n" + detallePQRSDTO.toString());
+        Assertions.assertNotEquals(0, detallePQRSDTO);
+
+    }
+
+    @Test
+    public void listarCitasPaciente() throws Exception {
+
+        List<ItemCitaDTO> listaCitas = pacienteServicio.listarCitasPaciente(9);
+
+        listaCitas.forEach(System.out::println);
+        //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
+        Assertions.assertEquals(1,  + listaCitas.size());
+    }
+
+    @Test
+    public void verDetalleCita() throws Exception {
+
+        DetalleCitaDTO detalleCita = pacienteServicio.verDetalleCita(1);
+
+        System.out.println("\n" + "\n" + detalleCita.toString());
+        Assertions.assertNotEquals(0, detalleCita);
+
+    }
+
+    // _______________________________________________ Funciona pero Ojito ____________________________
+    @Test
+    @Transactional
+    @Sql("classpath:dataset.sql")
+    public void actualizarTest() throws Exception{
+
+        DetallePacienteDTO guardado = pacienteServicio.verDetallePaciente(9);
+
+        DetallePacienteDTO modificado = new DetallePacienteDTO(guardado.codigo(),
+                guardado.cedula(), guardado.nombre(), guardado.telefono(),
+                "Foto", guardado.ciudad(), guardado.fechaNacimiento(),
+                guardado.alergias(), guardado.eps(), guardado.tipoSangre(), guardado.correo());
+
+        pacienteServicio.editarPerfil(modificado);
+
+
+        //  Assertions.assertNotEquals(0, nuevo);
+
+        DetallePacienteDTO objetoModificado = pacienteServicio.verDetallePaciente(9);
+
+        System.out.println(objetoModificado);
+
+        Assertions.assertEquals("Foto" , objetoModificado.urlFoto());
+    }
+
+    @Test
+    @Transactional
+    //@Sql("classpath:dataset.sql")
+    public void eliminarTest() throws Exception {
+        //Se borra por ejemplo el paciente con el código 1
+        pacienteServicio.eliminarCuenta(9);
+        //Si intentamos buscar un paciente con el código del paciente borrado debemos obtener una
+
+        Assertions.assertThrows(Exception.class, () -> pacienteServicio.verDetallePaciente(9));
+    }
+
+    @Test
+    public void listarPQRSPaciente() throws Exception {
+
+
+        System.out.println(
+                "\n" + "\n"
+        );
+
+        List<ItemPQRSDTO> lista = pacienteServicio.listarPQRSPciente(9);
+        lista.forEach(System.out::println);
+        //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
+        Assertions.assertEquals(1,  + lista.size());
+    }
+
+    //____________________________________________________________________________________________________
+    // ________________________________________________________________________________________________
+
+    @Test
+    @Transactional
+    @Sql("classpath:dataset.sql")
+    public void listarTestSQL() throws Exception {
+
+        System.out.println( pacienteServicio.listarTodos() );
+
+    }
+
+
    // ________________________________________________________________________________________________
-
-
 
 
 

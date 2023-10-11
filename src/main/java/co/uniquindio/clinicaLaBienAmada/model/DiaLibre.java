@@ -21,7 +21,7 @@ public class DiaLibre implements Serializable {
     //____________________________ Atributos y PK __________________________________________
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int codigoMedico;
+    private int codigo;
     @Column(nullable = false)
     private LocalDate dia;
     //______________________________________________________________________________________

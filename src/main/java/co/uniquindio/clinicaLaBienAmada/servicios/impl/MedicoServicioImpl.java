@@ -24,7 +24,10 @@ public class MedicoServicioImpl implements MedicoServicio {
     private final AtencionRepo atencionRepo;
     private final HorarioRepo horarioRepo;
     private final DiaLibreRepo diaLibreRepo;
+    private final PacienteRepo pacienteRepo;
 
+
+    // ________________________________ Metodos Funcionales ____________________________________________
     @Override
     public List<ItemCitaDTO> listarCitasPendientes(int codigoMedico) throws Exception {
 
@@ -32,15 +35,41 @@ public class MedicoServicioImpl implements MedicoServicio {
         List<ItemCitaDTO> citasAMostrar = new ArrayList<>();
 
         for (Cita cita : citasMedico) {
-            citasAMostrar.add(new ItemCitaDTO(
-                    cita.getCodigo(),
-                    cita.getPaciente().getCedula(),
-                    cita.getPaciente().getNombre(),
-                    cita.getMedico().getNombre(),
-                    cita.getMedico().getEspecialidad(),
-                    cita.getEstadoCita(),
-                    cita.getFechaCita()
-            ));
+            if(cita.getEstadoCita().equals(EstadoCita.PROGRAMADA)) {
+                citasAMostrar.add(new ItemCitaDTO(
+                        cita.getCodigo(),
+                        cita.getPaciente().getCedula(),
+                        cita.getPaciente().getNombre(),
+                        cita.getMedico().getNombre(),
+                        cita.getMedico().getEspecialidad(),
+                        cita.getEstadoCita(),
+                        cita.getFechaCita()
+                ));
+            }
+        }
+
+
+        return citasAMostrar;
+    }
+
+    @Override
+    public List<ItemCitaDTO> listarCitasCanceladas(int codigoMedico) throws Exception {
+
+        List<Cita> citasMedico = citaRepo.findAllByMedicoCodigo(codigoMedico);
+        List<ItemCitaDTO> citasAMostrar = new ArrayList<>();
+
+        for (Cita cita : citasMedico) {
+            if(cita.getEstadoCita().equals(EstadoCita.CANCELADA)) {
+                citasAMostrar.add(new ItemCitaDTO(
+                        cita.getCodigo(),
+                        cita.getPaciente().getCedula(),
+                        cita.getPaciente().getNombre(),
+                        cita.getMedico().getNombre(),
+                        cita.getMedico().getEspecialidad(),
+                        cita.getEstadoCita(),
+                        cita.getFechaCita()
+                ));
+            }
         }
 
 
@@ -50,11 +79,14 @@ public class MedicoServicioImpl implements MedicoServicio {
     @Override
     public int atenderCita(RegistroAtencionDTO registroAtencionDTO) throws Exception {
 
-        // Optional<Cita> codigoCita = atencionPacienteRepo.findByCitaCodigo(registroAtencionDTO.codigoCita());
+        Optional<Cita> citaCodigo = citaRepo.findById(registroAtencionDTO.codigoCita());
+
+        if(citaCodigo.isEmpty()){
+            throw new Exception("No existe la cita");
+        }
 
         Atencion atencion = new Atencion();
-        atencion.getCita().setCodigo(registroAtencionDTO.codigoCita());
-        atencion.getCita().getMedico().setCodigo(registroAtencionDTO.codigoMedico());
+        atencion.setCita( citaCodigo.get() ) ;
         atencion.setNotasMedicas(registroAtencionDTO.notasMedicas());
         atencion.setTratamiento(registroAtencionDTO.tratamiento());
         atencion.setDiagnostico(registroAtencionDTO.diagnostico());
@@ -67,7 +99,7 @@ public class MedicoServicioImpl implements MedicoServicio {
     @Override
     public List<DetalleAtencionMedicoDTO> listarHistorialAtencionesPaciente(int codigoPaciente) throws Exception {
 
-        List<Atencion> atenciones = atencionRepo.findAllByCodigo(codigoPaciente);
+        List<Atencion> atenciones = atencionRepo.findAllByCita_Paciente_Codigo(codigoPaciente);
 
         List<DetalleAtencionMedicoDTO> respuesta = new ArrayList<>();
 
@@ -87,37 +119,6 @@ public class MedicoServicioImpl implements MedicoServicio {
 
 
         return respuesta;
-    }
-
-    @Override
-    public int agendarDiaLibre(DiaLibreDTO diaLibreDTO, LocalDate diaAgenda) throws Exception {
-
-        List<DiaLibre> diasLibres = diaLibreRepo.findAllByCodigoMedico(diaLibreDTO.codigoMedico());
-
-        List<Cita> citasMedico = citaRepo.findAllByMedicoCodigo(diaLibreDTO.codigoMedico());
-
-        for (Cita cita : citasMedico) {
-            if (cita.getFechaCita().equals(diaLibreDTO.dia())) {
-                throw new Exception("El dia que intenta agender como libre, ya tiene una cita antes agendada");
-
-            }
-        }
-
-        for (DiaLibre diaLibre : diasLibres) {
-            if (diaLibreDTO.dia().equals(diaLibre.getDia())) {
-                throw new Exception("Este dia ya tiene un dia agendado");
-            } else {
-                DiaLibre diaLibreMedico = new DiaLibre();
-                diaLibreMedico.setDia(diaLibreDTO.dia());
-
-                diaLibreRepo.save(diaLibreMedico);
-                break;
-
-
-            }
-        }
-
-        return diaLibreDTO.codigoMedico();
     }
 
     @Override
@@ -188,6 +189,55 @@ public class MedicoServicioImpl implements MedicoServicio {
 
         return citas;
     }
+    //_______________________________________________________________________________________________
+
+
+
+
+    @Override
+    public int agendarDiaLibre(DiaLibreDTO diaLibreDTO, LocalDate diaAgenda) throws Exception {
+
+        Optional<Medico> optionalMedico = medicoRepo.findById(diaLibreDTO.codigoMedico());
+
+        if(optionalMedico.isEmpty()){
+            throw new Exception("No existe el id del médico");
+        }
+
+        List<DiaLibre> diasLibres = diaLibreRepo.findAllByMedicoCodigo(diaLibreDTO.codigoMedico());
+
+        List<Cita> citasMedico = citaRepo.findAllByMedicoCodigo(diaLibreDTO.codigoMedico());
+
+        for (Cita cita : citasMedico) {
+            if (cita.getFechaCita().equals(diaLibreDTO.dia())) {
+                throw new Exception("El dia que intenta agender como libre, ya tiene una cita antes agendada");
+
+            }
+        }
+
+        for (DiaLibre diaLibre : diasLibres) {
+            if (diaLibreDTO.dia().equals(diaLibre.getDia())) {
+                throw new Exception("Este dia ya tiene un dia agendado");
+            } else if( diaLibre.getDia().isAfter( LocalDate.now() ) ){
+                throw new Exception("Usted ya tiene agendado un día libre para la fecha "+diaLibre.getDia());
+            }
+
+        }
+
+        DiaLibre diaLibreMedico = new DiaLibre();
+        diaLibreMedico.setDia(diaLibreDTO.dia());
+        diaLibreMedico.setMedico(optionalMedico.get());
+
+        diaLibreRepo.save(diaLibreMedico);
+
+
+        return diaLibreDTO.codigoMedico();
+    }
+
+
+
+
+
+
 
 
 }

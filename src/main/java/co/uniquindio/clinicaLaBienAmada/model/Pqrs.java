@@ -30,6 +30,9 @@ public class Pqrs implements Serializable {
     @Column(nullable = false)
     private String motivo;
    // @Column(nullable = false)
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private EstadoPQRS estadoPQRS;
 
 
