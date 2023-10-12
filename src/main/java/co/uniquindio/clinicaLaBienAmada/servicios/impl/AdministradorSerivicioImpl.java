@@ -101,9 +101,9 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
         medico.setTelefono(medicoDTO.telefono());
         medico.setNombre(medicoDTO.nombre() );
         medico.setEspecialidad( medicoDTO.especialidad());
-        medico.setCiudad(medicoDTO.codigoCiudad());
+        medico.setCiudad(medicoDTO.ciudad());
         medico.setCorreo(medicoDTO.correo() );
-        medico.setUrlFoto(medicoDTO.URLFoto());
+        medico.setUrlFoto(medicoDTO.urlFoto());
 
         Medico medicoNuevo = medicoRepo.save(medico);
 

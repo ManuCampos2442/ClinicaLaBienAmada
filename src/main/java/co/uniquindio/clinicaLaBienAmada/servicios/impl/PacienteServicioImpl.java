@@ -57,11 +57,11 @@ public class PacienteServicioImpl implements PacienteServicio {
 
         Paciente pacienteNuevo = pacienteRepo.save(paciente);
 
-      /*  emailServicio.enviarCorreo(new EmailDTO(
+       emailServicio.enviarCorreo(new EmailDTO(
                 paciente.getCorreo(),
                 "Bienvenido a la Clinica la Bien Amada",
                 "Felicidades, su registro ha sido exitoso. Bienvenido " + paciente.getNombre()
-        ));*/
+        ));
 
 
         return pacienteNuevo.getCodigo();
@@ -90,11 +90,13 @@ public class PacienteServicioImpl implements PacienteServicio {
 
         Cita citaNueva = citaRepo.save(cita);
 
+
         emailServicio.enviarCorreo(new EmailDTO(
                 pacienteObtenido.get().getCorreo(),
                 "Se ha agendado una nueva cita",
                 "La cita se ha agenado con el médico tal el día tal"
         ));
+
 
         return citaNueva.getCodigo();
     }

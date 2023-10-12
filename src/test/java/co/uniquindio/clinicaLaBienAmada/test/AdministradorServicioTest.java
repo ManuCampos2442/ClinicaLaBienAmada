@@ -50,6 +50,7 @@ public class AdministradorServicioTest {
 
     }
 
+    @Test
     public void actualizarMedico() throws Exception {
 
         DetalleMedicoDTO medico = admnistradorServicio.obtenerMedico(22);
@@ -59,7 +60,11 @@ public class AdministradorServicioTest {
                 medico.telefono(), medico.correo(), medico.urlFoto(), medico.horarios());
 
         admnistradorServicio.actualizarMedico(medicoModificado);
-        //admnistradorServicio.actualizarMedico(medicoModificado);
+
+
+        System.out.println(medicoModificado);
+
+        Assertions.assertEquals(Ciudad.KHAZAD_DUM, medicoModificado.urlFoto());
 
     }
 

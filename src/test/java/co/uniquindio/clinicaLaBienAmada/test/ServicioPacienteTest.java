@@ -51,7 +51,7 @@ public class ServicioPacienteTest {
     }
 
    @Test
-   @Sql("classpath:dataset.sql")
+  // @Sql("classpath:dataset.sql")
     public void registrarTest() throws Exception {
 
         //Creamos un objeto con los datos del paciente
@@ -82,8 +82,8 @@ public class ServicioPacienteTest {
                 LocalDate.of(1990, 10, 7).atStartOfDay(),
                 "Consulta General",
                 EstadoCita.PROGRAMADA,
-                9,
-                24
+                1,
+                2
         );
 
         int nuevo = pacienteServicio.agendarCita(registroCita);
@@ -177,7 +177,7 @@ public class ServicioPacienteTest {
 
     // _______________________________________________ Funciona pero Ojito ____________________________
     @Test
-    @Transactional
+   // @Transactional
     @Sql("classpath:dataset.sql")
     public void actualizarTest() throws Exception{
 
