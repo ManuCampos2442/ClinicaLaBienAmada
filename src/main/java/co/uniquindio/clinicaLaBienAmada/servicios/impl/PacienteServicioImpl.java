@@ -32,7 +32,7 @@ public class PacienteServicioImpl implements PacienteServicio {
     @Override
     public int registrarse(RegistroPacienteDTO registroPacienteDTO) throws Exception {
         if(estaRepetidaCedula(registroPacienteDTO.cedula())){
-            throw new Exception("La cedula o el Correo ya se encuentran en uso");
+            throw new Exception("La cedula o el correo ya se encuentran en uso");
         }
         if(estaRepetidoCorreo(registroPacienteDTO.correo())){
             throw new Exception("El Correo ya se encuentran en uso");
