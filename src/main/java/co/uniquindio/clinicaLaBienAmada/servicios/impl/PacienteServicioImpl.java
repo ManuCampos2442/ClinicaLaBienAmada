@@ -8,10 +8,12 @@ import co.uniquindio.clinicaLaBienAmada.repositorios.*;
 import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.EmailServicio;
 import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.PacienteServicio;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -222,7 +224,79 @@ public class PacienteServicioImpl implements PacienteServicio {
         );
     }
 
+    @Override
+    public List<FiltroBusquedaDTO> filtrarCitasPorFecha(LocalDateTime fecha) throws Exception {
+
+        List<Cita> citaEcontradaPorFecha = citaRepo.findAllByFechaCita(fecha);
+
+        if(citaEcontradaPorFecha.isEmpty()){
+            throw new Exception("\n No hay tal lista de citas por la fecha introducida.");
+        }
+
+        List<FiltroBusquedaDTO> citas = new ArrayList<>();
+
+        for(Cita c : citaEcontradaPorFecha){
+            citas.add(new FiltroBusquedaDTO(
+                    c.getCodigo(),
+                    c.getMedico().getCodigo(),
+                    c.getMedico().getNombre(),
+                    c.getMotivo(),
+                    c.getFechaCita()
+            ));
+        }
+
+        return citas;
+
+    }
+
+    @Override
+    public List<FiltroBusquedaDTO> filtrarCitasPorMedico(int codigoMedico) throws Exception {
+
+        List<Cita> citasEncontradasPorMedico = citaRepo.findAllByMedicoCodigo(codigoMedico);
+        List<FiltroBusquedaDTO> citas = new ArrayList<>();
+
+        if(citasEncontradasPorMedico.isEmpty()){
+            throw new Exception("\n No hay tal lista de citas por el codigo del medico introducido introducida.");
+        }
+
+        for(Cita c : citasEncontradasPorMedico){
+            citas.add(new FiltroBusquedaDTO(
+                    c.getCodigo(),
+                    c.getMedico().getCodigo(),
+                    c.getMedico().getNombre(),
+                    c.getMotivo(),
+                    c.getFechaCita()
+            ));
+        }
+
+        return citas;
+    }
+
     //____________________________________ Metodo Funcional pero con Dudas ______________________________
+
+    @Override
+    public  List<FiltroBusquedaDTO> filtrarCitas() throws Exception {
+
+        List<Cita> citasEncontradas = citaRepo.findAll();
+        List<FiltroBusquedaDTO> citas = new ArrayList<>();
+
+        if(citasEncontradas.isEmpty()){
+            throw new Exception("No se encontraron citas.");
+        }
+
+        for(Cita c : citasEncontradas){
+            citas.add(new FiltroBusquedaDTO(
+                    c.getCodigo(),
+                    c.getMedico().getCodigo(),
+                    c.getMedico().getNombre(),
+                    c.getMotivo(),
+                    c.getFechaCita()
+            ));
+        }
+
+        return citas;
+    }
+
     @Override
     public int editarPerfil(DetallePacienteDTO pacienteDTO) throws Exception {
 
@@ -313,19 +387,52 @@ public class PacienteServicioImpl implements PacienteServicio {
 
 
 
-
-
-
-
-
     @Override
     public void enviarLinkRecuperacion(String email) throws Exception {
 
+        Optional<Cuenta> optionalCuenta = cuentaRepo.findByCorreo(email);
+
+        if (optionalCuenta.isEmpty()){
+            throw new Exception("No existe la cuenta con correo" + email);
+        }
+
+        LocalDateTime fecha = LocalDateTime.now();
+        String parametro = Base64.getEncoder().encodeToString((optionalCuenta.get().getCodigo()+
+                ";"+fecha).getBytes());
+
+        emailServicio.enviarCorreo(new EmailDTO(
+                optionalCuenta.get().getCorreo(),
+                "Recuperacion de cuenta",
+                "Para la recuperacion de la cuenta ingrese al siguiente link https://XXXX" +
+                        "/recuperar-password/" + parametro
+
+        ));
     }
 
     @Override
     public void cambiarPassword(NuevaPasswordDTO nuevaPasswordDTO) throws Exception {
 
+        String parametro = new String(Base64.getDecoder().decode(nuevaPasswordDTO.nuevaPassword()));
+        String[] datos = parametro.split(";");
+        int codigoCuenta = Integer.parseInt(datos[0]);
+        LocalDateTime fecha = LocalDateTime.parse(datos[1]);
+
+        if(fecha.plusMinutes(30).isBefore(LocalDateTime.now())){
+            throw new Exception("El link de recuperacion ha expirado");
+        }
+
+        Cuenta cuenta = obtenerCuentaCodigo(codigoCuenta);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        cuenta.setPassword(passwordEncoder.encode(nuevaPasswordDTO.nuevaPassword()));
+        cuentaRepo.save(cuenta);
+    }
+
+    private Cuenta obtenerCuentaCodigo(int codigoCuenta) {
+
+        Optional<Cuenta> cuenta = cuentaRepo.findById(codigoCuenta);
+
+        return null;
     }
 
 
@@ -334,41 +441,37 @@ public class PacienteServicioImpl implements PacienteServicio {
 
         Optional<Pqrs> pqrsEncontrada = pqrsRepo.findById(registroRespuestaDTO.codigoPQRS());
 
-        if(pqrsEncontrada.isEmpty()){
-            throw new Exception("No existe tal PQRS con ese codigo");
-        }
-
         Optional<Cuenta> cuentaEncontrada = cuentaRepo.findById(registroRespuestaDTO.codigoCuenta());
+
+        Optional<Mensaje> mensaje = mensajeRepo.findById(registroRespuestaDTO.codigoMensaje());
 
         if(cuentaEncontrada.isEmpty()){
             throw new Exception("El codigo" + registroRespuestaDTO.codigoPQRS() + " no esta asociado a ningun PQRS");
         }
 
+        if(pqrsEncontrada.isEmpty()){
+            throw new Exception("No existe tal PQRS con ese codigo");
+        }else{
+            if (mensaje.isEmpty()){
 
-        Mensaje mensaje = new Mensaje();
-        mensaje.setFechaCreacion(LocalDateTime.now());
-        mensaje.setMensaje(registroRespuestaDTO.mensaje());
-        mensaje.setPqrs(pqrsEncontrada.get());
-        mensaje.setCuenta(cuentaEncontrada.get());
+                Mensaje mensajeNuevo = new Mensaje();
+                mensajeNuevo.setFechaCreacion(LocalDateTime.now());
+                mensajeNuevo.setMensaje(new Mensaje());
+                mensajeNuevo.setPqrs(pqrsEncontrada.get());
+                mensajeNuevo.setCuenta(cuentaEncontrada.get());
 
-        return mensajeRepo.save(mensaje).getCodigo();
+                Mensaje mensaje1 = mensajeRepo.save(mensajeNuevo);
+
+                return mensaje1.getCodigo();
+            }
+        }
+
+
+        return 0;
     }
 
 
 
-    @Override
-    public void filtrarCitas(FiltroBusquedaDTO filtroBusquedaDTO) throws Exception {
 
-    }
-
-    @Override
-    public void filtrarCitasPorFecha() throws Exception {
-
-    }
-
-    @Override
-    public void filtrarCitasPorMedico() throws Exception {
-
-    }
 
 }

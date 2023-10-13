@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -195,7 +196,7 @@ public class MedicoServicioImpl implements MedicoServicio {
 
 
     @Override
-    public int agendarDiaLibre(DiaLibreDTO diaLibreDTO, LocalDate diaAgenda) throws Exception {
+    public int agendarDiaLibre(DiaLibreDTO diaLibreDTO) throws Exception {
 
         Optional<Medico> optionalMedico = medicoRepo.findById(diaLibreDTO.codigoMedico());
 
@@ -217,7 +218,7 @@ public class MedicoServicioImpl implements MedicoServicio {
         for (DiaLibre diaLibre : diasLibres) {
             if (diaLibreDTO.dia().equals(diaLibre.getDia())) {
                 throw new Exception("Este dia ya tiene un dia agendado");
-            } else if( diaLibre.getDia().isAfter( LocalDate.now() ) ){
+            } else if( diaLibre.getDia().isAfter( LocalDateTime.now() ) ){
                 throw new Exception("Usted ya tiene agendado un día libre para la fecha "+diaLibre.getDia());
             }
 

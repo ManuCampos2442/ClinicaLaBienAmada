@@ -5,6 +5,8 @@ import co.uniquindio.clinicaLaBienAmada.model.Mensaje;
 public record RegistroRespuestaDTO(
         int codigoCuenta,
         int codigoPQRS,
-        Mensaje mensaje
+        int codigoMensaje,
+        String motivo
+       // Mensaje mensaje
 ) {
 }

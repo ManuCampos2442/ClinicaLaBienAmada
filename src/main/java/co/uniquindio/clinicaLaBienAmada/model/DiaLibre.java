@@ -9,6 +9,7 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -23,7 +24,7 @@ public class DiaLibre implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
     @Column(nullable = false)
-    private LocalDate dia;
+    private LocalDateTime dia;
     //______________________________________________________________________________________
 
     //________________________________ FK __________________________________________________

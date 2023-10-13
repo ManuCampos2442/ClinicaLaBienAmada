@@ -1,18 +1,22 @@
 package co.uniquindio.clinicaLaBienAmada.test;
 
+import co.uniquindio.clinicaLaBienAmada.dto.DetallePQRSDTO;
+import co.uniquindio.clinicaLaBienAmada.dto.ItemCitaDTO;
+import co.uniquindio.clinicaLaBienAmada.dto.ItemPQRSDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.MedicoDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.admin.DetalleMedicoDTO;
+import co.uniquindio.clinicaLaBienAmada.dto.admin.ItemMedicoDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.admin.RegistroMedicoDTO;
-import co.uniquindio.clinicaLaBienAmada.model.Administrador;
-import co.uniquindio.clinicaLaBienAmada.model.Ciudad;
-import co.uniquindio.clinicaLaBienAmada.model.Especialidad;
+import co.uniquindio.clinicaLaBienAmada.model.*;
 import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.AdmnistradorServicio;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootTest
 public class AdministradorServicioTest {
@@ -45,8 +49,7 @@ public class AdministradorServicioTest {
 
     }
 
-
-    public void asginarHorario(){
+    public void asginarHorario() {
 
     }
 
@@ -64,9 +67,86 @@ public class AdministradorServicioTest {
 
         System.out.println(medicoModificado);
 
-        Assertions.assertEquals(Ciudad.KHAZAD_DUM, medicoModificado.urlFoto());
+        Assertions.assertEquals(Ciudad.KHAZAD_DUM, medicoModificado.ciudad());
 
     }
+
+    @Test
+    public void listarMedicos() throws Exception {
+
+        System.out.println(
+                "\n" + "\n"
+        );
+
+        List<ItemMedicoDTO> medicosEncontrados = admnistradorServicio.listarMedicos();
+
+        medicosEncontrados.forEach(System.out::println);
+        //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
+        Assertions.assertEquals(5, +medicosEncontrados.size());
+    }
+
+    @Test
+    public void listarPQRS() throws Exception {
+
+        System.out.println(
+                "\n" + "\n"
+        );
+
+        List<ItemPQRSDTO> itemPQRSDTO = admnistradorServicio.listarPQRS();
+
+        itemPQRSDTO.forEach(System.out::println);
+        //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
+        Assertions.assertEquals(5, +itemPQRSDTO.size());
+    }
+
+    @Test
+    public void verDetallePQRS() throws Exception {
+
+        DetallePQRSDTO pqrs = admnistradorServicio.verDetallePQRS(504);
+
+        System.out.println("\n" + "\n" + pqrs.toString());
+        Assertions.assertNotEquals(0, pqrs);
+    }
+
+    @Test
+    public void listarCitas() throws Exception {
+
+        List<ItemCitaDTO> citas = admnistradorServicio.listarCitas();
+
+        System.out.println(
+                "\n" + "\n"
+        );
+
+        citas.forEach(System.out::println);
+        //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
+        Assertions.assertEquals(5, +citas.size());
+
+    }
+
+    @Test
+    public void cambiarEstadoPQRS() throws Exception {
+
+        admnistradorServicio.cambiarEstadoPQRS(500, EstadoPQRS.RESUELTO);
+
+        //Assertions.assertNotEquals(0, detalleCita);
+
+        //Assertions.assertEquals(EstadoPQRS.RESUELTO , objetoModificado.urlFoto());
+    }
+
+    // _________________________________ Funcionales pero con dudas ___________________________________
+    @Test
+    @Transactional
+    public void eliminarMedico() throws Exception {
+
+        admnistradorServicio.eliminarMedico(21);
+
+        Assertions.assertThrows(Exception.class, () -> admnistradorServicio.eliminarMedico(21));
+
+
+    }
+
+    // ______________________________________________________________________________________________________
+
 
 
 }

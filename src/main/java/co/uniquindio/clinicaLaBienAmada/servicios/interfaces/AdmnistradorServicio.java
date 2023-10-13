@@ -14,7 +14,7 @@ public interface AdmnistradorServicio {
 
     int actualizarMedico(DetalleMedicoDTO medico) throws Exception;
 
-    void eliminarMedico(int codigo) throws Exception;
+    boolean eliminarMedico(int codigo) throws Exception;
 
     List<ItemMedicoDTO> listarMedicos() throws Exception;
 

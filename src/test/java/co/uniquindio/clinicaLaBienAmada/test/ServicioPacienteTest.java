@@ -1,9 +1,6 @@
 package co.uniquindio.clinicaLaBienAmada.test;
 
-import co.uniquindio.clinicaLaBienAmada.dto.DetalleCitaDTO;
-import co.uniquindio.clinicaLaBienAmada.dto.DetallePQRSDTO;
-import co.uniquindio.clinicaLaBienAmada.dto.ItemCitaDTO;
-import co.uniquindio.clinicaLaBienAmada.dto.ItemPQRSDTO;
+import co.uniquindio.clinicaLaBienAmada.dto.*;
 import co.uniquindio.clinicaLaBienAmada.dto.paciente.*;
 import co.uniquindio.clinicaLaBienAmada.model.*;
 import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.CitaServicios;
@@ -175,7 +172,39 @@ public class ServicioPacienteTest {
 
     }
 
+    @Test
+    public void filtrarCitasPorCodigoMedico() throws Exception {
+
+        List<FiltroBusquedaDTO> citas = pacienteServicio.filtrarCitasPorMedico(24);
+
+        citas.forEach(System.out::println);
+        //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
+        Assertions.assertEquals(1,  + citas.size());
+    }
+
+    @Test
+    public void filtrarCitasPorFecha() throws Exception {
+
+        List<FiltroBusquedaDTO> citas = pacienteServicio.
+                filtrarCitasPorFecha(LocalDate.of(2023, 10, 28).atStartOfDay());
+
+        citas.forEach(System.out::println);
+        //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
+        Assertions.assertEquals(1,  + citas.size());
+    }
+
     // _______________________________________________ Funciona pero Ojito ____________________________
+
+    @Test
+    public void filtrarCitas() throws Exception {
+
+        List<FiltroBusquedaDTO> citas = pacienteServicio.filtrarCitas();
+
+        citas.forEach(System.out::println);
+        //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
+        Assertions.assertEquals(5,  + citas.size());
+    }
+
     @Test
    // @Transactional
     @Sql("classpath:dataset.sql")
@@ -202,7 +231,6 @@ public class ServicioPacienteTest {
 
     @Test
     @Transactional
-    //@Sql("classpath:dataset.sql")
     public void eliminarTest() throws Exception {
         //Se borra por ejemplo el paciente con el código 1
         pacienteServicio.eliminarCuenta(9);
@@ -243,7 +271,24 @@ public class ServicioPacienteTest {
 
 
 
+    @Test
+    public void responderPQRS() throws Exception {
 
+        RegistroRespuestaDTO respuesta = new RegistroRespuestaDTO(
+                7,
+                504,
+                600,
+                "Supremamente grosero el man simplemente cartulina"
+        );
+
+        pacienteServicio.responderPQRS(respuesta);
+
+        //Assertions.assertNotEquals(0, respuesta);
+
+
+
+
+    }
 
 
 

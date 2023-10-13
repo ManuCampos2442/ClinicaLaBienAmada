@@ -9,6 +9,7 @@ import co.uniquindio.clinicaLaBienAmada.repositorios.CuentaRepo;
 import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.AutenticacionServicio;
 import co.uniquindio.clinicaLaBienAmada.utils.JWTUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -21,7 +22,7 @@ public class AutenticacionServicioImpl implements AutenticacionServicio {
 
     private final CuentaRepo cuentaRepo;
     private final JWTUtils jwtUtils;
-    @Override
+   @Override
     public TokenDTO login(LoginDTO loginDTO) throws Exception {
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -30,6 +31,7 @@ public class AutenticacionServicioImpl implements AutenticacionServicio {
             throw new Exception("No existe el correo ingresado");
         }
         Cuenta cuenta = cuentaOptional.get();
+
         if( !passwordEncoder.matches(loginDTO.password(), cuenta.getPassword()) ){
             throw new Exception("La contraseña ingresada es incorrecta");
         }

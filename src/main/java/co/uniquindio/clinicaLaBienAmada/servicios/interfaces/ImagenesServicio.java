@@ -1,5 +1,11 @@
 package co.uniquindio.clinicaLaBienAmada.servicios.interfaces;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Map;
+
 public interface ImagenesServicio {
-    void subirImagen() throws Exception;
+    Map subirImagen(MultipartFile imagen) throws Exception;
+
+    Map eliminarImagen(String idImagen)throws Exception;
 }

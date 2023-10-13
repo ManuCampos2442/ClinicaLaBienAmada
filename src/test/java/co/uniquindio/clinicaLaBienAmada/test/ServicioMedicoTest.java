@@ -3,6 +3,7 @@ package co.uniquindio.clinicaLaBienAmada.test;
 import co.uniquindio.clinicaLaBienAmada.dto.ItemCitaDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.admin.RegistroMedicoDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.medico.DetalleAtencionMedicoDTO;
+import co.uniquindio.clinicaLaBienAmada.dto.medico.DiaLibreDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.medico.RegistroAtencionDTO;
 import co.uniquindio.clinicaLaBienAmada.model.Ciudad;
 import co.uniquindio.clinicaLaBienAmada.model.Especialidad;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -128,6 +130,20 @@ public class ServicioMedicoTest {
         //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
         Assertions.assertEquals(1, lista.size());
     }
+
+    @Test
+    public void agendarDiaLibre() throws Exception {
+
+        DiaLibreDTO dia = new DiaLibreDTO(
+                101,
+                LocalDate.of(2023, 10, 29).atStartOfDay());
+
+        medicoServicio.agendarDiaLibre(dia);
+
+        Assertions.assertNotEquals(0, dia);
+
+    }
+
     // ____________________________________________ No Funcionales _______________________________________
 
 

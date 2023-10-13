@@ -16,7 +16,7 @@ public interface MedicoServicio {
     int atenderCita(RegistroAtencionDTO registroAtencionDTO) throws Exception;
     List<DetalleAtencionMedicoDTO> listarHistorialAtencionesPaciente(int codigoPaciente) throws Exception;
     //List<ItemCitaDTO> listarHistorialAtencionesPaciente(int codigoPaciente) throws Exception;
-    int agendarDiaLibre(DiaLibreDTO diaLibreDTO, LocalDate diaAgenda) throws  Exception;
+    int agendarDiaLibre(DiaLibreDTO diaLibreDTO) throws  Exception;
     List<ItemCitaDTO> listarCitasRealizadasMedico(int codigoMedico) throws Exception;
     DetalleAtencionMedicoDTO verDetalleAtencion(int codigoCita) throws Exception;
     List<ItemCitaDTO> listarCitasPaciente(int condigoPaciente) throws Exception; //Historial medico

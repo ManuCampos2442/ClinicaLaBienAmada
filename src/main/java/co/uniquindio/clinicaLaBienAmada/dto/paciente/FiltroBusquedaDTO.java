@@ -1,4 +1,15 @@
 package co.uniquindio.clinicaLaBienAmada.dto.paciente;
 
-public record FiltroBusquedaDTO() {
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+public record FiltroBusquedaDTO(
+        int codigoCita,
+        int codigoMedico,
+        String nombreMedico,
+        String motivo,
+        LocalDateTime fecha
+) {
+
+
 }

@@ -111,7 +111,7 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
     }
 
     @Override
-    public void eliminarMedico(int codigo) throws Exception {
+    public boolean eliminarMedico(int codigo) throws Exception {
 
        Optional<Medico> buscado = medicoRepo.findById(codigo); // SELECT * FROM MEDICO WHERE CODIGO = CODIGO
 
@@ -121,7 +121,13 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
        // medicoRepo.delete(buscado.get()); //delete from medico where codigo = codigo
 
         Medico obtenido = buscado.get();
+
         obtenido.setEstado(false);
+        medicoRepo.save(obtenido);
+        medicoRepo.delete(obtenido);
+
+
+        return true;
     }
 
     @Override
@@ -233,6 +239,8 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
         //Obetener el PQRS
         Optional<Pqrs> opcionalPqrs = pqrsRepo.findById(registroRespuestaDTO.codigoPQRS()); // SELECT * FROM MEDICO WHERE CODIGO = CODIGO
 
+        Optional<Mensaje> mensajeEncontrado = mensajeRepo.findById(registroRespuestaDTO.codigoMensaje());
+
         if(opcionalPqrs.isEmpty()){
             throw new Exception("El codigo" + registroRespuestaDTO.codigoPQRS() + " no esta asociado a ningun PQRS");
         }
@@ -248,7 +256,7 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
 
         Mensaje mensaje = new Mensaje();
         mensaje.setFechaCreacion(LocalDateTime.now());
-        mensaje.setMensaje(registroRespuestaDTO.mensaje());
+        mensaje.setMensaje(mensajeEncontrado.get());
         mensaje.setPqrs(opcionalPqrs.get());
         mensaje.setCuenta(opcionalCuenta.get());
 
@@ -276,10 +284,10 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
 
         List<Cita> listaCitas = citaRepo.findAll();
 
-        List<ItemCitaAdminDTO> respuesta = new ArrayList<>();
+        List<ItemCitaDTO> respuesta = new ArrayList<>();
 
         for (Cita c: listaCitas){
-            respuesta.add(new ItemCitaAdminDTO(
+            respuesta.add(new ItemCitaDTO(
 
                     c.getCodigo(),
                     c.getPaciente().getCedula(),
@@ -294,6 +302,6 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
 
             }
 
-        return null;
+        return respuesta;
     }
 }
