@@ -1,14 +1,14 @@
 /*
     _______________________________________ Pacientes _________________________________________________________
  */
-insert into cuenta values(2, 'pepito@email.com', '123');
-insert into cuenta values(3, 'juanita@email.com', '234');
+insert into cuenta values(2, 'pepito@email.com', '$2a$10$k6ANLEXelA4lhJ/KfXsoouNfrjyyMC/vLHmeR/nd3OORc9p0bT4Xq');
+insert into cuenta values(3, 'juanita@email.com', '$2a$10$k6ANLEXelA4lhJ/KfXsoouNfrjyyMC/vLHmeR/nd3OORc9p0bT4Xq');
 
-insert into cuenta values(4, 'valen7848@email.com', '123');
-insert into cuenta values(5, 'mariana89@email.com', '012');
-insert into cuenta values(7, 'santiagohs0730@gmail.com', '929');
-insert into cuenta values(8, 'palomar67@email.com', '232323');
-insert into cuenta values(9, 'seguridadcopia720@gmail.com', '233333');
+insert into cuenta values(4, 'valen7848@email.com', '$2a$10$k6ANLEXelA4lhJ/KfXsoouNfrjyyMC/vLHmeR/nd3OORc9p0bT4Xq');
+insert into cuenta values(5, 'mariana89@email.com', '$2a$10$k6ANLEXelA4lhJ/KfXsoouNfrjyyMC/vLHmeR/nd3OORc9p0bT4Xq');
+insert into cuenta values(7, 'santiagohs0730@gmail.com', '$2a$10$k6ANLEXelA4lhJ/KfXsoouNfrjyyMC/vLHmeR/nd3OORc9p0bT4Xq');
+insert into cuenta values(8, 'palomar67@email.com', '$2a$10$k6ANLEXelA4lhJ/KfXsoouNfrjyyMC/vLHmeR/nd3OORc9p0bT4Xq');
+insert into cuenta values(9, 'seguridadcopia720@gmail.com', '$2a$10$k6ANLEXelA4lhJ/KfXsoouNfrjyyMC/vLHmeR/nd3OORc9p0bT4Xq');
 
 
 insert into paciente values('24567234', 1, 1, 'Pepito Perez', '5454545', 'url_foto', 'Sin
@@ -43,8 +43,8 @@ insert into cuenta values(24, 'medico57848@email.com', '12341');
 insert into medico values('373456', 8, 1, 'Yhonatan Brutal', '11111', 'url_foto', 4, 20);
 insert into medico values('345634', 8, 1, 'Cristian Bedon',  '222222', 'url_foto', 3, 21);
 insert into medico values('345234', 6, 1, 'Erick Bedoya',  '333333', 'url_foto', 2, 22);
-insert into medico values('253325', 11, 1, 'Rojito PT',  '444444', 'url_foto', 1, 23);
-insert into medico values('765475', 10, 1, 'Metricas Frias',  '555555', 'url_foto', 3,24);
+insert into medico values('253325', 1, 1, 'Rojito PT',  '444444', 'url_foto', 1, 23);
+insert into medico values('765475', 2, 1, 'Metricas Frias',  '555555', 'url_foto', 3,24);
 /*
   ____________________________________________________________________________________________________________
  */
@@ -52,11 +52,11 @@ insert into medico values('765475', 10, 1, 'Metricas Frias',  '555555', 'url_fot
 /*
   _______________________________________ Citas _________________________________________________________
 */
-insert into cita values (100, 3, '2023-10-20', 'Consulta General', 20, 4);
-insert into cita values (101, 3, '2023-10-22', 'Consulta General', 21, 5);
-insert into cita values (102, 3, '2023-10-24', 'Consulta General', 22, 7);
-insert into cita values (103, 3, '2023-10-26', 'Consulta General', 23, 8);
-insert into cita values (104, 2, '2023-10-28', 'Consulta General', 24, 9);
+insert into cita values (100, 3, '2023-10-20', 'Consulta General', 1, 20, 4);
+insert into cita values (101, 3, '2023-10-22', 'Consulta General', 2, 21, 5);
+insert into cita values (102, 3, '2023-10-24', 'Consulta General', 3, 22, 7);
+insert into cita values (103, 3, '2023-10-26', 'Consulta General', 4, 23, 8);
+insert into cita values (104, 2, '2023-10-28', 'Consulta General', 5, 24, 9);
 /*
   ____________________________________________________________________________________________________________
  */

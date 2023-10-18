@@ -1,9 +1,6 @@
 package co.uniquindio.clinicaLaBienAmada.test;
 
-import co.uniquindio.clinicaLaBienAmada.dto.DetallePQRSDTO;
-import co.uniquindio.clinicaLaBienAmada.dto.ItemCitaDTO;
-import co.uniquindio.clinicaLaBienAmada.dto.ItemPQRSDTO;
-import co.uniquindio.clinicaLaBienAmada.dto.MedicoDTO;
+import co.uniquindio.clinicaLaBienAmada.dto.*;
 import co.uniquindio.clinicaLaBienAmada.dto.admin.DetalleMedicoDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.admin.ItemMedicoDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.admin.RegistroMedicoDTO;
@@ -14,6 +11,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +21,6 @@ public class AdministradorServicioTest {
 
     @Autowired
     private AdmnistradorServicio admnistradorServicio;
-
 
     // _____________________________________ Funcionales _______________________________________________
     @Test
@@ -133,6 +130,18 @@ public class AdministradorServicioTest {
         //Assertions.assertEquals(EstadoPQRS.RESUELTO , objetoModificado.urlFoto());
     }
 
+    @Test
+    public void responderPQRS() throws Exception {
+
+        RegistroRespuestaDTO respuesta = new RegistroRespuestaDTO(
+                99,
+                504,
+                "Pero el doctor me cuenta algo totalmente distinto, que pasa realmente?"
+        );
+
+        admnistradorServicio.responderPQRS(respuesta);
+    }
+
     // _________________________________ Funcionales pero con dudas ___________________________________
     @Test
     @Transactional
@@ -146,6 +155,7 @@ public class AdministradorServicioTest {
     }
 
     // ______________________________________________________________________________________________________
+
 
 
 

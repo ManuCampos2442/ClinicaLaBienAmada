@@ -11,11 +11,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-import java.util.Optional;
+import java.time.Period;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -82,10 +82,20 @@ public class PacienteServicioImpl implements PacienteServicio {
             }
         }*/
 
+        Random random = new Random();
+
+        // Genera un número aleatorio entre 0 y 4
+        int numeroAleatorio = random.nextInt(5);
+
+        // Obtén la sede correspondiente al número aleatorio
+        Sede sede = Sede.values()[numeroAleatorio];
+
+
         Cita cita = new Cita();
         cita.setFechaCita(registroCitaDTO.fechaCita());
         cita.setMotivo(registroCitaDTO.motivo());
         cita.setEstadoCita(registroCitaDTO.estadoCita());
+        cita.setSede(sede);
 
         cita.setPaciente(pacienteObtenido.get());
         cita.setMedico(medicoObtenido.get());
@@ -93,10 +103,24 @@ public class PacienteServicioImpl implements PacienteServicio {
         Cita citaNueva = citaRepo.save(cita);
 
 
+        LocalDateTime fechaCreacion = LocalDateTime.now();
+        LocalDate fechaCita = citaNueva.getFechaCita().toLocalDate();
+
+
+        Period periodoHastaCita = Period.between(LocalDate.now(), fechaCita);
+        int diasFaltantes = periodoHastaCita.getDays();
+
         emailServicio.enviarCorreo(new EmailDTO(
                 pacienteObtenido.get().getCorreo(),
                 "Se ha agendado una nueva cita",
                 "La cita se ha agenado con el médico tal el día tal"
+        ));
+
+        emailServicio.enviarCorreo(new EmailDTO(
+                pacienteObtenido.get().getCorreo(),
+                "Faltan " + diasFaltantes + " Dias Para Su Cita",
+                "Faltan " + diasFaltantes + " dias para la realizacion de su cita medica." +
+                        "Recuerde llevar su documento a la hora de asistir a la cita al igual que un tapabocas."
         ));
 
 
@@ -338,9 +362,9 @@ public class PacienteServicioImpl implements PacienteServicio {
 
         System.out.println("Se va a aliminar el paciente  " + buscado.getNombre());
 
-        // buscado.setEstado(false);
-        pacienteRepo.delete(pacienteBuscado.get());
-        //pacienteRepo.save( buscado );
+        buscado.setEstado(false);
+        //pacienteRepo.delete(pacienteBuscado.get());
+        pacienteRepo.save( buscado );
 
         return true;
 
@@ -412,16 +436,16 @@ public class PacienteServicioImpl implements PacienteServicio {
     @Override
     public void cambiarPassword(NuevaPasswordDTO nuevaPasswordDTO) throws Exception {
 
-        String parametro = new String(Base64.getDecoder().decode(nuevaPasswordDTO.nuevaPassword()));
+        /*String parametro = new String(Base64.getDecoder().decode(nuevaPasswordDTO.nuevaPassword()));
         String[] datos = parametro.split(";");
         int codigoCuenta = Integer.parseInt(datos[0]);
-        LocalDateTime fecha = LocalDateTime.parse(datos[1]);
+        LocalDateTime fecha = LocalDateTime.parse(datos[1]);*/
 
-        if(fecha.plusMinutes(30).isBefore(LocalDateTime.now())){
+       /* if(fecha.plusMinutes(30).isBefore(LocalDateTime.now())){
             throw new Exception("El link de recuperacion ha expirado");
-        }
+        }*/
 
-        Cuenta cuenta = obtenerCuentaCodigo(codigoCuenta);
+        Cuenta cuenta = obtenerCuentaCodigo(nuevaPasswordDTO.codigoCuenta());
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         cuenta.setPassword(passwordEncoder.encode(nuevaPasswordDTO.nuevaPassword()));
@@ -432,7 +456,8 @@ public class PacienteServicioImpl implements PacienteServicio {
 
         Optional<Cuenta> cuenta = cuentaRepo.findById(codigoCuenta);
 
-        return null;
+
+        return cuenta.get();
     }
 
 
@@ -443,31 +468,23 @@ public class PacienteServicioImpl implements PacienteServicio {
 
         Optional<Cuenta> cuentaEncontrada = cuentaRepo.findById(registroRespuestaDTO.codigoCuenta());
 
-        Optional<Mensaje> mensaje = mensajeRepo.findById(registroRespuestaDTO.codigoMensaje());
-
         if(cuentaEncontrada.isEmpty()){
             throw new Exception("El codigo" + registroRespuestaDTO.codigoPQRS() + " no esta asociado a ningun PQRS");
         }
 
         if(pqrsEncontrada.isEmpty()){
             throw new Exception("No existe tal PQRS con ese codigo");
-        }else{
-            if (mensaje.isEmpty()){
-
-                Mensaje mensajeNuevo = new Mensaje();
-                mensajeNuevo.setFechaCreacion(LocalDateTime.now());
-                mensajeNuevo.setMensaje(new Mensaje());
-                mensajeNuevo.setPqrs(pqrsEncontrada.get());
-                mensajeNuevo.setCuenta(cuentaEncontrada.get());
-
-                Mensaje mensaje1 = mensajeRepo.save(mensajeNuevo);
-
-                return mensaje1.getCodigo();
-            }
         }
 
+        Mensaje mensajeNuevo = new Mensaje();
+        mensajeNuevo.setFechaCreacion(LocalDateTime.now());
+        mensajeNuevo.setMensaje(registroRespuestaDTO.mensaje());
+        mensajeNuevo.setPqrs(pqrsEncontrada.get());
+        mensajeNuevo.setCuenta(cuentaEncontrada.get());
 
-        return 0;
+        Mensaje mensaje1 = mensajeRepo.save(mensajeNuevo);
+
+        return mensaje1.getCodigo();
     }
 
 

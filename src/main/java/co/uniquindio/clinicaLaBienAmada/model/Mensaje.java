@@ -22,6 +22,8 @@ public class Mensaje implements Serializable {
     private int codigo;
     @Column(nullable = false)
     private LocalDateTime fechaCreacion;
+    @Column(nullable = false)
+    private String mensaje;
     //______________________________________________________________________________________
 
     //__________________________ FK ________________________________________________________
@@ -29,8 +31,6 @@ public class Mensaje implements Serializable {
     private Pqrs pqrs;
     @ManyToOne
     private Cuenta cuenta;
-    @OneToOne
-    private Mensaje mensaje;
     //_________________________________________________________________________________
 
     //_______________________ Constructor ____________________________________________

@@ -27,6 +27,7 @@ public class AutenticacionServicioImpl implements AutenticacionServicio {
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         Optional<Cuenta> cuentaOptional = cuentaRepo.findByCorreo(loginDTO.correo());
+
         if(cuentaOptional.isEmpty()){
             throw new Exception("No existe el correo ingresado");
         }
@@ -37,6 +38,7 @@ public class AutenticacionServicioImpl implements AutenticacionServicio {
         }
         return new TokenDTO( crearToken(cuenta) );
     }
+
     private String crearToken(Cuenta cuenta){
         String rol;
         String nombre;

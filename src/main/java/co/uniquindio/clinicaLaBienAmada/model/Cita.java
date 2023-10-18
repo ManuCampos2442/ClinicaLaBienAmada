@@ -28,6 +28,9 @@ public class Cita implements Serializable {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private EstadoCita estadoCita;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Sede sede;
     //______________________________________________________________________________________
 
     //__________________________________ FK ________________________________________________

@@ -238,27 +238,25 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
 
         //Obetener el PQRS
         Optional<Pqrs> opcionalPqrs = pqrsRepo.findById(registroRespuestaDTO.codigoPQRS()); // SELECT * FROM MEDICO WHERE CODIGO = CODIGO
-
-        Optional<Mensaje> mensajeEncontrado = mensajeRepo.findById(registroRespuestaDTO.codigoMensaje());
+        Optional<Cuenta> cuentaEncontrada = cuentaRepo.findById(registroRespuestaDTO.codigoCuenta());
 
         if(opcionalPqrs.isEmpty()){
             throw new Exception("El codigo" + registroRespuestaDTO.codigoPQRS() + " no esta asociado a ningun PQRS");
         }
 
-        //Obtener la cuenta
-        Optional<Cuenta> opcionalCuenta = cuentaRepo.findById(registroRespuestaDTO.codigoPQRS()); // SELECT * FROM MEDICO WHERE CODIGO = CODIGO
+        //Obtener la cuenta / SELECT * FROM MEDICO WHERE CODIGO = CODIGO
 
-        if(opcionalCuenta.isEmpty()){
-            throw new Exception("El codigo" + registroRespuestaDTO.codigoPQRS() + " no esta asociado a ningun PQRS");
+        if(cuentaEncontrada.isEmpty()){
+            throw new Exception("El codigo" + registroRespuestaDTO.codigoCuenta() + " no esta asociado a ningun PQRS");
         }
 
 
 
         Mensaje mensaje = new Mensaje();
         mensaje.setFechaCreacion(LocalDateTime.now());
-        mensaje.setMensaje(mensajeEncontrado.get());
+        mensaje.setMensaje(registroRespuestaDTO.mensaje());
         mensaje.setPqrs(opcionalPqrs.get());
-        mensaje.setCuenta(opcionalCuenta.get());
+        mensaje.setCuenta(cuentaEncontrada.get());
 
         return mensajeRepo.save(mensaje).getCodigo();
     }

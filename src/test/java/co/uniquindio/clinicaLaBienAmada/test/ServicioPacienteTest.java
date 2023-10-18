@@ -3,7 +3,7 @@ package co.uniquindio.clinicaLaBienAmada.test;
 import co.uniquindio.clinicaLaBienAmada.dto.*;
 import co.uniquindio.clinicaLaBienAmada.dto.paciente.*;
 import co.uniquindio.clinicaLaBienAmada.model.*;
-import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.CitaServicios;
+import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.AutenticacionServicio;
 import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.PacienteServicio;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
@@ -15,6 +15,7 @@ import org.springframework.test.context.jdbc.Sql;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
 
 @SpringBootTest
 public class ServicioPacienteTest {
@@ -22,10 +23,21 @@ public class ServicioPacienteTest {
     @Autowired
     private PacienteServicio pacienteServicio;
 
+    @Autowired
+    private AutenticacionServicio autenticacionServicio;
+
 
     // _________________________ Funcionales _________________________________________________
     @Test
     public void crearCita() throws Exception {
+
+        Random random = new Random();
+
+        // Genera un número aleatorio entre 0 y 4
+        int numeroAleatorio = random.nextInt(5);
+
+        // Obtén la sede correspondiente al número aleatorio
+        Sede sede = Sede.values()[numeroAleatorio];
 
         RegistroCitaDTO citaDTO = new RegistroCitaDTO(
 
@@ -33,6 +45,7 @@ public class ServicioPacienteTest {
                         LocalDateTime.of(2023, 10, 10, 14, 30),
                         "Molusco contagioso",
                         EstadoCita.PROGRAMADA,
+                         sede,
                         9,
                         8
 
@@ -48,7 +61,7 @@ public class ServicioPacienteTest {
     }
 
    @Test
-  // @Sql("classpath:dataset.sql")
+   @Sql("classpath:dataset.sql")
     public void registrarTest() throws Exception {
 
         //Creamos un objeto con los datos del paciente
@@ -75,12 +88,23 @@ public class ServicioPacienteTest {
     @Test
     public void agendarCita() throws Exception {
 
+
+        Random random = new Random();
+
+        // Genera un número aleatorio entre 0 y 4
+        int numeroAleatorio = random.nextInt(5);
+
+        // Obtén la sede correspondiente al número aleatorio
+        Sede sede = Sede.values()[numeroAleatorio];
+
+
         RegistroCitaDTO registroCita = new RegistroCitaDTO(
                 LocalDate.of(1990, 10, 7).atStartOfDay(),
                 "Consulta General",
                 EstadoCita.PROGRAMADA,
-                1,
-                2
+                sede,
+                9,
+                20
         );
 
         int nuevo = pacienteServicio.agendarCita(registroCita);
@@ -193,7 +217,55 @@ public class ServicioPacienteTest {
         Assertions.assertEquals(1,  + citas.size());
     }
 
+
+    @Test
+    public void responderPQRS() throws Exception {
+
+        RegistroRespuestaDTO respuesta = new RegistroRespuestaDTO(
+                7,
+                504,
+                "Supremamente grosero el man simplemente cartulina"
+        );
+
+        pacienteServicio.responderPQRS(respuesta);
+
+        //Assertions.assertNotEquals(0, respuesta);
+    }
+
+    @Test
+    @Transactional
+    @Sql("classpath:dataset.sql")
+    public void logear() throws Exception {
+
+        LoginDTO login = new LoginDTO(
+                "mariana89@email.com",
+                "1234"
+        );
+
+        autenticacionServicio.login(login);
+
+        Assertions.assertNotEquals(0, login);
+
+    }
+
     // _______________________________________________ Funciona pero Ojito ____________________________
+
+    @Test
+    public void enviarLinkRecuperacionContrasenia() throws Exception {
+
+        pacienteServicio.enviarLinkRecuperacion("seguridadcopia720@gmail.com");
+
+    }
+
+    @Test
+    public void cambiarContrasenia() throws Exception {
+        NuevaPasswordDTO nuevaPasswordDTO = new NuevaPasswordDTO(
+                9,
+                "123"
+        );
+        System.out.println("nuevaPasswordDTO.nuevaPassword: " + nuevaPasswordDTO.nuevaPassword());
+        pacienteServicio.cambiarPassword(nuevaPasswordDTO);
+    }
 
     @Test
     public void filtrarCitas() throws Exception {
@@ -230,7 +302,6 @@ public class ServicioPacienteTest {
     }
 
     @Test
-    @Transactional
     public void eliminarTest() throws Exception {
         //Se borra por ejemplo el paciente con el código 1
         pacienteServicio.eliminarCuenta(9);
@@ -268,27 +339,6 @@ public class ServicioPacienteTest {
 
    // ________________________________________________________________________________________________
 
-
-
-
-    @Test
-    public void responderPQRS() throws Exception {
-
-        RegistroRespuestaDTO respuesta = new RegistroRespuestaDTO(
-                7,
-                504,
-                600,
-                "Supremamente grosero el man simplemente cartulina"
-        );
-
-        pacienteServicio.responderPQRS(respuesta);
-
-        //Assertions.assertNotEquals(0, respuesta);
-
-
-
-
-    }
 
 
 
