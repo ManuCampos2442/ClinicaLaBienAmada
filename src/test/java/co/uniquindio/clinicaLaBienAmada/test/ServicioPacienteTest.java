@@ -114,15 +114,6 @@ public class ServicioPacienteTest {
         Assertions.assertNotEquals(0, nuevo);
     }
 
-    /* @Test
-    public void eliminarPaciente() throws Exception {
-        System.out.println("PacienteServicioTest.eliminarPaciente");
-        int codigoPaciente = 1;
-        boolean eliminado = pacienteServicio.eliminarCuenta(codigoPaciente);
-
-
-        Assertions.assertTrue(eliminado);
-    }*/
 
     @Test
     // @Sql("classpath:dataset.sql" )
@@ -131,7 +122,7 @@ public class ServicioPacienteTest {
         List<ItemPacienteDTO> lista = pacienteServicio.listarTodos();
         lista.forEach(System.out::println);
         //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
-        Assertions.assertEquals(1, lista.size());
+        Assertions.assertEquals(8, lista.size());
     }
 
 

@@ -76,11 +76,6 @@ public class PacienteServicioImpl implements PacienteServicio {
         Optional<Paciente> pacienteObtenido = pacienteRepo.findById(registroCitaDTO.codigoPaciente());
         Optional<Medico> medicoObtenido = medicoRepo.findById(registroCitaDTO.codigoMedico());
 
-        /*for (Cita cita : citasAgendadas){
-            if(cita.getFechaCita().equals(registroCitaDTO.fechaCita())){
-                throw new Exception("Ya tiene una cita en esta fecha en especifico.");
-            }
-        }*/
 
         Random random = new Random();
 
@@ -113,7 +108,8 @@ public class PacienteServicioImpl implements PacienteServicio {
         emailServicio.enviarCorreo(new EmailDTO(
                 pacienteObtenido.get().getCorreo(),
                 "Se ha agendado una nueva cita",
-                "La cita se ha agenado con el médico tal el día tal"
+                "La cita se ha agendado con el medico " + cita.getMedico().getNombre() + " el dia "
+                + cita.getFechaCita()
         ));
 
         emailServicio.enviarCorreo(new EmailDTO(
