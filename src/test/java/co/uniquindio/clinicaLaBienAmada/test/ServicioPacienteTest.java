@@ -121,15 +121,6 @@ public class ServicioPacienteTest {
         Assertions.assertNotEquals(0, nuevo);
     }
 
-    /* @Test
-    public void eliminarPaciente() throws Exception {
-        System.out.println("PacienteServicioTest.eliminarPaciente");
-        int codigoPaciente = 1;
-        boolean eliminado = pacienteServicio.eliminarCuenta(codigoPaciente);
-
-
-        Assertions.assertTrue(eliminado);
-    }*/
 
     /*
     Metodo que permite listar todos los pacientes

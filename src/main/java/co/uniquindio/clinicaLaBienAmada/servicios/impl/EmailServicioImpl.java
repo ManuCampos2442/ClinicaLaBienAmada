@@ -14,10 +14,6 @@ public class EmailServicioImpl implements EmailServicio {
 
     private final JavaMailSender javaMailSender;
 
-   /* @Override
-    public String enviarCorreo(EmailDTO emailDTO) throws Exception {
-        return null;
-    }*/
    @Override
     public void enviarCorreo(EmailDTO emailDTO) throws Exception {
 
