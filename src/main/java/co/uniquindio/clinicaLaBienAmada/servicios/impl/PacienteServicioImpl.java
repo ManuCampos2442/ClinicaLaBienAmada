@@ -123,7 +123,7 @@ public class PacienteServicioImpl implements PacienteServicio {
         return citaNueva.getCodigo();
     }
 
-    @Override
+    /*@Override
     public List<ItemPacienteDTO> listarTodos() throws Exception {
 
         List<Paciente> pacientes = pacienteRepo.findAll();
@@ -135,7 +135,7 @@ public class PacienteServicioImpl implements PacienteServicio {
         }
 
         return respuesta;
-    }
+    }*/
 
     @Override
     public int crearPQRS(RegistroPQRSDTO registroPQRSDTO) throws Exception {
@@ -245,9 +245,9 @@ public class PacienteServicioImpl implements PacienteServicio {
     }
 
     @Override
-    public List<FiltroBusquedaDTO> filtrarCitasPorFecha(LocalDateTime fecha) throws Exception {
+    public List<FiltroBusquedaDTO> filtrarCitasPorFecha(int codigoPaciente, LocalDateTime fecha) throws Exception {
 
-        List<Cita> citaEcontradaPorFecha = citaRepo.findAllByFechaCita(fecha);
+        List<Cita> citaEcontradaPorFecha = citaRepo.findAllByFechaCitaAndPacienteCodigo(fecha,codigoPaciente);
 
         if(citaEcontradaPorFecha.isEmpty()){
             throw new Exception("\n No hay tal lista de citas por la fecha introducida.");
@@ -270,9 +270,9 @@ public class PacienteServicioImpl implements PacienteServicio {
     }
 
     @Override
-    public List<FiltroBusquedaDTO> filtrarCitasPorMedico(int codigoMedico) throws Exception {
+    public List<FiltroBusquedaDTO> filtrarCitasPorMedico(int codigoPaciente, int codigoMedico) throws Exception {
 
-        List<Cita> citasEncontradasPorMedico = citaRepo.findAllByMedicoCodigo(codigoMedico);
+        List<Cita> citasEncontradasPorMedico = citaRepo.findAllByPacienteCodigoAndMedicoCodigo(codigoPaciente, codigoMedico);
         List<FiltroBusquedaDTO> citas = new ArrayList<>();
 
         if(citasEncontradasPorMedico.isEmpty()){
@@ -293,29 +293,6 @@ public class PacienteServicioImpl implements PacienteServicio {
     }
 
     //____________________________________ Metodo Funcional pero con Dudas ______________________________
-
-    @Override
-    public  List<FiltroBusquedaDTO> filtrarCitas() throws Exception {
-
-        List<Cita> citasEncontradas = citaRepo.findAll();
-        List<FiltroBusquedaDTO> citas = new ArrayList<>();
-
-        if(citasEncontradas.isEmpty()){
-            throw new Exception("No se encontraron citas.");
-        }
-
-        for(Cita c : citasEncontradas){
-            citas.add(new FiltroBusquedaDTO(
-                    c.getCodigo(),
-                    c.getMedico().getCodigo(),
-                    c.getMedico().getNombre(),
-                    c.getMotivo(),
-                    c.getFechaCita()
-            ));
-        }
-
-        return citas;
-    }
 
     @Override
     public int editarPerfil(DetallePacienteDTO pacienteDTO) throws Exception {
@@ -435,9 +412,9 @@ public class PacienteServicioImpl implements PacienteServicio {
         /*String parametro = new String(Base64.getDecoder().decode(nuevaPasswordDTO.nuevaPassword()));
         String[] datos = parametro.split(";");
         int codigoCuenta = Integer.parseInt(datos[0]);
-        LocalDateTime fecha = LocalDateTime.parse(datos[1]);*/
+        LocalDateTime fecha = LocalDateTime.parse(datos[1]);
 
-       /* if(fecha.plusMinutes(30).isBefore(LocalDateTime.now())){
+        if(fecha.plusMinutes(30).isBefore(LocalDateTime.now())){
             throw new Exception("El link de recuperacion ha expirado");
         }*/
 
@@ -451,7 +428,6 @@ public class PacienteServicioImpl implements PacienteServicio {
     private Cuenta obtenerCuentaCodigo(int codigoCuenta) {
 
         Optional<Cuenta> cuenta = cuentaRepo.findById(codigoCuenta);
-
 
         return cuenta.get();
     }

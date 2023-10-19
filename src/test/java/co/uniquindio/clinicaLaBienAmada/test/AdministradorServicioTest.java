@@ -4,14 +4,17 @@ import co.uniquindio.clinicaLaBienAmada.dto.*;
 import co.uniquindio.clinicaLaBienAmada.dto.admin.DetalleMedicoDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.admin.ItemMedicoDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.admin.RegistroMedicoDTO;
+import co.uniquindio.clinicaLaBienAmada.dto.paciente.ItemPacienteDTO;
 import co.uniquindio.clinicaLaBienAmada.model.*;
 import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.AdmnistradorServicio;
+import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.PacienteServicio;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -158,5 +161,23 @@ public class AdministradorServicioTest {
 
 
 
+    @Test
+    @Transactional
+    @Sql("classpath:dataset.sql")
+    public void listarTestSQL() throws Exception {
+
+        System.out.println( admnistradorServicio.listarTodos() );
+
+    }
+
+    @Test
+    // @Sql("classpath:dataset.sql" )
+    public void listarTest() throws Exception {
+        //Obtenemos la lista de todos los pacientes
+        List<ItemPacienteDTO> lista = admnistradorServicio.listarTodos();
+        lista.forEach(System.out::println);
+        //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
+        Assertions.assertEquals(8, lista.size());
+    }
 
 }

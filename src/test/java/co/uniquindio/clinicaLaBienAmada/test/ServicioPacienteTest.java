@@ -115,15 +115,7 @@ public class ServicioPacienteTest {
     }
 
 
-    @Test
-    // @Sql("classpath:dataset.sql" )
-    public void listarTest() throws Exception {
-        //Obtenemos la lista de todos los pacientes
-        List<ItemPacienteDTO> lista = pacienteServicio.listarTodos();
-        lista.forEach(System.out::println);
-        //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
-        Assertions.assertEquals(8, lista.size());
-    }
+
 
 
     @Test
@@ -190,7 +182,7 @@ public class ServicioPacienteTest {
     @Test
     public void filtrarCitasPorCodigoMedico() throws Exception {
 
-        List<FiltroBusquedaDTO> citas = pacienteServicio.filtrarCitasPorMedico(24);
+        List<FiltroBusquedaDTO> citas = pacienteServicio.filtrarCitasPorMedico(7, 22);
 
         citas.forEach(System.out::println);
         //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
@@ -201,7 +193,7 @@ public class ServicioPacienteTest {
     public void filtrarCitasPorFecha() throws Exception {
 
         List<FiltroBusquedaDTO> citas = pacienteServicio.
-                filtrarCitasPorFecha(LocalDate.of(2023, 10, 28).atStartOfDay());
+                filtrarCitasPorFecha(7, LocalDate.of(2023, 10, 24).atStartOfDay());
 
         citas.forEach(System.out::println);
         //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
@@ -258,15 +250,6 @@ public class ServicioPacienteTest {
         pacienteServicio.cambiarPassword(nuevaPasswordDTO);
     }
 
-    @Test
-    public void filtrarCitas() throws Exception {
-
-        List<FiltroBusquedaDTO> citas = pacienteServicio.filtrarCitas();
-
-        citas.forEach(System.out::println);
-        //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
-        Assertions.assertEquals(5,  + citas.size());
-    }
 
     @Test
    // @Transactional
@@ -318,14 +301,7 @@ public class ServicioPacienteTest {
     //____________________________________________________________________________________________________
     // ________________________________________________________________________________________________
 
-    @Test
-    @Transactional
-    @Sql("classpath:dataset.sql")
-    public void listarTestSQL() throws Exception {
 
-        System.out.println( pacienteServicio.listarTodos() );
-
-    }
 
 
    // ________________________________________________________________________________________________

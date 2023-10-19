@@ -1,6 +1,7 @@
 package co.uniquindio.clinicaLaBienAmada.servicios.impl;
 
 import co.uniquindio.clinicaLaBienAmada.dto.*;
+import co.uniquindio.clinicaLaBienAmada.dto.paciente.ItemPacienteDTO;
 import co.uniquindio.clinicaLaBienAmada.model.*;
 import co.uniquindio.clinicaLaBienAmada.repositorios.*;
 import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.AdmnistradorServicio;
@@ -22,6 +23,7 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
 
 
     private final MedicoRepo medicoRepo;
+    private final PacienteRepo pacienteRepo;
     private final PQRSRepo pqrsRepo;
     private final CitaRepo citaRepo;
     private final MensajeRepo mensajeRepo;
@@ -299,6 +301,20 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
 
 
             }
+
+        return respuesta;
+    }
+
+    @Override
+    public List<ItemPacienteDTO> listarTodos() throws Exception {
+
+        List<Paciente> pacientes = pacienteRepo.findAll();
+        List<ItemPacienteDTO> respuesta = new ArrayList<>();
+
+        for (Paciente paciente : pacientes){
+            respuesta.add(new ItemPacienteDTO(paciente.getCodigo(), paciente.getCedula(),
+                    paciente.getNombre(), paciente.getCiudad()));
+        }
 
         return respuesta;
     }
