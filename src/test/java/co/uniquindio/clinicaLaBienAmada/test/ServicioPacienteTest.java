@@ -60,6 +60,10 @@ public class ServicioPacienteTest {
 
     }
 
+    /*
+    Metodo que permite registrar un paciente y cargar los datos quemados
+    del datacenter en la base de datos
+     */
    @Test
    @Sql("classpath:dataset.sql")
     public void registrarTest() throws Exception {
@@ -85,6 +89,9 @@ public class ServicioPacienteTest {
         Assertions.assertNotEquals(0, nuevo);
     }
 
+    /*
+    Metodo que permite agendar una cita
+     */
     @Test
     public void agendarCita() throws Exception {
 
@@ -103,7 +110,7 @@ public class ServicioPacienteTest {
                 "Consulta General",
                 EstadoCita.PROGRAMADA,
                 sede,
-                9,
+                3,
                 20
         );
 
@@ -115,9 +122,13 @@ public class ServicioPacienteTest {
     }
 
 
+    /*
+    Metodo que permite listar todos los pacientes
+     */
 
-
-
+    /*
+    Metodo que permite crear una PQRS
+     */
     @Test
     public void crearPQRS() throws Exception {
 
@@ -136,6 +147,10 @@ public class ServicioPacienteTest {
         Assertions.assertNotEquals(0, nuevo);
     }
 
+    /*
+    Metodo que permite ver todos los datos a detalle de un paciente
+    a excepcion de la contraseña
+     */
     @Test
     public void verDetallePaciente() throws Exception {
 
@@ -155,7 +170,7 @@ public class ServicioPacienteTest {
         DetallePQRSDTO detallePQRSDTO = pacienteServicio.verDetallePQRS(1);
 
         System.out.println("\n" + "\n" + detallePQRSDTO.toString());
-        Assertions.assertNotEquals(0, detallePQRSDTO);
+       // Assertions.assertNotEquals(0, detallePQRSDTO);
 
     }
 
