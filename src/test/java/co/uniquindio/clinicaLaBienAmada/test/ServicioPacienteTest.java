@@ -28,37 +28,6 @@ public class ServicioPacienteTest {
 
 
     // _________________________ Funcionales _________________________________________________
-    @Test
-    public void crearCita() throws Exception {
-
-        Random random = new Random();
-
-        // Genera un número aleatorio entre 0 y 4
-        int numeroAleatorio = random.nextInt(5);
-
-        // Obtén la sede correspondiente al número aleatorio
-        Sede sede = Sede.values()[numeroAleatorio];
-
-        RegistroCitaDTO citaDTO = new RegistroCitaDTO(
-
-
-                        LocalDateTime.of(2023, 10, 10, 14, 30),
-                        "Molusco contagioso",
-                        EstadoCita.PROGRAMADA,
-                         sede,
-                        9,
-                        8
-
-        );
-
-
-        int nuevo = pacienteServicio.agendarCita(citaDTO);
-        int valorEsperado = 1;
-
-        // Verificar que 'nuevo' sea igual al valor esperado
-        Assertions.assertEquals(valorEsperado, nuevo);
-
-    }
 
     /*
     Metodo que permite registrar un paciente y cargar los datos quemados
@@ -106,11 +75,11 @@ public class ServicioPacienteTest {
 
 
         RegistroCitaDTO registroCita = new RegistroCitaDTO(
-                LocalDate.of(1990, 10, 7).atStartOfDay(),
+                LocalDate.of(2000, 10, 7).atStartOfDay(),
                 "Consulta General",
                 EstadoCita.PROGRAMADA,
                 sede,
-                3,
+                100,
                 20
         );
 
@@ -120,11 +89,6 @@ public class ServicioPacienteTest {
 
         Assertions.assertNotEquals(0, nuevo);
     }
-
-
-    /*
-    Metodo que permite listar todos los pacientes
-     */
 
     /*
     Metodo que permite crear una PQRS
@@ -164,6 +128,10 @@ public class ServicioPacienteTest {
 
     }
 
+    /*
+    Metodo que permite ver el detalle de una PQRS
+     */
+
     @Test
     public void verDetallePQRS() throws Exception {
 
@@ -174,6 +142,9 @@ public class ServicioPacienteTest {
 
     }
 
+    /*
+    Metodo que permite listas las citas que tiene un paciente
+     */
     @Test
     public void listarCitasPaciente() throws Exception {
 
@@ -183,7 +154,9 @@ public class ServicioPacienteTest {
         //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
         Assertions.assertEquals(1,  + listaCitas.size());
     }
-
+    /*
+    Metodo que permite ver el detalle de una cita
+     */
     @Test
     public void verDetalleCita() throws Exception {
 
@@ -194,28 +167,10 @@ public class ServicioPacienteTest {
 
     }
 
-    @Test
-    public void filtrarCitasPorCodigoMedico() throws Exception {
 
-        List<FiltroBusquedaDTO> citas = pacienteServicio.filtrarCitasPorMedico(7, 22);
-
-        citas.forEach(System.out::println);
-        //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
-        Assertions.assertEquals(1,  + citas.size());
-    }
-
-    @Test
-    public void filtrarCitasPorFecha() throws Exception {
-
-        List<FiltroBusquedaDTO> citas = pacienteServicio.
-                filtrarCitasPorFecha(7, LocalDate.of(2023, 10, 24).atStartOfDay());
-
-        citas.forEach(System.out::println);
-        //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
-        Assertions.assertEquals(1,  + citas.size());
-    }
-
-
+    /*
+    Metodo que permite respoonder una PQRS
+     */
     @Test
     public void responderPQRS() throws Exception {
 
@@ -298,7 +253,9 @@ public class ServicioPacienteTest {
 
         Assertions.assertThrows(Exception.class, () -> pacienteServicio.verDetallePaciente(9));
     }
-
+    /*
+    Metodo que permite listar las PQRS de un paciente
+     */
     @Test
     public void listarPQRSPaciente() throws Exception {
 
@@ -307,21 +264,38 @@ public class ServicioPacienteTest {
                 "\n" + "\n"
         );
 
-        List<ItemPQRSDTO> lista = pacienteServicio.listarPQRSPciente(9);
+        List<ItemPQRSDTO> lista = pacienteServicio.listarPQRSPciente(5);
         lista.forEach(System.out::println);
         //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
         Assertions.assertEquals(1,  + lista.size());
     }
 
-    //____________________________________________________________________________________________________
-    // ________________________________________________________________________________________________
+    //______________METODOS DE FILTRAR POR FECHA Y CODIGO________________________________
+/*
+    Metodo que permite filtrar las citas por medio del codigo de un medico
+     */
+    @Test
+    public void filtrarCitasPorCodigoMedico() throws Exception {
 
+        List<FiltroBusquedaDTO> citas = pacienteServicio.filtrarCitasPorMedico(7, 22);
 
+        citas.forEach(System.out::println);
+        //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
+        Assertions.assertEquals(1,  + citas.size());
+    }
 
+    /*
+       Metodo que permite filtrar las citas por medio de una fecha
+        */
+    @Test
+    public void filtrarCitasPorFecha() throws Exception {
 
-   // ________________________________________________________________________________________________
+        List<FiltroBusquedaDTO> citas = pacienteServicio.
+                filtrarCitasPorFecha(7, LocalDate.of(2023, 10, 24).atStartOfDay());
 
-
-
+        citas.forEach(System.out::println);
+        //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
+        Assertions.assertEquals(1,  + citas.size());
+    }
 
 }

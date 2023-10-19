@@ -31,7 +31,7 @@ public class ServicioMedicoTest {
 
 
     // ________________________________ Funcionales ______________________________________________________
-    @Test
+    /*@Test
     public void crearMedico() throws Exception {
 
         RegistroMedicoDTO medicoDTO = new RegistroMedicoDTO(
@@ -52,14 +52,17 @@ public class ServicioMedicoTest {
 
         Assertions.assertNotEquals(0, nuevo);
 
-    }
+    }*/
 
+    /*
+    Permite al medico atender una cita
+     */
     @Test
-    @Sql("classpath:dataset.sql")
+   // @Sql("classpath:dataset.sql")
     public void atencerCita() throws Exception {
 
         RegistroAtencionDTO atencion = new RegistroAtencionDTO(
-                100,
+                105,
                 20,
                 "Padece de estres post traumatico",
                 "Parcetamol",

@@ -52,7 +52,9 @@ public class AdministradorServicioTest {
     public void asginarHorario() {
 
     }
-
+    /*
+    Metodo que permite actualizar los datos de un medico
+     */
     @Test
     public void actualizarMedico() throws Exception {
 
@@ -71,6 +73,10 @@ public class AdministradorServicioTest {
 
     }
 
+    /*
+    Metodo que permite listar los medicos
+    en SQl se iguala el codigo para que sea uno en especifico
+     */
     @Test
     public void listarMedicos() throws Exception {
 
@@ -85,6 +91,9 @@ public class AdministradorServicioTest {
         Assertions.assertEquals(5, +medicosEncontrados.size());
     }
 
+    /*
+    Metodo que permite listar las PQRS
+     */
     @Test
     public void listarPQRS() throws Exception {
 
@@ -99,6 +108,9 @@ public class AdministradorServicioTest {
         Assertions.assertEquals(5, +itemPQRSDTO.size());
     }
 
+    /*
+    Metodo que permite ver los detalles de una PQRS
+     */
     @Test
     public void verDetallePQRS() throws Exception {
 
@@ -108,6 +120,9 @@ public class AdministradorServicioTest {
         Assertions.assertNotEquals(0, pqrs);
     }
 
+    /*
+    Metodo que permite listar las citas de un medico
+     */
     @Test
     public void listarCitas() throws Exception {
 

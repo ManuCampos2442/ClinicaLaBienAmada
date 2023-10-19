@@ -2,7 +2,7 @@
     _______________________________________ Pacientes _________________________________________________________
  */
 insert into cuenta values(2, 'pepito@email.com', '$2a$10$k6ANLEXelA4lhJ/KfXsoouNfrjyyMC/vLHmeR/nd3OORc9p0bT4Xq');
-insert into cuenta values(3, 'idesistemas1@gmail.com', '$2a$10$k6ANLEXelA4lhJ/KfXsoouNfrjyyMC/vLHmeR/nd3OORc9p0bT4Xq');
+insert into cuenta values(3, 'garciajuan312002@gmail.com', '$2a$10$k6ANLEXelA4lhJ/KfXsoouNfrjyyMC/vLHmeR/nd3OORc9p0bT4Xq');
 
 insert into cuenta values(4, 'valen7848@email.com', '$2a$10$k6ANLEXelA4lhJ/KfXsoouNfrjyyMC/vLHmeR/nd3OORc9p0bT4Xq');
 insert into cuenta values(5, 'mariana89@email.com', '$2a$10$k6ANLEXelA4lhJ/KfXsoouNfrjyyMC/vLHmeR/nd3OORc9p0bT4Xq');
@@ -64,6 +64,7 @@ insert into cita values (104, 2, '2023-10-28', 'Consulta General', 5, 24, 9);
 /*
  _______________________________________ Atenciones _________________________________________________________
 */
+
 insert into atencion values(200, 'Paciente presenta dolores de cabeza muy fuertes',
                             'Irritabilidad, perdida del conocimiento ', 'Acetaminofen cada 6 horas', 100);
 INSERT INTO atencion VALUES(201, 'Paciente con fiebre y dolor de garganta',
