@@ -83,7 +83,8 @@ INSERT INTO atencion VALUES(204, 'Paciente con dolor abdominal',
  /*
   ---------------------------------------Dia Libre ------------------------------------------------------------
   */
-insert into dia_libre values(300, '2023-10-20', 20);
+/*insert into dia_libre values(300, '2023-10-20', 20);
+ */
 insert into dia_libre values(301, '2023-12-22', 21);
 insert into dia_libre values(302, '2024-01-30', 22);
 insert into dia_libre values(303, '2024-07-30', 23);

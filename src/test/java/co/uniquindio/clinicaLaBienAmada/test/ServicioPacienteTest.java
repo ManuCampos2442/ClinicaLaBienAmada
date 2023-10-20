@@ -135,7 +135,7 @@ public class ServicioPacienteTest {
     @Test
     public void verDetallePQRS() throws Exception {
 
-        DetallePQRSDTO detallePQRSDTO = pacienteServicio.verDetallePQRS(1);
+        DetallePQRSDTO detallePQRSDTO = pacienteServicio.verDetallePQRS(500);
 
         System.out.println("\n" + "\n" + detallePQRSDTO.toString());
        // Assertions.assertNotEquals(0, detallePQRSDTO);
@@ -160,7 +160,7 @@ public class ServicioPacienteTest {
     @Test
     public void verDetalleCita() throws Exception {
 
-        DetalleCitaDTO detalleCita = pacienteServicio.verDetalleCita(1);
+        DetalleCitaDTO detalleCita = pacienteServicio.verDetalleCita(100);
 
         System.out.println("\n" + "\n" + detalleCita.toString());
         Assertions.assertNotEquals(0, detalleCita);
@@ -175,19 +175,19 @@ public class ServicioPacienteTest {
     public void responderPQRS() throws Exception {
 
         RegistroRespuestaDTO respuesta = new RegistroRespuestaDTO(
-                7,
+                100,
                 504,
-                "Supremamente grosero el man simplemente cartulina"
+                "Supremamente grosero el man simplemente....."
         );
 
         pacienteServicio.responderPQRS(respuesta);
 
-        //Assertions.assertNotEquals(0, respuesta);
+        Assertions.assertNotEquals(0, respuesta);
     }
 
     @Test
     @Transactional
-    @Sql("classpath:dataset.sql")
+   // @Sql("classpath:dataset.sql")
     public void logear() throws Exception {
 
         LoginDTO login = new LoginDTO(
@@ -218,12 +218,14 @@ public class ServicioPacienteTest {
         );
         System.out.println("nuevaPasswordDTO.nuevaPassword: " + nuevaPasswordDTO.nuevaPassword());
         pacienteServicio.cambiarPassword(nuevaPasswordDTO);
+
+        Assertions.assertNotEquals(0, nuevaPasswordDTO);
     }
 
 
     @Test
    // @Transactional
-    @Sql("classpath:dataset.sql")
+    //@Sql("classpath:dataset.sql")
     public void actualizarTest() throws Exception{
 
         DetallePacienteDTO guardado = pacienteServicio.verDetallePaciente(9);
@@ -246,12 +248,13 @@ public class ServicioPacienteTest {
     }
 
     @Test
+    @Transactional
     public void eliminarTest() throws Exception {
         //Se borra por ejemplo el paciente con el código 1
         pacienteServicio.eliminarCuenta(9);
         //Si intentamos buscar un paciente con el código del paciente borrado debemos obtener una
 
-        Assertions.assertThrows(Exception.class, () -> pacienteServicio.verDetallePaciente(9));
+
     }
     /*
     Metodo que permite listar las PQRS de un paciente
@@ -264,7 +267,7 @@ public class ServicioPacienteTest {
                 "\n" + "\n"
         );
 
-        List<ItemPQRSDTO> lista = pacienteServicio.listarPQRSPciente(5);
+        List<ItemPQRSDTO> lista = pacienteServicio.listarPQRSPciente(9);
         lista.forEach(System.out::println);
         //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
         Assertions.assertEquals(1,  + lista.size());

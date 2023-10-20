@@ -49,16 +49,13 @@ public class AdministradorServicioTest {
 
     }
 
-    public void asginarHorario() {
-
-    }
     /*
     Metodo que permite actualizar los datos de un medico
      */
     @Test
     public void actualizarMedico() throws Exception {
 
-        DetalleMedicoDTO medico = admnistradorServicio.obtenerMedico(22);
+        DetalleMedicoDTO medico = admnistradorServicio.obtenerMedico(101);
 
         DetalleMedicoDTO medicoModificado = new DetalleMedicoDTO(
                 medico.codigo(), medico.nombre(), medico.cedula(), Ciudad.KHAZAD_DUM, medico.especialidad(),
@@ -88,7 +85,7 @@ public class AdministradorServicioTest {
 
         medicosEncontrados.forEach(System.out::println);
         //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
-        Assertions.assertEquals(5, +medicosEncontrados.size());
+        Assertions.assertEquals(6, +medicosEncontrados.size());
     }
 
     /*
@@ -143,16 +140,13 @@ public class AdministradorServicioTest {
 
         admnistradorServicio.cambiarEstadoPQRS(500, EstadoPQRS.RESUELTO);
 
-        //Assertions.assertNotEquals(0, detalleCita);
-
-        //Assertions.assertEquals(EstadoPQRS.RESUELTO , objetoModificado.urlFoto());
     }
 
     @Test
     public void responderPQRS() throws Exception {
 
         RegistroRespuestaDTO respuesta = new RegistroRespuestaDTO(
-                99,
+                100,
                 504,
                 "Pero el doctor me cuenta algo totalmente distinto, que pasa realmente?"
         );

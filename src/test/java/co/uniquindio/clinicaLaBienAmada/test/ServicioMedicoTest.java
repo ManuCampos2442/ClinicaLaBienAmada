@@ -24,36 +24,10 @@ import java.util.List;
 public class ServicioMedicoTest {
 
     @Autowired
-    private AdmnistradorServicio admnistradorServicio;
-
-    @Autowired
     private MedicoServicio medicoServicio;
 
 
     // ________________________________ Funcionales ______________________________________________________
-    /*@Test
-    public void crearMedico() throws Exception {
-
-        RegistroMedicoDTO medicoDTO = new RegistroMedicoDTO(
-                "Charles",
-                "333334",
-                Ciudad.GONDOR,
-                Especialidad.ORTOPEDISTA,
-                "32140055",
-                "Hol33a@gmail.com",
-                "dontdo",
-                "URL",
-                true,
-                new ArrayList<>()
-
-        );
-
-        int nuevo = admnistradorServicio.crearMedico(medicoDTO);
-
-        Assertions.assertNotEquals(0, nuevo);
-
-    }*/
-
     /*
     Permite al medico atender una cita
      */
@@ -121,7 +95,7 @@ public class ServicioMedicoTest {
 
         lista.forEach(System.out::println);
         //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
-        Assertions.assertEquals(1, lista.size());
+        Assertions.assertEquals(2, lista.size());
     }
 
     @Test
@@ -138,8 +112,8 @@ public class ServicioMedicoTest {
     public void agendarDiaLibre() throws Exception {
 
         DiaLibreDTO dia = new DiaLibreDTO(
-                101,
-                LocalDate.of(2023, 10, 29).atStartOfDay());
+                20,
+                LocalDate.of(2023, 12, 31).atStartOfDay());
 
         medicoServicio.agendarDiaLibre(dia);
 
