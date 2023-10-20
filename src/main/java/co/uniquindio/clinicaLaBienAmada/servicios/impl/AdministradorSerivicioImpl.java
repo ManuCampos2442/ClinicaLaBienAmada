@@ -264,7 +264,7 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
     }
 
     @Override
-    public void cambiarEstadoPQRS(int codigoPQRS, EstadoPQRS estadoPQRS) throws Exception{
+    public int cambiarEstadoPQRS(int codigoPQRS, EstadoPQRS estadoPQRS) throws Exception{
 
         Optional<Pqrs> opcional = pqrsRepo.findById(codigoPQRS); // SELECT * FROM MEDICO WHERE CODIGO = CODIGO
 
@@ -276,6 +276,8 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
         pqrs.setEstadoPQRS(estadoPQRS);
 
         pqrsRepo.save(pqrs);
+
+        return pqrs.getCodigo();
     }
 
 

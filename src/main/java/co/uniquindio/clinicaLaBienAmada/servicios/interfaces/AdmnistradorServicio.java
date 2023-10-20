@@ -29,7 +29,7 @@ public interface AdmnistradorServicio {
 
     List<ItemCitaDTO> listarCitas() throws Exception;
 
-    void cambiarEstadoPQRS(int codigoPQRS, EstadoPQRS estadoPQRS) throws Exception;
+    int cambiarEstadoPQRS(int codigoPQRS, EstadoPQRS estadoPQRS) throws Exception;
     List<ItemPacienteDTO> listarTodos() throws Exception;
 
 }

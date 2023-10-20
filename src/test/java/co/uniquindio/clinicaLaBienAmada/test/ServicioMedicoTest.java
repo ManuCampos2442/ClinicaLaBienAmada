@@ -1,6 +1,7 @@
 package co.uniquindio.clinicaLaBienAmada.test;
 
 import co.uniquindio.clinicaLaBienAmada.dto.ItemCitaDTO;
+import co.uniquindio.clinicaLaBienAmada.dto.LoginDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.admin.RegistroMedicoDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.medico.DetalleAtencionMedicoDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.medico.DiaLibreDTO;
@@ -9,7 +10,9 @@ import co.uniquindio.clinicaLaBienAmada.model.Ciudad;
 import co.uniquindio.clinicaLaBienAmada.model.Especialidad;
 import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.AdmnistradorServicio;
 import co.uniquindio.clinicaLaBienAmada.model.Medico;
+import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.AutenticacionServicio;
 import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.MedicoServicio;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,9 @@ public class ServicioMedicoTest {
 
     @Autowired
     private MedicoServicio medicoServicio;
+
+    @Autowired
+    private AutenticacionServicio autenticacionServicio;
 
 
     // ________________________________ Funcionales ______________________________________________________
@@ -121,7 +127,23 @@ public class ServicioMedicoTest {
 
     }
 
+    @Test
+    @Transactional
+    // @Sql("classpath:dataset.sql")
+    public void logear() throws Exception {
+
+        LoginDTO login = new LoginDTO(
+                "mariana89@email.com",
+                "1234"
+        );
+
+        autenticacionServicio.login(login);
+
+        Assertions.assertNotEquals(0, login);
+    }
+
     // ____________________________________________ No Funcionales _______________________________________
+
 
 
 

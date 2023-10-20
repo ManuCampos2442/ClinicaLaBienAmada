@@ -7,6 +7,7 @@ import co.uniquindio.clinicaLaBienAmada.dto.admin.RegistroMedicoDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.paciente.ItemPacienteDTO;
 import co.uniquindio.clinicaLaBienAmada.model.*;
 import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.AdmnistradorServicio;
+import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.AutenticacionServicio;
 import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.PacienteServicio;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
@@ -24,6 +25,9 @@ public class AdministradorServicioTest {
 
     @Autowired
     private AdmnistradorServicio admnistradorServicio;
+
+    @Autowired
+    private AutenticacionServicio autenticacionServicio;
 
     // _____________________________________ Funcionales _______________________________________________
     @Test
@@ -138,20 +142,23 @@ public class AdministradorServicioTest {
     @Test
     public void cambiarEstadoPQRS() throws Exception {
 
-        admnistradorServicio.cambiarEstadoPQRS(500, EstadoPQRS.RESUELTO);
-
+        int estadoPQRS = admnistradorServicio.cambiarEstadoPQRS(500, EstadoPQRS.RESUELTO);
+        System.out.println(admnistradorServicio.verDetallePQRS(500));
+        Assertions.assertNotEquals(0, estadoPQRS);
     }
 
     @Test
     public void responderPQRS() throws Exception {
 
         RegistroRespuestaDTO respuesta = new RegistroRespuestaDTO(
-                100,
+                99,
                 504,
                 "Pero el doctor me cuenta algo totalmente distinto, que pasa realmente?"
         );
 
         admnistradorServicio.responderPQRS(respuesta);
+
+        Assertions.assertNotEquals(0, respuesta);
     }
 
     // _________________________________ Funcionales pero con dudas ___________________________________
@@ -162,23 +169,14 @@ public class AdministradorServicioTest {
         admnistradorServicio.eliminarMedico(21);
 
         Assertions.assertThrows(Exception.class, () -> admnistradorServicio.eliminarMedico(21));
-
-
     }
 
     // ______________________________________________________________________________________________________
 
 
-
-    @Test
-    @Transactional
-    @Sql("classpath:dataset.sql")
-    public void listarTestSQL() throws Exception {
-
-        System.out.println( admnistradorServicio.listarTodos() );
-
-    }
-
+    /*
+    Metodo que lista todos los pacientes
+     */
     @Test
     // @Sql("classpath:dataset.sql" )
     public void listarTest() throws Exception {
@@ -187,6 +185,21 @@ public class AdministradorServicioTest {
         lista.forEach(System.out::println);
         //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
         Assertions.assertEquals(8, lista.size());
+    }
+
+    @Test
+    @Transactional
+    // @Sql("classpath:dataset.sql")
+    public void logear() throws Exception {
+
+        LoginDTO login = new LoginDTO(
+                "mariana89@email.com",
+                "1234"
+        );
+
+        autenticacionServicio.login(login);
+
+        Assertions.assertNotEquals(0, login);
     }
 
 }

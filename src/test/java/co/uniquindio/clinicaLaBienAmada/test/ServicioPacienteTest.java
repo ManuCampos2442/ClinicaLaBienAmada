@@ -138,7 +138,7 @@ public class ServicioPacienteTest {
         DetallePQRSDTO detallePQRSDTO = pacienteServicio.verDetallePQRS(500);
 
         System.out.println("\n" + "\n" + detallePQRSDTO.toString());
-       // Assertions.assertNotEquals(0, detallePQRSDTO);
+        Assertions.assertNotEquals(0, detallePQRSDTO);
 
     }
 
@@ -151,9 +151,10 @@ public class ServicioPacienteTest {
         List<ItemCitaDTO> listaCitas = pacienteServicio.listarCitasPaciente(9);
 
         listaCitas.forEach(System.out::println);
-        //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
+
         Assertions.assertEquals(1,  + listaCitas.size());
     }
+
     /*
     Metodo que permite ver el detalle de una cita
      */
@@ -198,7 +199,6 @@ public class ServicioPacienteTest {
         autenticacionServicio.login(login);
 
         Assertions.assertNotEquals(0, login);
-
     }
 
     // _______________________________________________ Funciona pero Ojito ____________________________
@@ -238,8 +238,6 @@ public class ServicioPacienteTest {
         pacienteServicio.editarPerfil(modificado);
 
 
-        //  Assertions.assertNotEquals(0, nuevo);
-
         DetallePacienteDTO objetoModificado = pacienteServicio.verDetallePaciente(9);
 
         System.out.println(objetoModificado);
@@ -250,10 +248,10 @@ public class ServicioPacienteTest {
     @Test
     @Transactional
     public void eliminarTest() throws Exception {
-        //Se borra por ejemplo el paciente con el código 1
-        pacienteServicio.eliminarCuenta(9);
-        //Si intentamos buscar un paciente con el código del paciente borrado debemos obtener una
 
+        pacienteServicio.eliminarCuenta(9);
+
+        Assertions.assertThrows(Exception.class, () -> pacienteServicio.eliminarCuenta(9));
 
     }
     /*
