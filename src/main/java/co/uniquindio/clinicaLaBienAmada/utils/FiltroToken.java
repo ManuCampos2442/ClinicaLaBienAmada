@@ -4,6 +4,7 @@ package co.uniquindio.clinicaLaBienAmada.utils;
 import io.jsonwebtoken.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import java.io.IOException;
@@ -18,7 +19,11 @@ public class FiltroToken implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
+        String requestURI = req.getRequestURI();
+
         String token = getToken(req);
+        boolean error = true;
         try{
             if (token != null) {
                 Jws<Claims> jws = jwtUtils.parseJwt(token);
