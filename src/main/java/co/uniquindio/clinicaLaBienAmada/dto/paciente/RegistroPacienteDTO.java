@@ -27,7 +27,7 @@ public record RegistroPacienteDTO(
         @NotNull
         Ciudad codigoCiudad,
         @NotNull
-        @Future(message = "Seleccione una fecha de nacimiento correcta")
+       // @Future(message = "Seleccione una fecha de nacimiento correcta")
         LocalDateTime fechaNcimiento,
         @NotBlank
         String alergias,

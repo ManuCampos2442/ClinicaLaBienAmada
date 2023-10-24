@@ -34,7 +34,7 @@ public class ServicioPacienteTest {
     del datacenter en la base de datos
      */
    @Test
-   @Sql("classpath:dataset.sql")
+    @Sql("classpath:dataset.sql")
     public void registrarTest() throws Exception {
 
         //Creamos un objeto con los datos del paciente
@@ -246,12 +246,11 @@ public class ServicioPacienteTest {
     }
 
     @Test
-    @Transactional
     public void eliminarTest() throws Exception {
 
         pacienteServicio.eliminarCuenta(9);
 
-        Assertions.assertThrows(Exception.class, () -> pacienteServicio.eliminarCuenta(9));
+        Assertions.assertTrue(pacienteServicio.eliminarCuenta(9));
 
     }
     /*

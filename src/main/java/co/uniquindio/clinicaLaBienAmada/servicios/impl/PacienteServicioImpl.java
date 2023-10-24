@@ -335,9 +335,9 @@ public class PacienteServicioImpl implements PacienteServicio {
 
         System.out.println("Se va a aliminar el paciente  " + buscado.getNombre());
 
-        //buscado.setEstado(false);
-        pacienteRepo.delete(pacienteBuscado.get());
-       // pacienteRepo.save( buscado );
+        buscado.setEstado(false);
+        //pacienteRepo.delete(pacienteBuscado.get());
+        pacienteRepo.save( buscado );
 
         return true;
 
