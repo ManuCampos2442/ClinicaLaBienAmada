@@ -38,7 +38,7 @@ insert into cuenta values(20, 'medico17848@gmail.com', '444');
 insert into cuenta values(21, 'medico27848@email.com', '1234');
 insert into cuenta values(22, 'medico37848@email.com', '12341');
 insert into cuenta values(23, 'medico47848@email.com', '12341');
-insert into cuenta values(24, 'medico57848@email.com', '12341');
+insert into cuenta values(24, 'medico57848@email.com', '$2a$10$k6ANLEXelA4lhJ/KfXsoouNfrjyyMC/vLHmeR/nd3OORc9p0bT4Xq');
 
 insert into medico values('373456', 8, 1, 'Yhonatan Brutal', '11111', 'url_foto', 4, 20);
 insert into medico values('345634', 8, 1, 'Cristian Bedon',  '222222', 'url_foto', 3, 21);
@@ -54,8 +54,8 @@ insert into medico values('765475', 2, 1, 'Metricas Frias',  '555555', 'url_foto
 */
 insert into cita values (100, 3, '2023-10-20', 'Consulta General', 1, 20, 4);
 insert into cita values (101, 3, '2023-10-22', 'Consulta General', 2, 21, 5);
-insert into cita values (102, 3, '2023-10-24', 'Consulta General', 3, 22, 7);
-insert into cita values (103, 3, '2023-10-26', 'Consulta General', 4, 23, 8);
+insert into cita values (102, 1, '2023-10-24', 'Consulta General', 3, 22, 7);
+insert into cita values (103, 1, '2023-10-26', 'Consulta General', 4, 23, 8);
 insert into cita values (104, 2, '2023-10-28', 'Consulta General', 5, 24, 9);
 /*
   ____________________________________________________________________________________________________________
@@ -65,8 +65,8 @@ insert into cita values (104, 2, '2023-10-28', 'Consulta General', 5, 24, 9);
  _______________________________________ Atenciones _________________________________________________________
 */
 
-insert into atencion values(200, 'Paciente presenta dolores de cabeza muy fuertes',
-                            'Irritabilidad, perdida del conocimiento ', 'Acetaminofen cada 6 horas', 100);
+/*insert into atencion values(200, 'Paciente presenta dolores de cabeza muy fuertes',
+                            'Irritabilidad, perdida del conocimiento ', 'Acetaminofen cada 6 horas', 100); */
 INSERT INTO atencion VALUES(201, 'Paciente con fiebre y dolor de garganta',
                             'Dificultad para tragar, fatiga', 'Ibuprofeno cada 8 horas', 101);
 INSERT INTO atencion VALUES(202, 'Paciente con fractura en el brazo izquierdo',
