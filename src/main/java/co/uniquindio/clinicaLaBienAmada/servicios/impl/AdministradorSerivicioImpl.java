@@ -37,18 +37,18 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
     @Override
     public int crearMedico(RegistroMedicoDTO medicoDTO) throws Exception {
 
-        if(estaRepetidaCedula(medicoDTO.cedula())){
+        if (estaRepetidaCedula(medicoDTO.cedula())) {
             throw new Exception("La cedula" + medicoDTO.cedula() + " ya esta en uso");
         }
 
-        if(estaRepetidoCorreo(medicoDTO.correo())){
+        if (estaRepetidoCorreo(medicoDTO.correo())) {
             throw new Exception("El correo" + medicoDTO.correo() + " ya esta en uso");
         }
 
 
         Medico medico = new Medico();
 
-        medico.setCedula(medicoDTO.cedula() );
+        medico.setCedula(medicoDTO.cedula());
         medico.setTelefono(medicoDTO.telefono());
         medico.setNombre(medicoDTO.nombre());
         medico.setEspecialidad(medicoDTO.especialidad());
@@ -60,17 +60,17 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
         medico.setEstado(true);
 
 
-
         //Solo falta que esto quede guardado y e profe lo vea
         Medico medicoNuevo = medicoRepo.save(medico);
 
-       //c asignarHorariosMedico(medicoNuevo, medicoDTO.horarios());
+        //c asignarHorariosMedico(medicoNuevo, medicoDTO.horarios());
 
         return medicoNuevo.getCodigo();
     }
 
-    private void asignarHorariosMedico(Medico medicoNuevo, List<HorarioDTO> horarios, HorarioDTO horarioDTO) {
+    /*private void asignarHorariosMedico( List<HorarioDTO> horarios, HorarioDTO horarioDTO) {
 
+        Optional<Medico> medicoEncontrado = medicoRepo.findById()
         for(HorarioDTO h: horarios){
 
             Horario hm = new Horario();
@@ -81,12 +81,14 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
 
             horarioRepo.save(hm);
         }
+    }*/
+
+    private boolean estaRepetidaCedula(String cedula) {
+        return medicoRepo.findByCedula(cedula) != null;
     }
 
-    private boolean estaRepetidaCedula(String cedula) {return medicoRepo.findByCedula(cedula) != null;
-    }
-
-    private boolean estaRepetidoCorreo(String correo) { return medicoRepo.findByCorreo(correo) != null;
+    private boolean estaRepetidoCorreo(String correo) {
+        return medicoRepo.findByCorreo(correo) != null;
     }
 
     @Override
@@ -94,17 +96,17 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
 
         Optional<Medico> buscado = medicoRepo.findById(medicoDTO.codigo());
 
-        if(buscado.isEmpty() ){
-            throw new Exception("El código "+medicoDTO.cedula()+" no existe");
+        if (buscado.isEmpty()) {
+            throw new Exception("El código " + medicoDTO.cedula() + " no existe");
         }
 
         Medico medico = buscado.get();
-        medico.setCedula(medicoDTO.cedula() );
+        medico.setCedula(medicoDTO.cedula());
         medico.setTelefono(medicoDTO.telefono());
-        medico.setNombre(medicoDTO.nombre() );
-        medico.setEspecialidad( medicoDTO.especialidad());
+        medico.setNombre(medicoDTO.nombre());
+        medico.setEspecialidad(medicoDTO.especialidad());
         medico.setCiudad(medicoDTO.ciudad());
-        medico.setCorreo(medicoDTO.correo() );
+        medico.setCorreo(medicoDTO.correo());
         medico.setUrlFoto(medicoDTO.urlFoto());
 
         Medico medicoNuevo = medicoRepo.save(medico);
@@ -115,12 +117,12 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
     @Override
     public boolean eliminarMedico(int codigo) throws Exception {
 
-       Optional<Medico> buscado = medicoRepo.findById(codigo); // SELECT * FROM MEDICO WHERE CODIGO = CODIGO
+        Optional<Medico> buscado = medicoRepo.findById(codigo); // SELECT * FROM MEDICO WHERE CODIGO = CODIGO
 
-        if(buscado.isEmpty()){
+        if (buscado.isEmpty()) {
             throw new Exception("El codigo" + codigo + " no existe mi fai");
         }
-       // medicoRepo.delete(buscado.get()); //delete from medico where codigo = codigo
+        // medicoRepo.delete(buscado.get()); //delete from medico where codigo = codigo
 
         Medico obtenido = buscado.get();
 
@@ -139,12 +141,12 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
         List<ItemMedicoDTO> respuesta = new ArrayList<>();
 
 
-        if(medicos.isEmpty()){
+        if (medicos.isEmpty()) {
             throw new Exception(("No hay medicos registrados"));
         }
 
-        for (Medico medico : medicos){
-            if(medico.isEstado()){
+        for (Medico medico : medicos) {
+            if (medico.isEstado()) {
                 respuesta.add(new ItemMedicoDTO(
                         medico.getCodigo(),
                         medico.getCedula(),
@@ -164,13 +166,13 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
 
         Optional<Medico> buscado = medicoRepo.findById(codigo); // SELECT * FROM MEDICO WHERE CODIGO = CODIGO
 
-        if(buscado.isEmpty()){
+        if (buscado.isEmpty()) {
             throw new Exception("El codigo" + codigo + " no existe mi fai");
         }
 
         Medico obtenido = buscado.get();
 
-        DetalleMedicoDTO detalleMedicoDTO= new DetalleMedicoDTO(
+        DetalleMedicoDTO detalleMedicoDTO = new DetalleMedicoDTO(
                 obtenido.getCodigo(),
                 obtenido.getNombre(),
                 obtenido.getCedula(),
@@ -191,9 +193,9 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
 
         List<ItemPQRSDTO> respuesta = new ArrayList<>();
 
-        for (Pqrs p : listaPqrs){
+        for (Pqrs p : listaPqrs) {
             respuesta.add(new ItemPQRSDTO(
-                p.getCodigo(),
+                    p.getCodigo(),
                     p.getEstadoPQRS(),
                     p.getMotivo(),
                     p.getFecha_Creacion(),
@@ -217,8 +219,8 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
 
         Optional<Pqrs> opcional = pqrsRepo.findById(codigo);
 
-        if( opcional.isEmpty() ){
-            throw new Exception("El código "+codigo+" no está asociado a ningún PQRS");
+        if (opcional.isEmpty()) {
+            throw new Exception("El código " + codigo + " no está asociado a ningún PQRS");
         }
 
         Pqrs pqrs = opcional.get();
@@ -242,16 +244,15 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
         Optional<Pqrs> opcionalPqrs = pqrsRepo.findById(registroRespuestaDTO.codigoPQRS()); // SELECT * FROM MEDICO WHERE CODIGO = CODIGO
         Optional<Cuenta> cuentaEncontrada = cuentaRepo.findById(registroRespuestaDTO.codigoCuenta());
 
-        if(opcionalPqrs.isEmpty()){
+        if (opcionalPqrs.isEmpty()) {
             throw new Exception("El codigo" + registroRespuestaDTO.codigoPQRS() + " no esta asociado a ningun PQRS");
         }
 
         //Obtener la cuenta / SELECT * FROM MEDICO WHERE CODIGO = CODIGO
 
-        if(cuentaEncontrada.isEmpty()){
+        if (cuentaEncontrada.isEmpty()) {
             throw new Exception("El codigo" + registroRespuestaDTO.codigoCuenta() + " no esta asociado a ningun PQRS");
         }
-
 
 
         Mensaje mensaje = new Mensaje();
@@ -264,11 +265,11 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
     }
 
     @Override
-    public int cambiarEstadoPQRS(int codigoPQRS, EstadoPQRS estadoPQRS) throws Exception{
+    public int cambiarEstadoPQRS(int codigoPQRS, EstadoPQRS estadoPQRS) throws Exception {
 
         Optional<Pqrs> opcional = pqrsRepo.findById(codigoPQRS); // SELECT * FROM MEDICO WHERE CODIGO = CODIGO
 
-        if(opcional.isEmpty()){
+        if (opcional.isEmpty()) {
             throw new Exception("El codigo" + codigoPQRS + " no esta asociado a ningun PQRS");
         }
 
@@ -288,7 +289,7 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
 
         List<ItemCitaDTO> respuesta = new ArrayList<>();
 
-        for (Cita c: listaCitas){
+        for (Cita c : listaCitas) {
             respuesta.add(new ItemCitaDTO(
 
                     c.getCodigo(),
@@ -302,7 +303,7 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
             ));
 
 
-            }
+        }
 
         return respuesta;
     }
@@ -313,7 +314,7 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
         List<Paciente> pacientes = pacienteRepo.findAll();
         List<ItemPacienteDTO> respuesta = new ArrayList<>();
 
-        for (Paciente paciente : pacientes){
+        for (Paciente paciente : pacientes) {
             respuesta.add(new ItemPacienteDTO(paciente.getCodigo(), paciente.getCedula(),
                     paciente.getNombre(), paciente.getCiudad()));
         }
