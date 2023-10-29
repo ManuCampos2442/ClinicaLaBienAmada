@@ -1,7 +1,6 @@
 package co.uniquindio.clinicaLaBienAmada.servicios.impl;
 
 import co.uniquindio.clinicaLaBienAmada.dto.*;
-import co.uniquindio.clinicaLaBienAmada.dto.medico.DetalleAtencionMedicoDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.paciente.*;
 import co.uniquindio.clinicaLaBienAmada.model.*;
 import co.uniquindio.clinicaLaBienAmada.repositorios.*;
@@ -11,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
@@ -48,12 +46,12 @@ public class PacienteServicioImpl implements PacienteServicio {
         paciente.setNombre(registroPacienteDTO.nombre());
         paciente.setTelefono(registroPacienteDTO.telefono());
         paciente.setUrlFoto(registroPacienteDTO.urlFoto());
-        paciente.setCiudad(registroPacienteDTO.codigoCiudad());
+        paciente.setCiudad(registroPacienteDTO.ciudad());
         paciente.setEstado(true);
 
-        paciente.setFechaNacimiento(registroPacienteDTO.fechaNcimiento());
+        paciente.setFechaNacimiento(registroPacienteDTO.fechaNacimiento());
         paciente.setAlergias(registroPacienteDTO.alergias());
-        paciente.setEps(registroPacienteDTO.codigoEps());
+        paciente.setEps(registroPacienteDTO.eps());
         paciente.setTipoDeSangre(registroPacienteDTO.tipoSangre());
 
 

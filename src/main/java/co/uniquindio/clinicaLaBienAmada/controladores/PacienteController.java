@@ -1,14 +1,18 @@
 package co.uniquindio.clinicaLaBienAmada.controladores;
 
+import co.uniquindio.clinicaLaBienAmada.dto.*;
 import co.uniquindio.clinicaLaBienAmada.dto.TokenDTO.MensajeDTO;
-import co.uniquindio.clinicaLaBienAmada.dto.paciente.DetallePacienteDTO;
-import co.uniquindio.clinicaLaBienAmada.dto.paciente.RegistroPacienteDTO;
+import co.uniquindio.clinicaLaBienAmada.dto.paciente.*;
 import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.PacienteServicio;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.http.client.protocol.ResponseContentEncoding;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/pacientes")
@@ -21,6 +25,18 @@ public class PacienteController {
     public ResponseEntity<MensajeDTO<String>> registrarse(@Valid @RequestBody RegistroPacienteDTO pacienteDTO) throws Exception{
         pacienteServicio.registrarse(pacienteDTO);
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "Paciente registrado correctamente"));
+    }
+
+    @PostMapping("/agendar-cita")
+    public ResponseEntity<MensajeDTO<String>> agendarCita(@Valid @RequestBody RegistroCitaDTO registroCitaDTO) throws Exception{
+        pacienteServicio.agendarCita(registroCitaDTO);
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, "Cita agendada correctamente"));
+    }
+
+    @PostMapping("/crear-pqrs")
+    public ResponseEntity<MensajeDTO<String>> crearPQRS(@Valid @RequestBody RegistroPQRSDTO registroPQRSDTO) throws Exception{
+        pacienteServicio.crearPQRS(registroPQRSDTO);
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, "PQRS creada con exito"));
     }
 
     @PutMapping("/editar-perfil")
@@ -39,12 +55,55 @@ public class PacienteController {
         );
     }
 
-    @GetMapping("/detalle/{codigo}")
+    @GetMapping("/detalle-paciente/{codigo}")
     public ResponseEntity<MensajeDTO<DetallePacienteDTO>> verDetallePaciente(@PathVariable int codigo) throws Exception{
         return ResponseEntity.ok().body( new MensajeDTO<>(false,
                 pacienteServicio.verDetallePaciente(codigo)) );
     }
 
+
+    @GetMapping("/listar-pqrs-paciente/{codigoPaciente}")
+    public ResponseEntity<MensajeDTO<List<ItemPQRSDTO>>> listarPQRSPaciente(@PathVariable int codigoPaciente) throws Exception{
+        return ResponseEntity.ok().body( new MensajeDTO<>(false,
+                pacienteServicio.listarPQRSPciente(codigoPaciente)));
+    }
+
+    @GetMapping("/listar-citas-paciente/{codigoPaciente}")
+    public ResponseEntity<MensajeDTO<List<ItemCitaDTO>>> listarCitasPaciente(@PathVariable int codigoPaciente) throws Exception{
+        return ResponseEntity.ok().body( new MensajeDTO<>(false,
+                pacienteServicio.listarCitasPaciente(codigoPaciente)));
+    }
+
+    @GetMapping("/detalle-cita/{codigoCita}")
+    public ResponseEntity<MensajeDTO<DetalleCitaDTO>> verDetalleCita(@PathVariable int codigoCita) throws Exception{
+        return ResponseEntity.ok().body( new MensajeDTO<>(false,
+                pacienteServicio.verDetalleCita(codigoCita)));
+    }
+
+    @GetMapping("/filtar-cita-fecha/{codigoPaciente}/{fecha}")
+    public ResponseEntity<MensajeDTO<List<FiltroBusquedaDTO>>> filtrarCitasPorFecha(@PathVariable int codigoPaciente,  @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha) throws Exception{
+        return ResponseEntity.ok().body( new MensajeDTO<>(false,
+                pacienteServicio.filtrarCitasPorFecha(codigoPaciente, fecha)));
+    }
+
+    @GetMapping("/filtar-cita-medico/{codigoPaciente}/{codigoMedico}")
+    public ResponseEntity<MensajeDTO<List<FiltroBusquedaDTO>>> filtrarCitasPorMedico(@PathVariable int codigoPaciente, @PathVariable int codigoMedico) throws Exception{
+        return ResponseEntity.ok().body( new MensajeDTO<>(false,
+                pacienteServicio.filtrarCitasPorMedico(codigoPaciente, codigoMedico)));
+    }
+
+    @GetMapping("/detalle-pqrs/{codigo}")
+    public ResponseEntity<MensajeDTO<DetallePQRSDTO>> verDetallePQRS(@PathVariable int codigo) throws Exception{
+        return ResponseEntity.ok().body( new MensajeDTO<>(false,
+                pacienteServicio.verDetallePQRS(codigo)));
+    }
+
+
+    @PostMapping("/responder-pqrs")
+    public ResponseEntity<MensajeDTO<String>> responderPQRS(@Valid @RequestBody RegistroRespuestaDTO registroRespuestaDTO) throws Exception{
+        pacienteServicio.responderPQRS(registroRespuestaDTO);
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, "Mensaje enviado con exito"));
+    }
 
     /*@GetMapping("/listar-todos")
     public List<ItemPacienteDTO> listarTodos(){

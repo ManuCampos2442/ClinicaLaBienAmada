@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
-public class AdministradorServicioTest {
+public class    AdministradorServicioTest {
 
     @Autowired
     private AdmnistradorServicio admnistradorServicio;

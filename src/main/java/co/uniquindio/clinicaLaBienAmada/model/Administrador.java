@@ -1,5 +1,6 @@
 package co.uniquindio.clinicaLaBienAmada.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,8 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
+public class Administrador extends Cuenta implements Serializable  {
 
-
-public class Administrador extends Cuenta implements Serializable  { }
+    @Column(nullable = false)
+    private String nombre;
+}

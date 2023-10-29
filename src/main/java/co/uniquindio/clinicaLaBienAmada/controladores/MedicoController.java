@@ -3,6 +3,7 @@ package co.uniquindio.clinicaLaBienAmada.controladores;
 import co.uniquindio.clinicaLaBienAmada.dto.ItemCitaDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.TokenDTO.MensajeDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.medico.DetalleAtencionMedicoDTO;
+import co.uniquindio.clinicaLaBienAmada.dto.medico.DiaLibreDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.medico.RegistroAtencionDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.paciente.RegistroPacienteDTO;
 import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.MedicoServicio;
@@ -39,7 +40,7 @@ public class MedicoController {
     }
 
     @PostMapping("/atender-cita")
-    public ResponseEntity<MensajeDTO<String>> registrarse(@Valid @RequestBody RegistroAtencionDTO registroAtencionDTO) throws Exception{
+    public ResponseEntity<MensajeDTO<String>> atenderCita(@Valid @RequestBody RegistroAtencionDTO registroAtencionDTO) throws Exception{
         medicoServicio.atenderCita(registroAtencionDTO);
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "Atención realizada con exito"));
     }
@@ -56,9 +57,22 @@ public class MedicoController {
                 medicoServicio.listarCitasPaciente(codigoPaciente)));
     }
 
-    @PostMapping
+
+    @GetMapping("/atenciones-paciente/{codigoPaciente}")
+    public ResponseEntity<MensajeDTO<List<DetalleAtencionMedicoDTO>>> listarAtencionesPaciente(@PathVariable int codigoPaciente) throws Exception{
+        return ResponseEntity.ok().body( new MensajeDTO<>(false,
+                medicoServicio.listarHistorialAtencionesPaciente(codigoPaciente)));
+    }
+
+    @PostMapping("/agendar-dia-libre")
+    public ResponseEntity<MensajeDTO<String>> agendarDiaLibre(@Valid @RequestBody DiaLibreDTO diaLibreDTO) throws Exception{
+        medicoServicio.agendarDiaLibre(diaLibreDTO);
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, "Dia libre agendado con exito"));
+    }
+
+    /*@PostMapping
     public ResponseEntity<MensajeDTO<String>> registrarse(@Valid @RequestBody RegistroAtencionDTO registroAtencionDTO) throws Exception{
         medicoServicio.atenderCita(registroAtencionDTO);
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "Atención realizada con exito"));
-    }
+    }*/
 }

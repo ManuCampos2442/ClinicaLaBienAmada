@@ -6,7 +6,6 @@ import co.uniquindio.clinicaLaBienAmada.model.*;
 import co.uniquindio.clinicaLaBienAmada.repositorios.*;
 import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.AdmnistradorServicio;
 import co.uniquindio.clinicaLaBienAmada.dto.admin.DetalleMedicoDTO;
-import co.uniquindio.clinicaLaBienAmada.dto.admin.ItemCitaAdminDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.admin.ItemMedicoDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.admin.RegistroMedicoDTO;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +51,7 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
         medico.setTelefono(medicoDTO.telefono());
         medico.setNombre(medicoDTO.nombre());
         medico.setEspecialidad(medicoDTO.especialidad());
-        medico.setCiudad(medicoDTO.codigoCiudad());
+        medico.setCiudad(medicoDTO.ciudad());
         medico.setCorreo(medicoDTO.correo());
         medico.setPassword(medicoDTO.password());
         medico.setUrlFoto(medicoDTO.URLFoto());
@@ -128,7 +127,7 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
 
         obtenido.setEstado(false);
         medicoRepo.save(obtenido);
-        medicoRepo.delete(obtenido);
+       // medicoRepo.delete(obtenido);
 
 
         return true;

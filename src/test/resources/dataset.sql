@@ -114,7 +114,7 @@ insert into pqrs values(500, 3, '2024-09-30', 'Doctor completamente soes', 'Leve
 INSERT INTO pqrs VALUES(501, 2, '2024-10-01', 'Solicitud de cita médica', 'Moderado', 102);
 INSERT INTO pqrs VALUES(502, 1, '2024-09-02', 'Consulta de resultados de laboratorio', 'Leve', 103);
 INSERT INTO pqrs VALUES(503, 3, '2024-09-03', 'Queja sobre el tiempo de espera en la clínica', 'Moderado', 101);
-INSERT INTO pqrs VALUES(504, 4, '2024-09-4', 'Sugerencia para mejorar la señalización en el hospital', 'Leve', 104);
+/* INSERT INTO pqrs VALUES(504, 4, '2024-09-4', 'Sugerencia para mejorar la señalización en el hospital', 'Leve', 104); */
 /*
   ____________________________________________________________________________________________________________
  */
@@ -123,7 +123,9 @@ INSERT INTO pqrs VALUES(504, 4, '2024-09-4', 'Sugerencia para mejorar la señali
 /*
 _______________________________________ Administrador _________________________________________________________
 */
-insert into cuenta values(99, 'anassterian7848@gmail.com', 'kael2442');
+insert into cuenta values(99, 'anassterian7848@gmail.com', '$2a$10$k6ANLEXelA4lhJ/KfXsoouNfrjyyMC/vLHmeR/nd3OORc9p0bT4Xq');
+insert into administrador values ('Frodo Bolson', 99);
+
 /*
   ____________________________________________________________________________________________________________
  */
@@ -135,7 +137,9 @@ insert into mensaje values (600, '2023-10-20', 'Como puede ser que dejen contrat
 INSERT INTO mensaje VALUES (601, '2023-10-22', 'Estoy preocupado por la calidad de atención que estoy recibiendo de este médico. Su falta de profesionalismo es evidente y me preocupa mi salud.', 5, 501);
 INSERT INTO mensaje VALUES (602, '2023-10-24', 'He notado que la calidad de los médicos en esta clínica está disminuyendo. Es esencial que la clínica mantenga estándares altos para asegurar una atención de calidad.', 7, 502);
 INSERT INTO mensaje VALUES (603, '2023-10-26', 'Como paciente, me preocupa la calidad de los médicos que la clínica está contratando. La salud de los pacientes debería ser la principal prioridad.', 8, 503);
-INSERT INTO mensaje VALUES (604, '2023-10-27', 'Creo que es crucial que la clínica mejore su proceso de contratación de médicos. La calidad de atención y la salud de los pacientes están en juego.', 9, 504);
+/* INSERT INTO mensaje VALUES (604, '2023-10-27', 'Creo que es crucial que la clínica mejore su proceso de contratación de médicos. La calidad de atención y la salud de los pacientes están en juego.', 9, 504);
+
+ */
 
 
 

@@ -58,7 +58,7 @@ public class ServicioMedicoTest {
     @Test
     public void listarAtencionesPaciente() throws Exception {
 
-        List<DetalleAtencionMedicoDTO> lista = medicoServicio.listarHistorialAtencionesPaciente(4);
+        List<DetalleAtencionMedicoDTO> lista = medicoServicio.listarHistorialAtencionesPaciente(9);
 
         lista.forEach(System.out::println);
         //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2

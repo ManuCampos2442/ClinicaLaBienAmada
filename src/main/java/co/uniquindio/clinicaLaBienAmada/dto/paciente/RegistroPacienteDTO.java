@@ -4,7 +4,6 @@ import co.uniquindio.clinicaLaBienAmada.model.Ciudad;
 import co.uniquindio.clinicaLaBienAmada.model.Eps;
 import co.uniquindio.clinicaLaBienAmada.model.TipoDeSangre;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
@@ -25,14 +24,14 @@ public record RegistroPacienteDTO(
         @NotBlank
         String urlFoto,
         @NotNull
-        Ciudad codigoCiudad,
+        Ciudad ciudad,
         @NotNull
        // @Future(message = "Seleccione una fecha de nacimiento correcta")
-        LocalDateTime fechaNcimiento,
+        LocalDateTime fechaNacimiento,
         @NotBlank
         String alergias,
         @NotNull
-        Eps codigoEps,
+        Eps eps,
         @NotNull
         TipoDeSangre tipoSangre,
         @NotBlank

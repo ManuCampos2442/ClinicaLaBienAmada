@@ -8,7 +8,7 @@ public enum Ciudad {
     CARTAGENA("Cartagena"),
     ESGAROTH("Esgaroth"),
     DRAENOR("Draenor"),
-    KHAZAD_DUM("Khazad_Dum"),
+    KHAZAD_DUM("Khazad Dum"),
     MORDOR("Mordor");
 
     private String nombre;

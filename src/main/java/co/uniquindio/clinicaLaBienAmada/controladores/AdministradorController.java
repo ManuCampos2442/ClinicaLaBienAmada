@@ -29,8 +29,8 @@ public class AdministradorController {
     private final AdmnistradorServicio admnistradorServicio;
 
     @GetMapping("/listar-todos")
-    public List<ItemPacienteDTO> listarTodos() throws Exception {
-        return admnistradorServicio.listarTodos();
+    public ResponseEntity<MensajeDTO<List<ItemPacienteDTO>>> listarTodos() throws Exception {
+        return ResponseEntity.ok().body( new MensajeDTO<>(false, admnistradorServicio.listarTodos()) );
     }
 
     @PostMapping("/registrar-medico")
@@ -48,15 +48,15 @@ public class AdministradorController {
     }
 
 
-    @PostMapping("/eliminar-medico/{codigoMedico}")
-    public ResponseEntity<MensajeDTO<String>> eliminarMedico(@Valid @RequestBody int codigoMedico) throws Exception {
+    @DeleteMapping("/eliminar-medico/{codigoMedico}")
+    public ResponseEntity<MensajeDTO<String>> eliminarMedico(@PathVariable int codigoMedico) throws Exception {
         admnistradorServicio.eliminarMedico(codigoMedico);
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "Medico eliminado correctamente"));
     }
 
     @GetMapping("/listar-medicos")
-    public List<ItemMedicoDTO> listarMedicos() throws Exception {
-        return admnistradorServicio.listarMedicos();
+    public ResponseEntity<MensajeDTO<List<ItemMedicoDTO>>> listarMedicos() throws Exception {
+        return ResponseEntity.ok().body( new MensajeDTO<>(false, admnistradorServicio.listarMedicos()) );
     }
 
     @GetMapping("/detalle-medico/{codigoMedico}")
@@ -66,12 +66,13 @@ public class AdministradorController {
     }
 
     @GetMapping("/listar-pqrs")
-    public List<ItemPQRSDTO> listarPQRS() throws Exception {
-        return admnistradorServicio.listarPQRS();
+    public ResponseEntity<MensajeDTO<List<ItemPQRSDTO>>> listarPQRS() throws Exception {
+        return  ResponseEntity.ok().body(new MensajeDTO<>(false,
+                admnistradorServicio.listarPQRS()));
     }
 
     @GetMapping("/detalle-pqrs/{codigoPQRS}")
-    public ResponseEntity<MensajeDTO<DetallePQRSDTO>> listarPQRS(@PathVariable int codigoPQRS) throws Exception {
+    public ResponseEntity<MensajeDTO<DetallePQRSDTO>> verDetallePQRS(@PathVariable int codigoPQRS) throws Exception {
         return ResponseEntity.ok().body(new MensajeDTO<>(false,
                 admnistradorServicio.verDetallePQRS(codigoPQRS)));
     }
@@ -82,11 +83,16 @@ public class AdministradorController {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "Respuesta registrada con exito"));
     }
 
-    @PutMapping("/cambiar-estado-pqr")
-    public ResponseEntity<MensajeDTO<String>> cambiarEstadoPQRS(@Valid @RequestBody int codigoPQRS, EstadoPQRS estadoPQRS) throws Exception {
+    @PutMapping("/cambiar-estado-pqr/{codigoPQRS}/{estadoPQRS}")
+    public ResponseEntity<MensajeDTO<String>> cambiarEstadoPQRS(@PathVariable int codigoPQRS, @PathVariable  EstadoPQRS estadoPQRS) throws Exception {
         admnistradorServicio.cambiarEstadoPQRS(codigoPQRS, estadoPQRS);
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "Estado actualizado correctamente"));
 
-
-
     }
+
+    @GetMapping("/listar-citas")
+    public ResponseEntity<MensajeDTO<List<ItemCitaDTO>>> listarCitasPaciente() throws Exception{
+        return ResponseEntity.ok().body( new MensajeDTO<>(false,
+                admnistradorServicio.listarCitas()));
+    }
+}

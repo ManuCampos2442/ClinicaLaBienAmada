@@ -234,11 +234,4 @@ public class MedicoServicioImpl implements MedicoServicio {
         return diaLibreDTO.codigoMedico();
     }
 
-
-
-
-
-
-
-
 }

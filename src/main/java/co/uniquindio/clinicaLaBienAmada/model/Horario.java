@@ -18,7 +18,7 @@ public class Horario implements Serializable {
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      private int codigo;
      @Column(nullable = false)
-     private LocalDate dia;
+     private String dia;
      @Column(nullable = false)
      private String horaInicio;
      @Column(nullable = false)
