@@ -3,12 +3,15 @@ package co.uniquindio.clinicaLaBienAmada.servicios.interfaces;
 import co.uniquindio.clinicaLaBienAmada.dto.*;
 import co.uniquindio.clinicaLaBienAmada.dto.medico.DetalleAtencionMedicoDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.paciente.*;
+import jakarta.el.ELException;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 public interface PacienteServicio {
 
+
+    List<ItemMedicoPacienteDTO> listarMedicoPorEspecialidad(String especialidad) throws Exception;
     int registrarse(RegistroPacienteDTO registroPacienteDTO) throws Exception;
     int editarPerfil(DetallePacienteDTO detallePacienteDTO) throws Exception;
     boolean eliminarCuenta(int codigoPaciente) throws Exception;

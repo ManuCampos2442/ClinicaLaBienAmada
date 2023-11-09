@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class Paciente extends Usuario implements Serializable {
 
     //__________________________ Atributos y PK ____________________________________________
     @Column(nullable = false)
-    private LocalDateTime fechaNacimiento;
+    private LocalDate fechaNacimiento;
     @Column(nullable = false, length = 400)
     private String alergias;
     @Enumerated(EnumType.STRING)

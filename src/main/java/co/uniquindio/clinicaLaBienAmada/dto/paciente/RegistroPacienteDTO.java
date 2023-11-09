@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record RegistroPacienteDTO(
@@ -27,7 +28,7 @@ public record RegistroPacienteDTO(
         Ciudad ciudad,
         @NotNull
        // @Future(message = "Seleccione una fecha de nacimiento correcta")
-        LocalDateTime fechaNacimiento,
+        LocalDate fechaNacimiento,
         @NotBlank
         String alergias,
         @NotNull

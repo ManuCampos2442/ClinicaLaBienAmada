@@ -14,7 +14,7 @@ public record DetallePacienteDTO(
         String telefono,
         String urlFoto,
         Ciudad ciudad,
-        LocalDateTime fechaNacimiento,
+        LocalDate fechaNacimiento,
         String alergias,
         Eps eps,
         TipoDeSangre tipoSangre,

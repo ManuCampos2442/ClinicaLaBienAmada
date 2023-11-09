@@ -28,6 +28,22 @@ public class PacienteServicioImpl implements PacienteServicio {
     private final EmailServicio emailServicio;
 
 
+    @Override
+    public List<ItemMedicoPacienteDTO> listarMedicoPorEspecialidad(String especialidad) throws Exception {
+
+        List<Medico> listaMedicoEspecialidad = medicoRepo.findAllByEspecialidad(especialidad);
+        List<ItemMedicoPacienteDTO> respuesta = new ArrayList<>();
+
+
+        for (Medico m : listaMedicoEspecialidad) {
+            respuesta.add(new ItemMedicoPacienteDTO(m.getCodigo(), m.getNombre(),
+                    m.getCorreo())
+            );
+        }
+
+        return respuesta;
+    }
+
     // ___________________________ Metodos Funcionales _______________________________________________
     @Override
     public int registrarse(RegistroPacienteDTO registroPacienteDTO) throws Exception {

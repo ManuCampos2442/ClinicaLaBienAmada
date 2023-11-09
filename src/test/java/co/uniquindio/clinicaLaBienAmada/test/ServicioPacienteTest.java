@@ -44,7 +44,7 @@ public class ServicioPacienteTest {
                 "313",
                 "xd",
                 Ciudad.ARMENIA,
-                LocalDate.of(1990, 10, 7).atStartOfDay(),
+                LocalDate.of(1990, 10, 7),
                 "Rinitis",
                 Eps.NUEVAEPS,
                 TipoDeSangre.A_POSITIVO,

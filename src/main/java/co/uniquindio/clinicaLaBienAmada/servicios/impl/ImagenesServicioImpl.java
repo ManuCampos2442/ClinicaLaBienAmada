@@ -18,9 +18,9 @@ public class ImagenesServicioImpl implements ImagenesServicio {
     private final Cloudinary cloudinary;
     public ImagenesServicioImpl(){
         Map<String, String> config = new HashMap<>();
-        config.put("cloud_name", "dwgbwwffn");
-        config.put("api_key", "581341145757435");
-        config.put("api_secret", "M0W25UZBQgozKgMcMC5CWkLHfHs");
+        config.put("cloud_name", "dex5cjoez");
+        config.put("api_key", "966989232443354");
+        config.put("api_secret", "nt7sFxaIr6QayitZsmiugZ9pAe8");
         cloudinary = new Cloudinary(config);
     }
 

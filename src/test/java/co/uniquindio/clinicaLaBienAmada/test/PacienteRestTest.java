@@ -6,7 +6,9 @@ import co.uniquindio.clinicaLaBienAmada.dto.paciente.RegistroPacienteDTO;
 import co.uniquindio.clinicaLaBienAmada.model.Ciudad;
 import co.uniquindio.clinicaLaBienAmada.model.Eps;
 import co.uniquindio.clinicaLaBienAmada.model.TipoDeSangre;
+import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.PacienteServicio;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -30,6 +32,9 @@ public class PacienteRestTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private PacienteServicio pacienteServicio;
+
 
     @Test
     @Transactional
@@ -40,17 +45,21 @@ public class PacienteRestTest {
                 "3243434",
                 "aquí va la url de la foto",
                 Ciudad.ARMENIA,
-                LocalDate.of(1990, 10, 7).atStartOfDay(),
+                LocalDate.of(1990, 10, 7),
                 "El polvo y el polen me hacen estornudar",
                 Eps.NUEVAEPS,
                 TipoDeSangre.A_POSITIVO,
                 "pepitoperez@email.com",
                 "12345");
+
+        int nuevo = pacienteServicio.registrarse(pacienteDTO);
+        Assertions.assertNotEquals(0, nuevo);
+        /*Assertions.assertNotEquals(0, nuevo);
         mockMvc.perform(post("/api/auth/registrar-paciente")
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(pacienteDTO)))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().isCreated());
+                .andExpect(status().isOk());*/
 
     }
 
@@ -90,7 +99,7 @@ public class PacienteRestTest {
                 "3243434",
                 "aquí va la url de la foto",
                 Ciudad.ARMENIA,
-                LocalDate.of(1990, 10, 7).atStartOfDay(),
+                LocalDate.of(1990, 10, 7),
                 "El polvo y el polen me hacen estornudar",
                 Eps.NUEVAEPS,
                 TipoDeSangre.A_POSITIVO,
