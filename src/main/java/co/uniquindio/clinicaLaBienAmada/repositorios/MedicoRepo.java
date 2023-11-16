@@ -17,7 +17,8 @@ public interface MedicoRepo extends JpaRepository<Medico, Integer> {
 
     //List<Medico> findByCitas(Cita cita);
 
-    List<Medico> findAllByEspecialidad(String especialidad);
+    List<Medico> findAllByEspecialidad(Especialidad especialidad);
+
 
 
 }

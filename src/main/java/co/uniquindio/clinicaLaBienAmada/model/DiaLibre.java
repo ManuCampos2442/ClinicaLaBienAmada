@@ -24,7 +24,7 @@ public class DiaLibre implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
     @Column(nullable = false)
-    private LocalDateTime dia;
+    private LocalDate dia;
     //______________________________________________________________________________________
 
     //________________________________ FK __________________________________________________

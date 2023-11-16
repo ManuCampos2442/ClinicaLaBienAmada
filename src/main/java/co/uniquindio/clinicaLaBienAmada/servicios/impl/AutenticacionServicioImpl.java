@@ -59,4 +59,6 @@ public class AutenticacionServicioImpl implements AutenticacionServicio {
 
         return jwtUtils.generarToken(cuenta.getCorreo(), map);
     }
+
+
 }

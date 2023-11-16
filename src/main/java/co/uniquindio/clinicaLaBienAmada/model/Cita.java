@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class Cita implements Serializable {
    // @Column(nullable = false)
    // private LocalDateTime fechaCreacion;
     @Column(nullable = false)
-    private LocalDateTime fechaCita;
+    private LocalDate fechaCita;
     @Column(nullable = false)
     private String motivo;
     @Column(nullable = false)

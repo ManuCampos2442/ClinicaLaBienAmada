@@ -3,6 +3,7 @@ package co.uniquindio.clinicaLaBienAmada.dto;
 import co.uniquindio.clinicaLaBienAmada.model.Especialidad;
 import co.uniquindio.clinicaLaBienAmada.model.EstadoCita;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record ItemCitaDTO(
@@ -12,6 +13,6 @@ public record ItemCitaDTO(
         String nombreMedico,
         Especialidad especialidad,
         EstadoCita estadoCita,
-        LocalDateTime fecha
+        LocalDate fecha
 ) {
 }

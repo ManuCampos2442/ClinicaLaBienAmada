@@ -3,6 +3,7 @@ package co.uniquindio.clinicaLaBienAmada.dto.paciente;
 import co.uniquindio.clinicaLaBienAmada.model.EstadoPQRS;
 import co.uniquindio.clinicaLaBienAmada.model.Paciente;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record RegistroPQRSDTO(
@@ -10,7 +11,7 @@ public record RegistroPQRSDTO(
         String motivo,
         int codigoPaciente,
         EstadoPQRS estadoPQRS,
-        LocalDateTime fechaCreacion,
+        LocalDate fechaCreacion,
         String tipo
 ) {
 }

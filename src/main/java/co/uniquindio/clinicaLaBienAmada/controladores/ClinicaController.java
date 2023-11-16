@@ -3,17 +3,16 @@ package co.uniquindio.clinicaLaBienAmada.controladores;
 
 import co.uniquindio.clinicaLaBienAmada.dto.ItemPQRSDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.TokenDTO.MensajeDTO;
+import co.uniquindio.clinicaLaBienAmada.dto.paciente.ItemMedicoPacienteDTO;
 import co.uniquindio.clinicaLaBienAmada.model.Ciudad;
 import co.uniquindio.clinicaLaBienAmada.model.Eps;
 import co.uniquindio.clinicaLaBienAmada.model.Especialidad;
 import co.uniquindio.clinicaLaBienAmada.model.TipoDeSangre;
 import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.ClinicaServicio;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -46,6 +45,14 @@ public class ClinicaController {
     public ResponseEntity<MensajeDTO<List<Especialidad>>> listarEspecialidades(){
         return ResponseEntity.ok().body( new MensajeDTO<>(false,
                 clinicaServicio.listarEspecialidades()));
+    }
+
+    @GetMapping("/lista-medico-especialidad/{especialidad}")
+    public ResponseEntity<MensajeDTO<List<ItemMedicoPacienteDTO>>> listarMedicoPorEspecialidad(
+            @PathVariable Especialidad especialidad
+    ) throws Exception {
+        return ResponseEntity.ok().body( new MensajeDTO<>(false,
+                clinicaServicio.listarMedicoPorEspecialidad(especialidad)));
     }
 
 }

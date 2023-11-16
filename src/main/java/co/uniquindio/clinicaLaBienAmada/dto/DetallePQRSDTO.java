@@ -3,6 +3,7 @@ package co.uniquindio.clinicaLaBienAmada.dto;
 import co.uniquindio.clinicaLaBienAmada.model.Especialidad;
 import co.uniquindio.clinicaLaBienAmada.model.EstadoPQRS;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public record DetallePQRSDTO(
         String nombrePaciente,
         String nombreMedico,
         Especialidad especialidad,
-        LocalDateTime fecha,
+        LocalDate fecha,
         List<RespuestaDTO> mensajes){
 
 }

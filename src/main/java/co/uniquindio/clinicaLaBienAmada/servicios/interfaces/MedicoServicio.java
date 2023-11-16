@@ -21,7 +21,7 @@ public interface MedicoServicio {
     DetalleAtencionMedicoDTO verDetalleAtencion(int codigoCita) throws Exception;
     List<ItemCitaDTO> listarCitasPaciente(int condigoPaciente) throws Exception; //Historial medico
 
-
+    List<DiaLibreDTO> listarDiaslibres(int codigoMedico) throws Exception;
 
 
 }

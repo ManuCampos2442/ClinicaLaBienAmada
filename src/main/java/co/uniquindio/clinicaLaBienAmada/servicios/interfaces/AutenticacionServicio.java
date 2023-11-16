@@ -5,4 +5,5 @@ import co.uniquindio.clinicaLaBienAmada.dto.TokenDTO.TokenDTO;
 
 public interface AutenticacionServicio {
     TokenDTO login(LoginDTO loginDTO) throws Exception;
+    //TokenDTO refreshToken(TokenDTO tokenDTO) throws Exception;
 }

@@ -70,6 +70,12 @@ public class MedicoController {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "Dia libre agendado con exito"));
     }
 
+    @GetMapping("/listar-dias-libres/{codigoMedico}")
+    public ResponseEntity<MensajeDTO<List<DiaLibreDTO>>> listarDiasLibres(@PathVariable int codigoMedico) throws Exception{
+        return ResponseEntity.ok().body( new MensajeDTO<>(false,
+                medicoServicio.listarDiaslibres(codigoMedico)));
+    }
+
     /*@PostMapping
     public ResponseEntity<MensajeDTO<String>> registrarse(@Valid @RequestBody RegistroAtencionDTO registroAtencionDTO) throws Exception{
         medicoServicio.atenderCita(registroAtencionDTO);

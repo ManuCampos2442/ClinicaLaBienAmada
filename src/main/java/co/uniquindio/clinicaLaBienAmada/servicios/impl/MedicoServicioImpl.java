@@ -190,6 +190,23 @@ public class MedicoServicioImpl implements MedicoServicio {
 
         return citas;
     }
+
+    @Override
+    public List<DiaLibreDTO> listarDiaslibres(int codigoMedico) throws Exception {
+
+        List<DiaLibre> diasLibresEncontrados = diaLibreRepo.findAllByMedicoCodigo(codigoMedico);
+
+        List<DiaLibreDTO> respuesta = new ArrayList<>();
+
+        for (DiaLibre d : diasLibresEncontrados){
+            respuesta.add(new DiaLibreDTO(
+                    d.getCodigo(),
+                    d.getDia()
+            ));
+        }
+
+        return respuesta;
+    }
     //_______________________________________________________________________________________________
 
 
@@ -218,7 +235,7 @@ public class MedicoServicioImpl implements MedicoServicio {
         for (DiaLibre diaLibre : diasLibres) {
             if (diaLibreDTO.dia().equals(diaLibre.getDia())) {
                 throw new Exception("Este dia ya tiene un dia agendado");
-            } else if( diaLibre.getDia().isAfter( LocalDateTime.now() ) ){
+            } else if( diaLibre.getDia().isAfter( LocalDate.now() ) ){
                 throw new Exception("Usted ya tiene agendado un día libre para la fecha "+diaLibre.getDia());
             }
 

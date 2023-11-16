@@ -75,7 +75,7 @@ public class ServicioPacienteTest {
 
 
         RegistroCitaDTO registroCita = new RegistroCitaDTO(
-                LocalDate.of(2000, 10, 7).atStartOfDay(),
+                LocalDate.of(2000, 10, 7),
                 "Consulta General",
                 EstadoCita.PROGRAMADA,
                 sede,

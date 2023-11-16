@@ -8,7 +8,7 @@ public record FiltroBusquedaDTO(
         int codigoMedico,
         String nombreMedico,
         String motivo,
-        LocalDateTime fecha
+        LocalDate fecha
 ) {
 
 
