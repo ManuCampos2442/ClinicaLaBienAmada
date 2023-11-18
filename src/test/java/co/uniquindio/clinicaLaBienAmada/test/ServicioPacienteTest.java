@@ -101,7 +101,7 @@ public class ServicioPacienteTest {
                 "Me trato muy mal",
                 9,
                 EstadoPQRS.NUEVO,
-                LocalDate.of(1990, 10, 7).atStartOfDay(),
+                LocalDate.of(1990, 10, 7),
                 "Malo"
 
         );
@@ -291,7 +291,7 @@ public class ServicioPacienteTest {
     public void filtrarCitasPorFecha() throws Exception {
 
         List<FiltroBusquedaDTO> citas = pacienteServicio.
-                filtrarCitasPorFecha(7, LocalDate.of(2023, 10, 24).atStartOfDay());
+                filtrarCitasPorFecha(7, LocalDate.of(2023, 10, 24));
 
         citas.forEach(System.out::println);
         //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2

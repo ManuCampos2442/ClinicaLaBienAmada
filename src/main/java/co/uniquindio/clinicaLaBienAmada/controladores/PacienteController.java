@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -75,7 +76,7 @@ public class PacienteController {
     }
 
     @GetMapping("/filtar-cita-fecha/{codigoPaciente}/{fecha}")
-    public ResponseEntity<MensajeDTO<List<FiltroBusquedaDTO>>> filtrarCitasPorFecha(@PathVariable int codigoPaciente,  @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha) throws Exception{
+    public ResponseEntity<MensajeDTO<List<FiltroBusquedaDTO>>> filtrarCitasPorFecha(@PathVariable int codigoPaciente,  @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate fecha) throws Exception{
         return ResponseEntity.ok().body( new MensajeDTO<>(false,
                 pacienteServicio.filtrarCitasPorFecha(codigoPaciente, fecha)));
     }

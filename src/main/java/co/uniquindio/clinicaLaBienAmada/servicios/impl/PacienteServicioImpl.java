@@ -77,6 +77,12 @@ public class PacienteServicioImpl implements PacienteServicio {
         Optional<Medico> medicoObtenido = medicoRepo.findById(registroCitaDTO.codigoMedico());
 
 
+        for (Cita c : citasAgendadas){
+            if(c.getFechaCita().equals(registroCitaDTO.fechaCita())){
+                throw new Exception(("Este dia ya tiene una cita agendada"));
+            }
+        }
+
         Random random = new Random();
 
         // Genera un número aleatorio entre 0 y 4
@@ -240,12 +246,14 @@ public class PacienteServicioImpl implements PacienteServicio {
                 cita.getMedico().getNombre(),
                 cita.getMedico().getEspecialidad(),
                 cita.getEstadoCita(),
+                cita.getMotivo(),
+                cita.getSede(),
                 cita.getFechaCita()
         );
     }
 
     @Override
-    public List<FiltroBusquedaDTO> filtrarCitasPorFecha(int codigoPaciente, LocalDateTime fecha) throws Exception {
+    public List<FiltroBusquedaDTO> filtrarCitasPorFecha(int codigoPaciente, LocalDate fecha) throws Exception {
 
         List<Cita> citaEcontradaPorFecha = citaRepo.findAllByFechaCitaAndPacienteCodigo(fecha,codigoPaciente);
 
