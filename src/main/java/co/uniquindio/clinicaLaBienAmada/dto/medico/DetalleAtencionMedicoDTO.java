@@ -9,6 +9,7 @@ public record DetalleAtencionMedicoDTO(
         int codigoCita,
         String nombrePaciente,
         String nombreMedico,
+        int codigoMedico,
         Especialidad especialidad,
         LocalDate fechaAtencion,
         String tratamiento,

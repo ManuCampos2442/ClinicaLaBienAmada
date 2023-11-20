@@ -35,6 +35,7 @@ public class PacienteServicioImpl implements PacienteServicio {
     // ___________________________ Metodos Funcionales _______________________________________________
     @Override
     public int registrarse(RegistroPacienteDTO registroPacienteDTO) throws Exception {
+
         if(estaRepetidaCedula(registroPacienteDTO.cedula())){
             throw new Exception("La cedula o el correo ya se encuentran en uso");
         }
@@ -89,6 +90,7 @@ public class PacienteServicioImpl implements PacienteServicio {
                     detalles.getCita().getCodigo(),
                     detalles.getCita().getPaciente().getNombre(),
                     detalles.getCita().getMedico().getNombre(),
+                    detalles.getCita().getMedico().getCodigo(),
                     detalles.getCita().getMedico().getEspecialidad(),
                     detalles.getCita().getFechaCita(),
                     detalles.getTratamiento(),
@@ -116,6 +118,7 @@ public class PacienteServicioImpl implements PacienteServicio {
                 atencion.getCita().getCodigo(),
                 atencion.getCita().getPaciente().getNombre(),
                 atencion.getCita().getMedico().getNombre(),
+                atencion.getCita().getMedico().getCodigo(),
                 atencion.getCita().getMedico().getEspecialidad(),
                 atencion.getCita().getFechaCita(),
                 atencion.getTratamiento(),
@@ -385,6 +388,7 @@ public class PacienteServicioImpl implements PacienteServicio {
                 cita.getPaciente().getCedula(),
                 cita.getPaciente().getNombre(),
                 cita.getMedico().getNombre(),
+                cita.getMedico().getCodigo(),
                 cita.getMedico().getEspecialidad(),
                 cita.getEstadoCita(),
                 cita.getMotivo(),
@@ -434,6 +438,7 @@ public class PacienteServicioImpl implements PacienteServicio {
                     detalles.getCita().getCodigo(),
                     detalles.getCita().getPaciente().getNombre(),
                     detalles.getCita().getMedico().getNombre(),
+                    detalles.getCita().getMedico().getCodigo(),
                     detalles.getCita().getMedico().getEspecialidad(),
                     detalles.getCita().getFechaCita(),
                     detalles.getTratamiento(),
@@ -461,6 +466,7 @@ public class PacienteServicioImpl implements PacienteServicio {
                     detalles.getCita().getCodigo(),
                     detalles.getCita().getPaciente().getNombre(),
                     detalles.getCita().getMedico().getNombre(),
+                    detalles.getCita().getMedico().getCodigo(),
                     detalles.getCita().getMedico().getEspecialidad(),
                     detalles.getCita().getFechaCita(),
                     detalles.getTratamiento(),
