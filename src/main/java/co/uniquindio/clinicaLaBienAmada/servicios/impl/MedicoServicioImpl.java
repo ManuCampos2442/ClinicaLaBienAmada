@@ -1,5 +1,6 @@
 package co.uniquindio.clinicaLaBienAmada.servicios.impl;
 
+import co.uniquindio.clinicaLaBienAmada.dto.DetalleCitaDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.medico.DetalleAtencionMedicoDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.ItemCitaDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.medico.DiaLibreDTO;
@@ -29,6 +30,31 @@ public class MedicoServicioImpl implements MedicoServicio {
 
 
     // ________________________________ Metodos Funcionales ____________________________________________
+
+    @Override
+    public DetalleCitaDTO verDetalleCita(int codigoCita) throws Exception {
+
+        Optional<Cita> citaEncontrada = citaRepo.findById(codigoCita);
+
+        if(citaEncontrada.isEmpty()){
+            throw new Exception("No existe tal PQRS con ese codigo");
+        }
+
+        Cita cita = citaEncontrada.get();
+
+        return new DetalleCitaDTO(
+                cita.getCodigo(),
+                cita.getPaciente().getCedula(),
+                cita.getPaciente().getNombre(),
+                cita.getMedico().getNombre(),
+                cita.getMedico().getEspecialidad(),
+                cita.getEstadoCita(),
+                cita.getMotivo(),
+                cita.getSede(),
+                cita.getFechaCita()
+        );
+    }
+
     @Override
     public List<ItemCitaDTO> listarCitasPendientes(int codigoMedico) throws Exception {
 
@@ -82,12 +108,17 @@ public class MedicoServicioImpl implements MedicoServicio {
 
         Optional<Cita> citaCodigo = citaRepo.findById(registroAtencionDTO.codigoCita());
 
+
         if(citaCodigo.isEmpty()){
             throw new Exception("No existe la cita");
         }
 
+
         Atencion atencion = new Atencion();
+
         atencion.setCita( citaCodigo.get() ) ;
+        atencion.getCita().setEstadoCita(EstadoCita.COMPLETADA);
+
         atencion.setNotasMedicas(registroAtencionDTO.notasMedicas());
         atencion.setTratamiento(registroAtencionDTO.tratamiento());
         atencion.setDiagnostico(registroAtencionDTO.diagnostico());
@@ -98,16 +129,16 @@ public class MedicoServicioImpl implements MedicoServicio {
     }
 
     @Override
-    public List<DetalleAtencionMedicoDTO> listarHistorialAtencionesPaciente(int codigoPaciente) throws Exception {
+    public List<DetalleAtencionMedicoDTO> listarHistorialAtenciones(int codigoCita) throws Exception {
 
-        List<Atencion> atenciones = atencionRepo.findAllByCita_Paciente_Codigo(codigoPaciente);
+        List<Atencion> atenciones = atencionRepo.findAllByCita_Codigo(codigoCita);
 
         List<DetalleAtencionMedicoDTO> respuesta = new ArrayList<>();
 
 
         for (Atencion detalles : atenciones) {
             respuesta.add(new DetalleAtencionMedicoDTO(
-                    detalles.getCodigo(),
+                    detalles.getCita().getCodigo(),
                     detalles.getCita().getPaciente().getNombre(),
                     detalles.getCita().getMedico().getNombre(),
                     detalles.getCita().getMedico().getEspecialidad(),
@@ -158,7 +189,7 @@ public class MedicoServicioImpl implements MedicoServicio {
         Atencion atencion = atencionEncontrada.get();
 
         return new DetalleAtencionMedicoDTO(
-                atencion.getCodigo(),
+                atencion.getCita().getCodigo(),
                 atencion.getCita().getPaciente().getNombre(),
                 atencion.getCita().getMedico().getNombre(),
                 atencion.getCita().getMedico().getEspecialidad(),
@@ -167,28 +198,6 @@ public class MedicoServicioImpl implements MedicoServicio {
                 atencion.getNotasMedicas(),
                 atencion.getDiagnostico()
         );
-    }
-
-    @Override
-    public List<ItemCitaDTO> listarCitasPaciente(int codigoPaciente) throws Exception {
-
-        List<Cita> citasPacienteEncontradas = citaRepo.findAllByPacienteCodigo(codigoPaciente);
-
-        List<ItemCitaDTO> citas = new ArrayList<>();
-
-        for (Cita c : citasPacienteEncontradas){
-            citas.add(new ItemCitaDTO(
-                    c.getCodigo(),
-                    c.getPaciente().getCedula(),
-                    c.getPaciente().getNombre(),
-                    c.getMedico().getNombre(),
-                    c.getMedico().getEspecialidad(),
-                    c.getEstadoCita(),
-                    c.getFechaCita()
-            ));
-        }
-
-        return citas;
     }
 
     @Override

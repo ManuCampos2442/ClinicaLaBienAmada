@@ -1,7 +1,9 @@
 package co.uniquindio.clinicaLaBienAmada.servicios.impl;
 
+import co.uniquindio.clinicaLaBienAmada.dto.HorarioDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.paciente.ItemMedicoPacienteDTO;
 import co.uniquindio.clinicaLaBienAmada.model.*;
+import co.uniquindio.clinicaLaBienAmada.repositorios.HorarioRepo;
 import co.uniquindio.clinicaLaBienAmada.repositorios.MedicoRepo;
 import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.ClinicaServicio;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ import java.util.List;
 public class ClinicaServicioImpl implements ClinicaServicio {
 
     private final MedicoRepo medicoRepo;
+    private  final HorarioRepo horarioRepo;
 
     @Override
     public List<Ciudad> listarCiudades() {
@@ -48,6 +51,24 @@ public class ClinicaServicioImpl implements ClinicaServicio {
                     m.getCorreo())
             );
         }
+
+        return respuesta;
+    }
+
+    @Override
+    public List<HorarioDTO> listarHorariosMedico(int codigoMedico) throws Exception {
+
+        List<Horario> horarioEncontrado = horarioRepo.findByMedicoCodigo(codigoMedico);
+
+        List<HorarioDTO> respuesta = new ArrayList<>();
+
+        for (Horario h : horarioEncontrado){
+            respuesta.add(new HorarioDTO(
+                    h.getHoraInicio(),
+                    h.getHoraFin()
+            ));
+        }
+
 
         return respuesta;
     }

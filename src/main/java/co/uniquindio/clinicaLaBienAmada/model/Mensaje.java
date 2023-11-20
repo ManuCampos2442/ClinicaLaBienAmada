@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,7 +22,7 @@ public class Mensaje implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
     @Column(nullable = false)
-    private LocalDateTime fechaCreacion;
+    private LocalDate fechaCreacion;
     @Column(nullable = false)
     private String mensaje;
     //______________________________________________________________________________________

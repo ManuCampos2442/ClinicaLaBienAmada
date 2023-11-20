@@ -65,6 +65,7 @@ public class ServicioPacienteTest {
     public void agendarCita() throws Exception {
 
 
+
         Random random = new Random();
 
         // Genera un número aleatorio entre 0 y 4
@@ -298,4 +299,12 @@ public class ServicioPacienteTest {
         Assertions.assertEquals(1,  + citas.size());
     }
 
+    @Test
+    public void listarMensajes()throws Exception{
+        List<RespuestaDTO> citas = pacienteServicio.listarMensajes(500, 4);
+
+        citas.forEach(System.out::println);
+        //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
+        Assertions.assertEquals(3,  + citas.size());
+    }
 }

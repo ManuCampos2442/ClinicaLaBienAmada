@@ -1,5 +1,9 @@
 package co.uniquindio.clinicaLaBienAmada.dto.paciente;
 
+import co.uniquindio.clinicaLaBienAmada.model.Horario;
+
+import java.util.List;
+
 public record ItemMedicoPacienteDTO(
         int codigoMedico,
         String nombreMedico,

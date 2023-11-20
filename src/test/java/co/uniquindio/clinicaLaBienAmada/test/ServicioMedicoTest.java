@@ -58,7 +58,7 @@ public class ServicioMedicoTest {
     @Test
     public void listarAtencionesPaciente() throws Exception {
 
-        List<DetalleAtencionMedicoDTO> lista = medicoServicio.listarHistorialAtencionesPaciente(9);
+        List<DetalleAtencionMedicoDTO> lista = medicoServicio.listarHistorialAtenciones(9);
 
         lista.forEach(System.out::println);
         //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
@@ -84,15 +84,6 @@ public class ServicioMedicoTest {
         Assertions.assertNotEquals(0, detalleAtencion);
     }
 
-    @Test
-    public void listarCitasPaciente() throws Exception {
-
-        List<ItemCitaDTO> listaCitas = medicoServicio.listarCitasPaciente(9);
-
-        listaCitas.forEach(System.out::println);
-        //Si en el dataset creamos 2 pacientes, entonces el tamaño de la lista debe ser 2
-        Assertions.assertEquals(1,  + listaCitas.size());
-    }
 
     @Test
     public void listarCitasPendientes() throws Exception {
@@ -119,7 +110,7 @@ public class ServicioMedicoTest {
 
         DiaLibreDTO dia = new DiaLibreDTO(
                 20,
-                LocalDate.of(2023, 12, 31).atStartOfDay());
+                LocalDate.of(2023, 12, 31));
 
         medicoServicio.agendarDiaLibre(dia);
 

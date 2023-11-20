@@ -2,6 +2,7 @@ package co.uniquindio.clinicaLaBienAmada.controladores;
 
 import co.uniquindio.clinicaLaBienAmada.dto.*;
 import co.uniquindio.clinicaLaBienAmada.dto.TokenDTO.MensajeDTO;
+import co.uniquindio.clinicaLaBienAmada.dto.medico.DetalleAtencionMedicoDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.paciente.*;
 import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.PacienteServicio;
 import jakarta.validation.Valid;
@@ -35,8 +36,7 @@ public class PacienteController {
     }
 
     @PutMapping("/editar-perfil")
-    public ResponseEntity<MensajeDTO<String>> editarPerfil(@Valid @RequestBody DetallePacienteDTO
-                                                                   pacienteDTO) throws Exception{
+    public ResponseEntity<MensajeDTO<String>> editarPerfil(@Valid @RequestBody DetallePacienteDTO pacienteDTO) throws Exception{
         pacienteServicio.editarPerfil(pacienteDTO);
         return ResponseEntity.ok().body( new MensajeDTO<>(false, "Paciente actualizado " +
                 "correctamete") );
@@ -98,6 +98,42 @@ public class PacienteController {
     public ResponseEntity<MensajeDTO<String>> responderPQRS(@Valid @RequestBody RegistroRespuestaDTO registroRespuestaDTO) throws Exception{
         pacienteServicio.responderPQRS(registroRespuestaDTO);
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "Mensaje enviado con exito"));
+    }
+
+    @GetMapping("/listar-mensajes/{codigoPQRS}/{codigoPaciente}")
+    public ResponseEntity<MensajeDTO<List<RespuestaDTO>>> listarMensajes(@PathVariable int codigoPQRS, @PathVariable int codigoPaciente) throws Exception{
+        return ResponseEntity.ok().body( new MensajeDTO<>(false,
+                pacienteServicio.listarMensajes(codigoPQRS, codigoPaciente)));
+    }
+
+    @GetMapping("/atenciones/{codigoCita}")
+    public ResponseEntity<MensajeDTO<List<DetalleAtencionMedicoDTO>>> listarHistorialAtenciones(@PathVariable int codigoCita) throws Exception{
+        return ResponseEntity.ok().body( new MensajeDTO<>(false,
+                pacienteServicio.listarHistorialAtenciones(codigoCita)));
+    }
+
+    @GetMapping("/citas-completadas/{codigoPaciente}")
+    public ResponseEntity<MensajeDTO<List<ItemCitaDTO>>> listarCitasRealizadas(@PathVariable int codigoPaciente) throws Exception{
+        return ResponseEntity.ok().body( new MensajeDTO<>(false,
+                pacienteServicio.listarCitasCompletadasPaciente(codigoPaciente)));
+    }
+
+    @GetMapping("/detalle-atencion/{codigoCita}")
+    public ResponseEntity<MensajeDTO<DetalleAtencionMedicoDTO>> verDetalleAtencion(@PathVariable int codigoCita) throws Exception{
+        return ResponseEntity.ok().body( new MensajeDTO<>(false,
+                pacienteServicio.verDetalleAtencion(codigoCita)));
+    }
+
+    @GetMapping("/filtar-atencion-fecha/{codigoPaciente}/{fecha}")
+    public ResponseEntity<MensajeDTO<List<DetalleAtencionMedicoDTO>>> filtrarAtencionesPorFecha(@PathVariable int codigoPaciente,  @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate fecha) throws Exception{
+        return ResponseEntity.ok().body( new MensajeDTO<>(false,
+                pacienteServicio.filtrarAtencionesPorFecha(codigoPaciente, fecha)));
+    }
+
+    @GetMapping("/filtar-atencion-medico/{codigoPaciente}/{codigoMedico}")
+    public ResponseEntity<MensajeDTO<List<DetalleAtencionMedicoDTO>>> filtrarAtencionesPorMedico(@PathVariable int codigoPaciente,  @PathVariable int codigoMedico) throws Exception{
+        return ResponseEntity.ok().body( new MensajeDTO<>(false,
+                pacienteServicio.filtrarAtencionesPorMedico(codigoPaciente, codigoMedico)));
     }
 
     /*@GetMapping("/listar-todos")

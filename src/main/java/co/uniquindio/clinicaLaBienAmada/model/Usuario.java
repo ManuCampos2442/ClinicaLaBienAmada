@@ -30,7 +30,13 @@ public class Usuario extends  Cuenta implements Serializable {
     @Enumerated(EnumType.STRING)
     private Ciudad ciudad;
 
+    @Column(nullable = false)
     private boolean estado;
+
+    public boolean isEstado() {
+        return estado;
+    }
+
     //_________________________________________________________________________________
     //_______________________ Constructor ____________________________________________
     public Usuario (){}

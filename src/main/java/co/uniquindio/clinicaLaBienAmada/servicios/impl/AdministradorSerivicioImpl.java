@@ -11,6 +11,7 @@ import co.uniquindio.clinicaLaBienAmada.dto.admin.RegistroMedicoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -255,7 +256,7 @@ public class AdministradorSerivicioImpl implements AdmnistradorServicio {
 
 
         Mensaje mensaje = new Mensaje();
-        mensaje.setFechaCreacion(LocalDateTime.now());
+        mensaje.setFechaCreacion(LocalDate.now());
         mensaje.setMensaje(registroRespuestaDTO.mensaje());
         mensaje.setPqrs(opcionalPqrs.get());
         mensaje.setCuenta(cuentaEncontrada.get());

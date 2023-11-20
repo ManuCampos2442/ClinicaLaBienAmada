@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface PacienteServicio {
+public interface    PacienteServicio {
 
 
 
@@ -29,7 +29,11 @@ public interface PacienteServicio {
     DetalleCitaDTO verDetalleCita(int codigoCita) throws Exception;
     List<FiltroBusquedaDTO> filtrarCitasPorFecha(int codigoPaciente, LocalDate fecha) throws Exception;
     List<FiltroBusquedaDTO> filtrarCitasPorMedico(int codigoPaciente, int codigoMedico) throws Exception;
+    List<RespuestaDTO> listarMensajes(int codigoPQRS, int codigoPaciente) throws Exception;
+    List<DetalleAtencionMedicoDTO> listarHistorialAtenciones(int codigoCita) throws Exception;
+    List<ItemCitaDTO> listarCitasCompletadasPaciente(int codigoMedico) throws Exception;
+    DetalleAtencionMedicoDTO verDetalleAtencion(int codigoCita) throws Exception;
 
-
-
+    List<DetalleAtencionMedicoDTO> filtrarAtencionesPorFecha(int codigoPaciente, LocalDate fecha) throws Exception;
+    List<DetalleAtencionMedicoDTO> filtrarAtencionesPorMedico(int codigoPaciente, int codigoMedico) throws Exception;
 }

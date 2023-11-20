@@ -17,6 +17,7 @@ public interface CitaRepo extends JpaRepository<Cita, Integer> {
     List<Cita> findAllByPacienteCodigoAndMedicoCodigo(int codigoPaciente, int codigoMedico);
 
     List<Cita> findAllByMedicoCodigo(int codigoMedico);
+    List<Cita> findByPacienteCodigo(int codigoPaciente);
 
     Cita findCitaByAtencionCodigo(int codigoAtencion);
 

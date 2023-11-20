@@ -14,6 +14,6 @@ public interface MensajeRepo extends JpaRepository<Mensaje, Integer> {
 
     //List<Mensaje> findAllByCodigo(int codigoMensaje);
 
-    Mensaje findByCodigo(int codigoMensaje);
+    List<Mensaje> findByPqrs_CodigoAndCuentaCodigo(int codigoPQRS, int codigoPaciente);
 }
 

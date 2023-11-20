@@ -1,6 +1,7 @@
 package co.uniquindio.clinicaLaBienAmada.controladores;
 
 
+import co.uniquindio.clinicaLaBienAmada.dto.HorarioDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.ItemPQRSDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.TokenDTO.MensajeDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.paciente.ItemMedicoPacienteDTO;
@@ -53,6 +54,14 @@ public class ClinicaController {
     ) throws Exception {
         return ResponseEntity.ok().body( new MensajeDTO<>(false,
                 clinicaServicio.listarMedicoPorEspecialidad(especialidad)));
+    }
+
+    @GetMapping("/listar-horario-medico/{codigoMedico}")
+    public ResponseEntity<MensajeDTO<List<HorarioDTO>>> listarHorariosMedico(
+            @PathVariable int codigoMedico
+    ) throws Exception {
+        return ResponseEntity.ok().body( new MensajeDTO<>(false,
+                clinicaServicio.listarHorariosMedico(codigoMedico)));
     }
 
 }

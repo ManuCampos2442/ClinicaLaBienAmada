@@ -1,5 +1,6 @@
 package co.uniquindio.clinicaLaBienAmada.controladores;
 
+import co.uniquindio.clinicaLaBienAmada.dto.DetalleCitaDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.ItemCitaDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.TokenDTO.MensajeDTO;
 import co.uniquindio.clinicaLaBienAmada.dto.medico.DetalleAtencionMedicoDTO;
@@ -51,17 +52,13 @@ public class MedicoController {
                 medicoServicio.verDetalleAtencion(codigoCita)));
     }
 
-    @GetMapping("/citas-paciente/{codigoPaciente}")
-    public ResponseEntity<MensajeDTO<List<ItemCitaDTO>>> listarCitasPaciente(@PathVariable int codigoPaciente) throws Exception{
-        return ResponseEntity.ok().body( new MensajeDTO<>(false,
-                medicoServicio.listarCitasPaciente(codigoPaciente)));
-    }
 
 
-    @GetMapping("/atenciones-paciente/{codigoPaciente}")
-    public ResponseEntity<MensajeDTO<List<DetalleAtencionMedicoDTO>>> listarAtencionesPaciente(@PathVariable int codigoPaciente) throws Exception{
+
+    @GetMapping("/atenciones/{codigoCita}")
+    public ResponseEntity<MensajeDTO<List<DetalleAtencionMedicoDTO>>> listarHistorialAtenciones(@PathVariable int codigoCita) throws Exception{
         return ResponseEntity.ok().body( new MensajeDTO<>(false,
-                medicoServicio.listarHistorialAtencionesPaciente(codigoPaciente)));
+                medicoServicio.listarHistorialAtenciones(codigoCita)));
     }
 
     @PostMapping("/agendar-dia-libre")
@@ -74,6 +71,12 @@ public class MedicoController {
     public ResponseEntity<MensajeDTO<List<DiaLibreDTO>>> listarDiasLibres(@PathVariable int codigoMedico) throws Exception{
         return ResponseEntity.ok().body( new MensajeDTO<>(false,
                 medicoServicio.listarDiaslibres(codigoMedico)));
+    }
+
+    @GetMapping("/detalle-cita/{codigoCita}")
+    public ResponseEntity<MensajeDTO<DetalleCitaDTO>> verDetalleCita(@PathVariable int codigoCita) throws Exception{
+        return ResponseEntity.ok().body( new MensajeDTO<>(false,
+                medicoServicio.verDetalleCita(codigoCita)));
     }
 
     /*@PostMapping

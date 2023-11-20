@@ -6,6 +6,8 @@ import co.uniquindio.clinicaLaBienAmada.model.Cuenta;
 import co.uniquindio.clinicaLaBienAmada.model.Medico;
 import co.uniquindio.clinicaLaBienAmada.model.Paciente;
 import co.uniquindio.clinicaLaBienAmada.repositorios.CuentaRepo;
+import co.uniquindio.clinicaLaBienAmada.repositorios.MedicoRepo;
+import co.uniquindio.clinicaLaBienAmada.repositorios.PacienteRepo;
 import co.uniquindio.clinicaLaBienAmada.servicios.interfaces.AutenticacionServicio;
 import co.uniquindio.clinicaLaBienAmada.utils.JWTUtils;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,8 @@ import java.util.Optional;
 public class AutenticacionServicioImpl implements AutenticacionServicio {
 
     private final CuentaRepo cuentaRepo;
+    private  final PacienteRepo pacienteRepo;
+    private  final MedicoRepo medicoRepo;
     private final JWTUtils jwtUtils;
    @Override
     public TokenDTO login(LoginDTO loginDTO) throws Exception {
@@ -28,10 +32,23 @@ public class AutenticacionServicioImpl implements AutenticacionServicio {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         Optional<Cuenta> cuentaOptional = cuentaRepo.findByCorreo(loginDTO.correo());
 
+        Paciente cuentaPaciente = pacienteRepo.findByCorreo(cuentaOptional.get().getCorreo());
+        Medico cuentaMedico = medicoRepo.findByCorreo(cuentaOptional.get().getCorreo());
+
+
+
         if(cuentaOptional.isEmpty()){
             throw new Exception("No existe el correo ingresado");
         }
         Cuenta cuenta = cuentaOptional.get();
+
+       /*if(cuentaMedico.isEstado() == false || cuentaMedico.equals(false)){
+           throw new Exception("Cuenta eliminada");
+       }
+
+       if(cuentaPaciente.isEstado() == false){
+           throw new Exception("Cuenta eliminada");
+       }*/
 
         if( !passwordEncoder.matches(loginDTO.password(), cuenta.getPassword()) ){
             throw new Exception("La contraseña ingresada es incorrecta");

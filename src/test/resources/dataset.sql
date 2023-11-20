@@ -2,7 +2,7 @@
     _______________________________________ Pacientes _________________________________________________________
  */
 insert into cuenta values(2, 'pepito@email.com', '$2a$10$k6ANLEXelA4lhJ/KfXsoouNfrjyyMC/vLHmeR/nd3OORc9p0bT4Xq');
-insert into cuenta values(3, 'garciajuan312002@gmail.com', '$2a$10$k6ANLEXelA4lhJ/KfXsoouNfrjyyMC/vLHmeR/nd3OORc9p0bT4Xq');
+insert into cuenta values(3, 'garciajuan312002ss@gmail.com', '$2a$10$k6ANLEXelA4lhJ/KfXsoouNfrjyyMC/vLHmeR/nd3OORc9p0bT4Xq');
 
 insert into cuenta values(4, 'valen7848@email.com', '$2a$10$k6ANLEXelA4lhJ/KfXsoouNfrjyyMC/vLHmeR/nd3OORc9p0bT4Xq');
 insert into cuenta values(5, 'mariana89@email.com', '$2a$10$k6ANLEXelA4lhJ/KfXsoouNfrjyyMC/vLHmeR/nd3OORc9p0bT4Xq');
@@ -52,7 +52,7 @@ insert into medico values('765475', 2, 1, 'Metricas Frias',  '555555', 'url_foto
 /*
   _______________________________________ Citas _________________________________________________________
 */
-insert into cita values (100, 3, '2023-10-20', 'Consulta General', 1, 20, 4);
+/*insert into cita values (100, 3, '2023-10-20', 'Consulta General', 1, 20, 4); */
 insert into cita values (101, 3, '2023-10-22', 'Consulta General', 2, 21, 5);
 insert into cita values (102, 1, '2023-10-24', 'Consulta General', 3, 22, 7);
 insert into cita values (103, 1, '2023-10-26', 'Consulta General', 4, 23, 8);
@@ -110,7 +110,7 @@ insert into horario values(404, '2024-09-04', '10:00 am', ' 5:00 pm', 24);
 /*
 _______________________________________ Horario (horarios para medico) _________________________________________________________
 */
-insert into pqrs values(500, 3, '2024-09-30', 'Doctor completamente soes', 'Leve', 100);
+/* insert into pqrs values(500, 3, '2024-09-30', 'Doctor completamente soes', 'Leve', 100); */
 INSERT INTO pqrs VALUES(501, 2, '2024-10-01', 'Solicitud de cita médica', 'Moderado', 102);
 INSERT INTO pqrs VALUES(502, 1, '2024-09-02', 'Consulta de resultados de laboratorio', 'Leve', 103);
 INSERT INTO pqrs VALUES(503, 3, '2024-09-03', 'Queja sobre el tiempo de espera en la clínica', 'Moderado', 101);
@@ -133,7 +133,7 @@ insert into administrador values ('Frodo Bolson', 99);
 /*
    _______________________________________ Mensajes _________________________________________________________
 */
-insert into mensaje values (600, '2023-10-20', 'Como puede ser que dejen contratar a gente asi -.-', 4, 500);
+/* insert into mensaje values (600, '2023-10-20', 'Como puede ser que dejen contratar a gente asi -.-', 4, 500); */
 INSERT INTO mensaje VALUES (601, '2023-10-22', 'Estoy preocupado por la calidad de atención que estoy recibiendo de este médico. Su falta de profesionalismo es evidente y me preocupa mi salud.', 5, 501);
 INSERT INTO mensaje VALUES (602, '2023-10-24', 'He notado que la calidad de los médicos en esta clínica está disminuyendo. Es esencial que la clínica mantenga estándares altos para asegurar una atención de calidad.', 7, 502);
 INSERT INTO mensaje VALUES (603, '2023-10-26', 'Como paciente, me preocupa la calidad de los médicos que la clínica está contratando. La salud de los pacientes debería ser la principal prioridad.', 8, 503);

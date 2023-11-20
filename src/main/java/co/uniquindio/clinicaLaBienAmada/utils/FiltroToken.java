@@ -30,7 +30,7 @@ public class FiltroToken extends OncePerRequestFilter {
         boolean error = true;
         try{
             if (token != null) {
-                Jws<Claims> jws = jwtUtils.parseJwt(token);
+                Jws<Claims> jws = jwtUtils.pasrseJwt(token);
                 //Acá haremos las validaciones de autorización de acuerdo al rol del usuario
                 System.out.println(jws.getBody().getSubject());
             }
