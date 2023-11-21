@@ -18,7 +18,7 @@ import java.util.*;
 
 @Service
 @RequiredArgsConstructor
-public class PacienteServicioImpl implements PacienteServicio {
+public class    PacienteServicioImpl implements PacienteServicio {
 
     private final PacienteRepo pacienteRepo;
     private final CitaRepo citaRepo;
@@ -39,7 +39,10 @@ public class PacienteServicioImpl implements PacienteServicio {
         if(estaRepetidaCedula(registroPacienteDTO.cedula())){
             throw new Exception("La cedula o el correo ya se encuentran en uso");
         }
-        if(estaRepetidoCorreo(registroPacienteDTO.correo())){
+        if(estaRepetidoCorreoListaPacientes(registroPacienteDTO.correo())){
+            throw new Exception("El Correo ya se encuentran en uso");
+        }
+        if(estaRepetidoCorreoListaMedicos(registroPacienteDTO.correo())){
             throw new Exception("El Correo ya se encuentran en uso");
         }
 
@@ -76,6 +79,8 @@ public class PacienteServicioImpl implements PacienteServicio {
 
         return pacienteNuevo.getCodigo();
     }
+
+
 
     @Override
     public List<DetalleAtencionMedicoDTO> listarHistorialAtenciones(int codigoCita) throws Exception {
@@ -456,7 +461,7 @@ public class PacienteServicioImpl implements PacienteServicio {
         List<Atencion> atenciones = atencionRepo.findAllByCita_Paciente_CodigoAndCita_Medico_Codigo(codigoPaciente, codigoMedico);
 
         if(atenciones.isEmpty()){
-            throw new Exception("\n No hay tal lista de atenciones por la fecha introducida.");
+            throw new Exception("\n No hay tal lista de atenciones por el codigo del medico introducido.");
         }
 
         List<DetalleAtencionMedicoDTO> respuesta = new ArrayList<>();
@@ -603,8 +608,11 @@ public class PacienteServicioImpl implements PacienteServicio {
     private boolean estaRepetidaCedula(String cedula) {
         return pacienteRepo.findByCedula(cedula) != null;
     }
-    private boolean estaRepetidoCorreo(String email){
+    private boolean estaRepetidoCorreoListaPacientes(String email){
         return pacienteRepo.findByCorreo(email) != null;
+    }
+    private boolean estaRepetidoCorreoListaMedicos(String correo) {
+        return medicoRepo.findByCorreo(correo) != null;
     }
     private List<Pqrs> existenciaPQRS(int codigoPciente) { return pqrsRepo.findAllByCita_Paciente_Codigo(codigoPciente);
     }

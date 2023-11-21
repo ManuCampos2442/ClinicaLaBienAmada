@@ -31,29 +31,51 @@ public class AutenticacionServicioImpl implements AutenticacionServicio {
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         Optional<Cuenta> cuentaOptional = cuentaRepo.findByCorreo(loginDTO.correo());
-
+/*
         Paciente cuentaPaciente = pacienteRepo.findByCorreo(cuentaOptional.get().getCorreo());
-        Medico cuentaMedico = medicoRepo.findByCorreo(cuentaOptional.get().getCorreo());
+        Medico cuentaMedico = medicoRepo.findByCorreo(loginDTO.correo());
 
-
-
-        if(cuentaOptional.isEmpty()){
-            throw new Exception("No existe el correo ingresado");
+         if(!(cuentaPaciente.isEstado())){
+            throw new Exception("La cuenta ha sido eliminada");
         }
-        Cuenta cuenta = cuentaOptional.get();
 
-       /*if(cuentaMedico.isEstado() == false || cuentaMedico.equals(false)){
-           throw new Exception("Cuenta eliminada");
+       if(cuentaOptional.isEmpty()){
+           throw new Exception("Datos incorrectos, verifique nuevamente");
        }
 
-       if(cuentaPaciente.isEstado() == false){
-           throw new Exception("Cuenta eliminada");
-       }*/
+        Cuenta cuenta = cuentaOptional.get();
+
+
 
         if( !passwordEncoder.matches(loginDTO.password(), cuenta.getPassword()) ){
             throw new Exception("La contraseña ingresada es incorrecta");
         }
-        return new TokenDTO( crearToken(cuenta) );
+        return new TokenDTO( crearToken(cuenta) ); */
+
+       if (cuentaOptional.isEmpty()) {
+           throw new Exception("Datos incorrectos, verifique nuevamente");
+       }
+
+       Cuenta cuenta = cuentaOptional.get();
+
+       // Verificar el estado de la cuenta
+       if (cuenta instanceof Paciente) {
+           Paciente cuentaPaciente = pacienteRepo.findByCorreo(cuenta.getCorreo());
+           if (!cuentaPaciente.isEstado()) {
+               throw new Exception("La cuenta ha sido eliminada");
+           }
+       }
+
+       // Aquí puedes agregar más lógica para otros tipos de cuenta, si es necesario
+
+       // Resto del código para verificar la contraseña y generar el token
+       if (!passwordEncoder.matches(loginDTO.password(), cuenta.getPassword())) {
+           throw new Exception("La contraseña ingresada es incorrecta");
+       }
+
+       return new TokenDTO(crearToken(cuenta));
+
+
     }
 
     private String crearToken(Cuenta cuenta){

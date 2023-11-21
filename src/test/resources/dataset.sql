@@ -34,14 +34,14 @@ alergias', 4, '2004-11-28', 4, 9);
 /*
    _______________________________________ Medicos _________________________________________________________
 */
-insert into cuenta values(20, 'medico17848@gmail.com', '444');
-insert into cuenta values(21, 'medico27848@email.com', '1234');
-insert into cuenta values(22, 'medico37848@email.com', '12341');
-insert into cuenta values(23, 'medico47848@email.com', '12341');
+insert into cuenta values(20, 'medico17848@gmail.com', '$2a$10$k6ANLEXelA4lhJ/KfXsoouNfrjyyMC/vLHmeR/nd3OORc9p0bT4Xq');
+insert into cuenta values(21, 'medico27848@email.com', '$2a$10$k6ANLEXelA4lhJ/KfXsoouNfrjyyMC/vLHmeR/nd3OORc9p0bT4Xq');
+insert into cuenta values(22, 'medico37848@email.com', '$2a$10$k6ANLEXelA4lhJ/KfXsoouNfrjyyMC/vLHmeR/nd3OORc9p0bT4Xq');
+insert into cuenta values(23, 'medico47848@email.com', '$2a$10$k6ANLEXelA4lhJ/KfXsoouNfrjyyMC/vLHmeR/nd3OORc9p0bT4Xq');
 insert into cuenta values(24, 'medico57848@email.com', '$2a$10$k6ANLEXelA4lhJ/KfXsoouNfrjyyMC/vLHmeR/nd3OORc9p0bT4Xq');
 
 insert into medico values('373456', 8, 1, 'Yhonatan Brutal', '11111', 'url_foto', 4, 20);
-insert into medico values('345634', 8, 1, 'Cristian Bedon',  '222222', 'url_foto', 3, 21);
+insert into medico values('345634', 8, 1, 'Cristian Bedon',  '222222', 'url_foto', 1, 21);
 insert into medico values('345234', 6, 1, 'Erick Bedoya',  '333333', 'url_foto', 2, 22);
 insert into medico values('253325', 1, 1, 'Rojito PT',  '444444', 'url_foto', 1, 23);
 insert into medico values('765475', 2, 1, 'Metricas Frias',  '555555', 'url_foto', 3,24);
